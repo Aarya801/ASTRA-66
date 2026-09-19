@@ -1,5 +1,7 @@
 # ASTRA-66: modular student rocket airframe (CAD rev B)
 
+[![ASTRA-66 validation](https://github.com/Aarya801/ASTRA-66/actions/workflows/validation.yml/badge.svg)](https://github.com/Aarya801/ASTRA-66/actions/workflows/validation.yml)
+
 > **NOT FLIGHT CERTIFIED. DRAFT STUDENT ENGINEERING DESIGN.**
 > ASTRA-66 is not flight-ready. Propulsion is an **external, commercially certified component**. This repository does
 > not design, modify or specify motors, propellants, igniters, explosives or pyrotechnics. All propulsion data here are
