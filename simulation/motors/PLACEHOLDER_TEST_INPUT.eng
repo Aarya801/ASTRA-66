@@ -1,0 +1,15 @@
+; =============================================================================
+; PLACEHOLDER TEST INPUT - NOT A REAL MOTOR, NOT A PRODUCT, NOT PERFORMANCE DATA
+; Synthetic trapezoidal thrust signal used only to exercise and verify the ASTRA-66
+; simulation software. Any trajectory computed from it is illustrative only.
+; Masses match the PLACEHOLDER values in simulation/motor_config.json.
+; Replace with the selected certified motor's published RASP (.eng) data file,
+; obtained from the manufacturer or the certifying organisation, and set
+; motor_config.json "status" to "MANUFACTURER_DATA".
+; RASP format: name  diameter[mm]  length[mm]  delays  propellant[kg]  total[kg]  maker
+; =============================================================================
+PLACEHOLDER-TEST 29 125 0 0.055 0.110 NONE
+0.000 0.0
+0.050 100.0
+1.300 70.0
+1.500 0.0

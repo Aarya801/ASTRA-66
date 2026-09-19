@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" role="img" aria-label="Apogee sensitivity to payload mass (PLACEHOLDER TEST INPUT: illustrative)" style="background:#FFFFFF;font-family:'IBM Plex Sans','Segoe UI',system-ui,sans-serif">
+<rect width="820" height="470" fill="#FFFFFF"/>
+<text x="78" y="28" font-size="17" font-weight="600" fill="#1B2126">Apogee sensitivity to payload mass (PLACEHOLDER TEST INPUT: illustrative)</text>
+<text x="78" y="48" font-size="12" fill="#5A646B">Payload added at the payload-bay centre</text>
+<line x1="78" x2="792" y1="408.0" y2="408.0" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="412.0" text-anchor="end" font-size="11" fill="#5A646B">200</text>
+<line x1="78" x2="792" y1="360.3" y2="360.3" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="364.3" text-anchor="end" font-size="11" fill="#5A646B">220</text>
+<line x1="78" x2="792" y1="312.6" y2="312.6" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="316.6" text-anchor="end" font-size="11" fill="#5A646B">240</text>
+<line x1="78" x2="792" y1="264.9" y2="264.9" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="268.9" text-anchor="end" font-size="11" fill="#5A646B">260</text>
+<line x1="78" x2="792" y1="217.1" y2="217.1" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="221.1" text-anchor="end" font-size="11" fill="#5A646B">280</text>
+<line x1="78" x2="792" y1="169.4" y2="169.4" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="173.4" text-anchor="end" font-size="11" fill="#5A646B">300</text>
+<line x1="78" x2="792" y1="121.7" y2="121.7" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="125.7" text-anchor="end" font-size="11" fill="#5A646B">320</text>
+<line x1="78" x2="792" y1="74.0" y2="74.0" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="78.0" text-anchor="end" font-size="11" fill="#5A646B">340</text>
+<line x1="78.0" x2="78.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="78.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">0</text>
+<line x1="197.0" x2="197.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="197.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">50</text>
+<line x1="316.0" x2="316.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="316.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">100</text>
+<line x1="435.0" x2="435.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="435.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">150</text>
+<line x1="554.0" x2="554.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="554.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">200</text>
+<line x1="673.0" x2="673.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="673.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">250</text>
+<line x1="792.0" x2="792.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="792.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">300</text>
+<line x1="78" x2="792" y1="408" y2="408" stroke="#5A646B" stroke-width="1"/>
+<polyline points="78.0,102.1 197.0,149.6 316.0,194.3 435.0,236.1 554.0,275.3 792.0,345.8" fill="none" stroke="#1D6A86" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="78.0" cy="102.1" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="197.0" cy="149.6" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="316.0" cy="194.3" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="435.0" cy="236.1" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="554.0" cy="275.3" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="792.0" cy="345.8" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="435" y="454" text-anchor="middle" font-size="12" fill="#1B2126">Added payload mass (g)</text>
+<text x="18" y="241" text-anchor="middle" font-size="12" fill="#1B2126" transform="rotate(-90 18 241)">Apogee (m)</text>
+</svg>

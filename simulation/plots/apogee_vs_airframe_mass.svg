@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" role="img" aria-label="Apogee sensitivity to airframe mass (PLACEHOLDER TEST INPUT: illustrative)" style="background:#FFFFFF;font-family:'IBM Plex Sans','Segoe UI',system-ui,sans-serif">
+<rect width="820" height="470" fill="#FFFFFF"/>
+<text x="78" y="28" font-size="17" font-weight="600" fill="#1B2126">Apogee sensitivity to airframe mass (PLACEHOLDER TEST INPUT: illustrative)</text>
+<text x="78" y="48" font-size="12" fill="#5A646B">Baseline airframe (without motor) 1101 g</text>
+<line x1="78" x2="792" y1="408.0" y2="408.0" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="412.0" text-anchor="end" font-size="11" fill="#5A646B">200</text>
+<line x1="78" x2="792" y1="341.2" y2="341.2" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="345.2" text-anchor="end" font-size="11" fill="#5A646B">250</text>
+<line x1="78" x2="792" y1="274.4" y2="274.4" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="278.4" text-anchor="end" font-size="11" fill="#5A646B">300</text>
+<line x1="78" x2="792" y1="207.6" y2="207.6" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="211.6" text-anchor="end" font-size="11" fill="#5A646B">350</text>
+<line x1="78" x2="792" y1="140.8" y2="140.8" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="144.8" text-anchor="end" font-size="11" fill="#5A646B">400</text>
+<line x1="78" x2="792" y1="74.0" y2="74.0" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="78.0" text-anchor="end" font-size="11" fill="#5A646B">450</text>
+<line x1="78.0" x2="78.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="78.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">0.8</text>
+<line x1="256.5" x2="256.5" y1="408" y2="413" stroke="#5A646B"/>
+<text x="256.5" y="427" text-anchor="middle" font-size="11" fill="#5A646B">0.9</text>
+<line x1="435.0" x2="435.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="435.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">1</text>
+<line x1="613.5" x2="613.5" y1="408" y2="413" stroke="#5A646B"/>
+<text x="613.5" y="427" text-anchor="middle" font-size="11" fill="#5A646B">1.1</text>
+<line x1="792.0" x2="792.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="792.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">1.2</text>
+<line x1="78" x2="792" y1="408" y2="408" stroke="#5A646B" stroke-width="1"/>
+<polyline points="78.0,101.2 256.5,172.4 435.0,236.7 613.5,293.2 792.0,342.1" fill="none" stroke="#1D6A86" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="78.0" cy="101.2" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="256.5" cy="172.4" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="435.0" cy="236.7" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="613.5" cy="293.2" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="792.0" cy="342.1" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="435" y="454" text-anchor="middle" font-size="12" fill="#1B2126">Airframe mass multiplier (-)</text>
+<text x="18" y="241" text-anchor="middle" font-size="12" fill="#1B2126" transform="rotate(-90 18 241)">Apogee (m)</text>
+</svg>

@@ -1,0 +1,3389 @@
+{
+  "cad_rev": "B",
+  "date": "2026-09-19",
+  "openscad": "OpenSCAD version 2021.01",
+  "openscad_path_sha256": "8d1ee0c8272df4740248a8590f1fbbc3e138fb96ef897b3a85a6eefe6c0f05d5",
+  "fn": 96,
+  "params_sha256": "5d02dad37f6b00f9ab34ba32a187d9a483e7e0825bbf170c8d6b0ea11ea0a249",
+  "sources_sha256": "eb986ceec47acbbf2a9b0d7f78ff5e736be96bc844aff0284fd90828d56a323a",
+  "runtime_s": 141,
+  "summary": {
+    "PASS": 147,
+    "WARN": 12,
+    "FAIL": 0
+  },
+  "parts": [
+    {
+      "id": "NC-101",
+      "name": "Nose tip section",
+      "file": "cad/parts/NC-101_nose_tip.scad",
+      "kind": "print",
+      "material": "PETG",
+      "qty": 1,
+      "volume_mm3": 19619.867396388287,
+      "centroid": [
+        2.1961061522986735e-14,
+        -5.216114266417842e-14,
+        106.40826651152275
+      ],
+      "bbox_min": [
+        -26.924,
+        -26.924,
+        0.0
+      ],
+      "bbox_max": [
+        26.924,
+        26.924,
+        160.0
+      ],
+      "triangles": 28606,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 26.92409720027767,
+      "flight": true,
+      "mass_each_g": 24.917231593413124,
+      "mass_total_g": 24.917231593413124,
+      "centroid_offset": 5.659569795708136e-14,
+      "print": [
+        {
+          "sub": null,
+          "pose": "rx180",
+          "support_area_mm2": 224.49793645212233,
+          "bed_area_mm2": 248.8786866640002,
+          "size": [
+            53.848,
+            53.848,
+            160.0
+          ],
+          "fits": true
+        }
+      ],
+      "exports": [
+        "cad/exports/stl/NC-101_nose_tip_section.stl"
+      ]
+    },
+    {
+      "id": "NC-102",
+      "name": "Nose base + shoulder",
+      "file": "cad/parts/NC-102_nose_base.scad",
+      "kind": "print",
+      "material": "PETG",
+      "qty": 1,
+      "volume_mm3": 50504.81287091047,
+      "centroid": [
+        -1.9945616736226591e-10,
+        6.347255840989936e-07,
+        248.0976364001709
+      ],
+      "bbox_min": [
+        -33.0,
+        -33.0,
+        150.0
+      ],
+      "bbox_max": [
+        33.0,
+        33.0,
+        324.0
+      ],
+      "triangles": 39608,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 32,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 33.00004649725361,
+      "flight": true,
+      "mass_each_g": 64.14111234605629,
+      "mass_total_g": 64.14111234605629,
+      "centroid_offset": 6.347256154375458e-07,
+      "print": [
+        {
+          "sub": null,
+          "pose": "id",
+          "support_area_mm2": 379.1416641686993,
+          "bed_area_mm2": 206.40428295199993,
+          "size": [
+            66.0,
+            66.0,
+            174.0
+          ],
+          "fits": true
+        }
+      ],
+      "exports": [
+        "cad/exports/stl/NC-102_nose_base_shoulder.stl"
+      ]
+    },
+    {
+      "id": "NC-103",
+      "name": "Nose bulkhead / ballast mount",
+      "file": "cad/parts/NC-103_nose_bulkhead.scad",
+      "kind": "print",
+      "material": "PETG",
+      "qty": 1,
+      "volume_mm3": 16760.182627854534,
+      "centroid": [
+        1.0831812654737972e-13,
+        -5.658151864049913e-07,
+        321.0000000000003
+      ],
+      "bbox_min": [
+        -30.15,
+        -30.15,
+        318.0
+      ],
+      "bbox_max": [
+        30.15,
+        30.15,
+        324.0
+      ],
+      "triangles": 1932,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 30.150043200300722,
+      "flight": true,
+      "mass_each_g": 12.771259162425155,
+      "mass_total_g": 12.771259162425155,
+      "centroid_offset": 5.658151864050017e-07,
+      "print": [
+        {
+          "sub": null,
+          "pose": "id",
+          "support_area_mm2": 0.0,
+          "bed_area_mm2": 2793.3637713090825,
+          "size": [
+            60.3,
+            60.3,
+            6.0
+          ],
+          "fits": true
+        }
+      ],
+      "exports": [
+        "cad/exports/stl/NC-103_nose_bulkhead_ballast_mount.stl"
+      ]
+    },
+    {
+      "id": "PL-201",
+      "name": "Payload tube",
+      "file": "cad/parts/PL-201_payload_tube.scad",
+      "kind": "tube",
+      "material": "Kraft/phenolic tube",
+      "qty": 1,
+      "volume_mm3": 50046.50555141338,
+      "centroid": [
+        -1.6069717128895098e-07,
+        -0.40305143029912915,
+        389.0470364558964
+      ],
+      "bbox_min": [
+        -33.0,
+        -33.0,
+        264.0
+      ],
+      "bbox_max": [
+        33.0,
+        33.0,
+        514.0
+      ],
+      "triangles": 3052,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 33.00004649725361,
+      "flight": true,
+      "mass_each_g": 50.046505551413375,
+      "mass_total_g": 50.046505551413375,
+      "centroid_offset": 0.4030514302991612,
+      "exports": []
+    },
+    {
+      "id": "PL-202",
+      "name": "GPS / sensor tray",
+      "file": "cad/parts/PL-202_gps_tray.scad",
+      "kind": "print",
+      "material": "PETG",
+      "qty": 1,
+      "volume_mm3": 14855.235069221837,
+      "centroid": [
+        -3.4529295467559755e-15,
+        -1.971980125488437,
+        402.4091598349714
+      ],
+      "bbox_min": [
+        -25.0,
+        -20.0,
+        348.0
+      ],
+      "bbox_max": [
+        25.0,
+        6.0,
+        438.0
+      ],
+      "triangles": 5420,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 25.03123049312598,
+      "flight": true,
+      "mass_each_g": 18.866148537911734,
+      "mass_total_g": 18.866148537911734,
+      "centroid_offset": 1.971980125488437,
+      "print": [
+        {
+          "sub": null,
+          "pose": "rx180",
+          "support_area_mm2": 233.01287850032338,
+          "bed_area_mm2": 546.8851217040001,
+          "size": [
+            50.0,
+            26.0,
+            90.0
+          ],
+          "fits": true
+        }
+      ],
+      "exports": [
+        "cad/exports/stl/PL-202_gps_sensor_tray.stl"
+      ]
+    },
+    {
+      "id": "PL-203",
+      "name": "Camera cradle",
+      "file": "cad/parts/PL-203_camera_cradle.scad",
+      "kind": "print",
+      "material": "PETG",
+      "qty": 1,
+      "volume_mm3": 10235.801337738127,
+      "centroid": [
+        5.152937100518494e-08,
+        -25.210671313136263,
+        366.1747646384992
+      ],
+      "bbox_min": [
+        -15.0,
+        -31.9,
+        336.938
+      ],
+      "bbox_max": [
+        15.0,
+        -11.0605,
+        385.023
+      ],
+      "triangles": 564,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 31.90004835473451,
+      "flight": true,
+      "mass_each_g": 11.69952092903468,
+      "mass_total_g": 11.69952092903468,
+      "centroid_offset": 25.210671313136263,
+      "print": [
+        {
+          "sub": null,
+          "pose": "ry90",
+          "support_area_mm2": 354.1598964066075,
+          "bed_area_mm2": 502.3621298000001,
+          "size": [
+            48.085000000000036,
+            20.8395,
+            30.0
+          ],
+          "fits": true
+        }
+      ],
+      "exports": [
+        "cad/exports/stl/PL-203_camera_cradle.stl"
+      ]
+    },
+    {
+      "id": "PL-204",
+      "name": "Lens cowl",
+      "file": "cad/parts/PL-204_lens_cowl.scad",
+      "kind": "print",
+      "material": "ASA",
+      "qty": 1,
+      "volume_mm3": 2700.6516445045854,
+      "centroid": [
+        3.9715556994391766e-08,
+        -36.235644404488454,
+        376.16672572886364
+      ],
+      "bbox_min": [
+        -10.0,
+        -41.0,
+        342.766
+      ],
+      "bbox_max": [
+        10.0,
+        -31.433,
+        386.0
+      ],
+      "triangles": 1282,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 42.20189569201838,
+      "flight": true,
+      "mass_each_g": 1.733818355771944,
+      "mass_total_g": 1.733818355771944,
+      "centroid_offset": 36.235644404488454,
+      "print": [
+        {
+          "sub": null,
+          "pose": "rx180",
+          "support_area_mm2": 36.653635556106174,
+          "bed_area_mm2": 170.48859544099997,
+          "size": [
+            20.0,
+            9.566999999999997,
+            43.23399999999998
+          ],
+          "fits": true
+        }
+      ],
+      "exports": [
+        "cad/exports/stl/PL-204_lens_cowl.stl"
+      ]
+    },
+    {
+      "id": "PL-205",
+      "name": "Access hatch",
+      "file": "cad/parts/PL-205_access_hatch.scad",
+      "kind": "print",
+      "material": "PETG",
+      "qty": 1,
+      "volume_mm3": 761.203555065883,
+      "centroid": [
+        -1.5303831816147994e-08,
+        32.0022082046782,
+        394.9999997307913
+      ],
+      "bbox_min": [
+        -11.2683,
+        31.0,
+        375.3
+      ],
+      "bbox_max": [
+        11.2683,
+        33.0,
+        414.7
+      ],
+      "triangles": 1036,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 33.00004649725361,
+      "flight": true,
+      "mass_each_g": 0.9667285149336715,
+      "mass_total_g": 0.9667285149336715,
+      "centroid_offset": 32.0022082046782,
+      "print": [
+        {
+          "sub": null,
+          "pose": "ry90",
+          "support_area_mm2": 4.55366625329682,
+          "bed_area_mm2": 0.0,
+          "size": [
+            39.39999999999998,
+            2.0,
+            22.5366
+          ],
+          "fits": true
+        }
+      ],
+      "exports": [
+        "cad/exports/stl/PL-205_access_hatch.stl"
+      ]
+    },
+    {
+      "id": "PL-206",
+      "name": "Hatch doubler frame",
+      "file": "cad/parts/PL-206_hatch_frame.scad",
+      "kind": "print",
+      "material": "PETG",
+      "qty": 1,
+      "volume_mm3": 1185.8472495506517,
+      "centroid": [
+        4.560162826051095e-13,
+        30.188656599380167,
+        394.9999966460831
+      ],
+      "bbox_min": [
+        -13.3699,
+        27.5,
+        368.0
+      ],
+      "bbox_max": [
+        13.3699,
+        31.95,
+        422.0
+      ],
+      "triangles": 2132,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 31.95003612495767,
+      "flight": true,
+      "mass_each_g": 1.5060260069293276,
+      "mass_total_g": 1.5060260069293276,
+      "centroid_offset": 30.188656599380167,
+      "print": [
+        {
+          "sub": null,
+          "pose": "ry90",
+          "support_area_mm2": 55.705657212427084,
+          "bed_area_mm2": 0.0,
+          "size": [
+            54.0,
+            4.449999999999999,
+            26.739800000000002
+          ],
+          "fits": true
+        }
+      ],
+      "exports": [
+        "cad/exports/stl/PL-206_hatch_doubler_frame.stl"
+      ]
+    },
+    {
+      "id": "AV-301",
+      "name": "Avionics coupler",
+      "file": "cad/parts/AV-301_coupler.scad",
+      "kind": "tube",
+      "material": "Kraft/phenolic coupler",
+      "qty": 1,
+      "volume_mm3": 46535.3126318777,
+      "centroid": [
+        -8.627105787866495e-09,
+        -0.04710168193528829,
+        528.9999998870683
+      ],
+      "bbox_min": [
+        -31.9,
+        -31.9,
+        444.0
+      ],
+      "bbox_max": [
+        31.9,
+        31.9,
+        614.0
+      ],
+      "triangles": 3692,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 31.90004835473451,
+      "flight": true,
+      "mass_each_g": 46.5353126318777,
+      "mass_total_g": 46.5353126318777,
+      "centroid_offset": 0.04710168193528908,
+      "exports": []
+    },
+    {
+      "id": "AV-302",
+      "name": "Switch band",
+      "file": "cad/parts/AV-302_switch_band.scad",
+      "kind": "tube",
+      "material": "Body-tube offcut",
+      "qty": 1,
+      "volume_mm3": 6058.90769235471,
+      "centroid": [
+        -4.380501202365867e-09,
+        -0.2692077920508906,
+        528.9999999927171
+      ],
+      "bbox_min": [
+        -33.0,
+        -33.0,
+        514.0
+      ],
+      "bbox_max": [
+        33.0,
+        33.0,
+        544.0
+      ],
+      "triangles": 2788,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 33.00004649725361,
+      "flight": true,
+      "mass_each_g": 6.05890769235471,
+      "mass_total_g": 6.05890769235471,
+      "centroid_offset": 0.2692077920508907,
+      "exports": []
+    },
+    {
+      "id": "AV-303",
+      "name": "Forward bulkhead (2 discs)",
+      "file": "cad/parts/AV-303_fwd_bulkhead.scad",
+      "kind": "ply",
+      "material": "6 mm birch ply x2",
+      "qty": 1,
+      "volume_mm3": 35185.07144005149,
+      "centroid": [
+        -2.3335076736291812e-14,
+        -0.1531932535292477,
+        443.8499144499043
+      ],
+      "bbox_min": [
+        -31.9,
+        -31.9,
+        438.0
+      ],
+      "bbox_max": [
+        31.9,
+        31.9,
+        450.0
+      ],
+      "triangles": 2704,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 31.90004835473451,
+      "flight": true,
+      "mass_each_g": 23.925848579235016,
+      "mass_total_g": 27.925848579235016,
+      "centroid_offset": 0.1531932535292477,
+      "exports": [
+        "cad/exports/dxf/AV-303-outer_forward_bulkhead_2_discs.dxf",
+        "cad/exports/dxf/AV-303-outer_forward_bulkhead_2_discs.svg",
+        "cad/exports/dxf/AV-303-inner_forward_bulkhead_2_discs.dxf",
+        "cad/exports/dxf/AV-303-inner_forward_bulkhead_2_discs.svg"
+      ]
+    },
+    {
+      "id": "AV-304",
+      "name": "Aft bulkhead (2 discs)",
+      "file": "cad/parts/AV-304_aft_bulkhead.scad",
+      "kind": "ply",
+      "material": "6 mm birch ply x2",
+      "qty": 1,
+      "volume_mm3": 35796.02366997907,
+      "centroid": [
+        2.85010897053745e-14,
+        4.9857851207914146e-14,
+        614.6475239499305
+      ],
+      "bbox_min": [
+        -31.9,
+        -31.9,
+        608.5
+      ],
+      "bbox_max": [
+        31.9,
+        31.9,
+        620.5
+      ],
+      "triangles": 1928,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 31.90004835473451,
+      "flight": true,
+      "mass_each_g": 24.341296095585772,
+      "mass_total_g": 24.341296095585772,
+      "centroid_offset": 5.742923855898065e-14,
+      "exports": [
+        "cad/exports/dxf/AV-304-outer_aft_bulkhead_2_discs.dxf",
+        "cad/exports/dxf/AV-304-outer_aft_bulkhead_2_discs.svg",
+        "cad/exports/dxf/AV-304-inner_aft_bulkhead_2_discs.dxf",
+        "cad/exports/dxf/AV-304-inner_aft_bulkhead_2_discs.svg"
+      ]
+    },
+    {
+      "id": "AV-306",
+      "name": "Electronics sled",
+      "file": "cad/parts/AV-306_electronics_sled.scad",
+      "kind": "print",
+      "material": "PETG",
+      "qty": 1,
+      "volume_mm3": 28119.98614487056,
+      "centroid": [
+        9.740403582338401e-15,
+        1.6230553942493497,
+        527.0582601401128
+      ],
+      "bbox_min": [
+        -26.0,
+        -3.75,
+        457.0
+      ],
+      "bbox_max": [
+        26.0,
+        21.49,
+        597.0
+      ],
+      "triangles": 10872,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 26.043233286210835,
+      "flight": true,
+      "mass_each_g": 32.14114416358705,
+      "mass_total_g": 32.14114416358705,
+      "centroid_offset": 1.6230553942493497,
+      "print": [
+        {
+          "sub": null,
+          "pose": "id",
+          "support_area_mm2": 687.8865464476958,
+          "bed_area_mm2": 170.1524204852002,
+          "size": [
+            52.0,
+            25.24,
+            140.0
+          ],
+          "fits": true
+        }
+      ],
+      "exports": [
+        "cad/exports/stl/AV-306_electronics_sled.stl"
+      ]
+    },
+    {
+      "id": "AV-308",
+      "name": "Battery cage",
+      "file": "cad/parts/AV-308_battery_cage.scad",
+      "kind": "print",
+      "material": "PETG",
+      "qty": 1,
+      "volume_mm3": 9044.794707088313,
+      "centroid": [
+        -2.576708757653368e-14,
+        -5.537202281859029,
+        492.8000143549829
+      ],
+      "bbox_min": [
+        -15.9,
+        -12.9,
+        459.0
+      ],
+      "bbox_max": [
+        15.9,
+        -1.5,
+        526.6
+      ],
+      "triangles": 884,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 20.474862636901864,
+      "flight": true,
+      "mass_each_g": 11.486889278002158,
+      "mass_total_g": 11.486889278002158,
+      "centroid_offset": 5.537202281859029,
+      "print": [
+        {
+          "sub": null,
+          "pose": "rx-90",
+          "support_area_mm2": 76.79999999999997,
+          "bed_area_mm2": 2131.5349743059996,
+          "size": [
+            31.8,
+            67.60000000000002,
+            11.400000000000004
+          ],
+          "fits": true
+        }
+      ],
+      "exports": [
+        "cad/exports/stl/AV-308_battery_cage.stl"
+      ]
+    },
+    {
+      "id": "AV-309",
+      "name": "Aft bulkhead face gasket",
+      "file": "cad/parts/AV-309_gasket.scad",
+      "kind": "foam",
+      "material": "1.5 mm EVA foam",
+      "qty": 1,
+      "volume_mm3": 137.1272884120236,
+      "centroid": [
+        -2.146230736128434e-12,
+        9.851960778294048e-13,
+        614.2499999998303
+      ],
+      "bbox_min": [
+        -31.9,
+        -31.9,
+        614.0
+      ],
+      "bbox_max": [
+        31.9,
+        31.9,
+        614.5
+      ],
+      "triangles": 768,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 31.90004835473451,
+      "flight": true,
+      "mass_each_g": 0.013712728841202362,
+      "mass_total_g": 0.013712728841202362,
+      "centroid_offset": 2.3615498479754436e-12,
+      "exports": [
+        "cad/exports/dxf/AV-309_aft_bulkhead_face_gasket.dxf",
+        "cad/exports/dxf/AV-309_aft_bulkhead_face_gasket.svg"
+      ]
+    },
+    {
+      "id": "AV-312",
+      "name": "Rod spacers (2 fwd + 2 aft)",
+      "file": "cad/parts/AV-312_rod_spacers.scad",
+      "kind": "print",
+      "material": "PETG",
+      "qty": 1,
+      "volume_mm3": 1071.248333982425,
+      "centroid": [
+        2.100622958064881e-14,
+        -2.8092183997723923e-14,
+        546.27702702702
+      ],
+      "bbox_min": [
+        -23.75,
+        -3.75,
+        450.0
+      ],
+      "bbox_max": [
+        23.75,
+        3.75,
+        608.5
+      ],
+      "triangles": 3072,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 23.75,
+      "flight": true,
+      "mass_each_g": 1.3604853841576798,
+      "mass_total_g": 1.3604853841576798,
+      "centroid_offset": 3.5077521049197606e-14,
+      "print": [
+        {
+          "sub": "fwd",
+          "pose": "id",
+          "support_area_mm2": 0.0,
+          "bed_area_mm2": 57.90531535040011,
+          "size": [
+            47.5,
+            7.5,
+            7.0
+          ],
+          "fits": true
+        },
+        {
+          "sub": "aft",
+          "pose": "id",
+          "support_area_mm2": 0.0,
+          "bed_area_mm2": 57.90531535040011,
+          "size": [
+            47.5,
+            7.5,
+            11.5
+          ],
+          "fits": true
+        }
+      ],
+      "exports": [
+        "cad/exports/stl/AV-312-fwd_rod_spacers_2_fwd_2_aft.stl",
+        "cad/exports/stl/AV-312-aft_rod_spacers_2_fwd_2_aft.stl"
+      ]
+    },
+    {
+      "id": "BO-401",
+      "name": "Booster tube",
+      "file": "cad/parts/BO-401_booster_tube.scad",
+      "kind": "tube",
+      "material": "Kraft/phenolic tube",
+      "qty": 1,
+      "volume_mm3": 120555.62466803358,
+      "centroid": [
+        -0.006031540084243678,
+        -0.006029253750669897,
+        840.4333820907035
+      ],
+      "bbox_min": [
+        -33.0,
+        -33.0,
+        544.0
+      ],
+      "bbox_max": [
+        33.0,
+        33.0,
+        1144.0
+      ],
+      "triangles": 1672,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 33.00004649725361,
+      "flight": true,
+      "mass_each_g": 120.55562466803357,
+      "mass_total_g": 120.55562466803357,
+      "centroid_offset": 0.008528269260395408,
+      "exports": []
+    },
+    {
+      "id": "BO-402",
+      "name": "Motor mount tube",
+      "file": "cad/parts/BO-402_motor_mount_tube.scad",
+      "kind": "tube",
+      "material": "29 mm-class MMT",
+      "qty": 1,
+      "volume_mm3": 24486.76276747977,
+      "centroid": [
+        6.277048789959118e-15,
+        -2.7671013896565344e-15,
+        1024.0000000000105
+      ],
+      "bbox_min": [
+        -15.5,
+        -15.5,
+        894.0
+      ],
+      "bbox_max": [
+        15.5,
+        15.5,
+        1154.0
+      ],
+      "triangles": 768,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 15.500063486321597,
+      "flight": true,
+      "mass_each_g": 24.48676276747977,
+      "mass_total_g": 24.48676276747977,
+      "centroid_offset": 6.859897347057487e-15,
+      "exports": []
+    },
+    {
+      "id": "BO-403",
+      "name": "Fin-can core",
+      "file": "cad/parts/BO-403_fincan_core.scad",
+      "kind": "print",
+      "material": "ASA",
+      "qty": 1,
+      "volume_mm3": 73115.79538818708,
+      "centroid": [
+        0.8230741969664324,
+        0.8230741144148105,
+        1067.54904803988
+      ],
+      "bbox_min": [
+        -31.85,
+        -31.85,
+        996.0
+      ],
+      "bbox_max": [
+        31.85,
+        31.85,
+        1138.0
+      ],
+      "triangles": 3700,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 31.850069323629423,
+      "flight": true,
+      "mass_each_g": 66.49881590555614,
+      "mass_total_g": 66.49881590555614,
+      "centroid_offset": 1.1640026338164626,
+      "print": [
+        {
+          "sub": null,
+          "pose": "rx180",
+          "support_area_mm2": 2234.6581203605815,
+          "bed_area_mm2": 2214.15525894,
+          "size": [
+            63.7,
+            63.7,
+            142.0
+          ],
+          "fits": true
+        }
+      ],
+      "exports": [
+        "cad/exports/stl/BO-403_fin_can_core.stl"
+      ]
+    },
+    {
+      "id": "BO-404",
+      "name": "Forward centering ring",
+      "file": "cad/parts/BO-404_fwd_centering_ring.scad",
+      "kind": "ply",
+      "material": "6 mm birch ply",
+      "qty": 1,
+      "volume_mm3": 14382.701424048955,
+      "centroid": [
+        0.09387353401980593,
+        0.09387353401973814,
+        896.9999999999393
+      ],
+      "bbox_min": [
+        -31.85,
+        -31.85,
+        894.0
+      ],
+      "bbox_max": [
+        31.85,
+        31.85,
+        900.0
+      ],
+      "triangles": 764,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 31.850069323629423,
+      "flight": true,
+      "mass_each_g": 9.780236968353291,
+      "mass_total_g": 9.780236968353291,
+      "centroid_offset": 0.13275722495865375,
+      "exports": [
+        "cad/exports/dxf/BO-404_forward_centering_ring.dxf",
+        "cad/exports/dxf/BO-404_forward_centering_ring.svg"
+      ]
+    },
+    {
+      "id": "BO-405",
+      "name": "Aft fin lock ring",
+      "file": "cad/parts/BO-405_fin_lock_ring.scad",
+      "kind": "ply",
+      "material": "6 mm birch ply",
+      "qty": 1,
+      "volume_mm3": 11355.57743930277,
+      "centroid": [
+        4.71905557508514e-14,
+        -5.1324599006649725e-15,
+        1141.000000000136
+      ],
+      "bbox_min": [
+        -31.85,
+        -31.85,
+        1138.0
+      ],
+      "bbox_max": [
+        31.85,
+        31.85,
+        1144.0
+      ],
+      "triangles": 2320,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 31.850069323629423,
+      "flight": true,
+      "mass_each_g": 7.721792658725883,
+      "mass_total_g": 7.721792658725883,
+      "centroid_offset": 4.7468839218019103e-14,
+      "exports": [
+        "cad/exports/dxf/BO-405_aft_fin_lock_ring.dxf",
+        "cad/exports/dxf/BO-405_aft_fin_lock_ring.svg"
+      ]
+    },
+    {
+      "id": "BO-406",
+      "name": "Fin (x4 + 1 spare)",
+      "file": "cad/parts/BO-406_fin.scad",
+      "kind": "ply",
+      "material": "3 mm aircraft birch ply",
+      "qty": 4,
+      "volume_mm3": 24045.600000000006,
+      "centroid": [
+        51.84204012376483,
+        -4.538849694445194e-16,
+        1077.8494859766452
+      ],
+      "bbox_min": [
+        20.2,
+        -1.5,
+        994.0
+      ],
+      "bbox_max": [
+        93.0,
+        1.5,
+        1144.0
+      ],
+      "triangles": 28,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 93.01209598756498,
+      "flight": true,
+      "mass_each_g": 17.986108800000007,
+      "mass_total_g": 71.94443520000003,
+      "centroid_offset": 51.84204012376483,
+      "exports": [
+        "cad/exports/dxf/BO-406_fin_x4_1_spare.dxf",
+        "cad/exports/dxf/BO-406_fin_x4_1_spare.svg"
+      ]
+    },
+    {
+      "id": "BO-409",
+      "name": "Forward rail-button boss",
+      "file": "cad/parts/BO-409_rail_button_boss.scad",
+      "kind": "print",
+      "material": "PETG",
+      "qty": 1,
+      "volume_mm3": 2183.240016602311,
+      "centroid": [
+        19.544926816460553,
+        19.544926978111345,
+        886.0784429641874
+      ],
+      "bbox_min": [
+        9.89949,
+        9.89949,
+        878.0
+      ],
+      "bbox_max": [
+        28.4852,
+        28.4852,
+        894.0
+      ],
+      "triangles": 488,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 31.900028906726714,
+      "flight": true,
+      "mass_each_g": 2.2181718568679476,
+      "mass_total_g": 2.2181718568679476,
+      "centroid_offset": 27.640700693732487,
+      "print": [
+        {
+          "sub": null,
+          "pose": "id",
+          "support_area_mm2": 30.630271126190518,
+          "bed_area_mm2": 147.15622136205,
+          "size": [
+            18.58571,
+            18.58571,
+            16.0
+          ],
+          "fits": true
+        }
+      ],
+      "exports": [
+        "cad/exports/stl/BO-409_forward_rail_button_boss.stl"
+      ]
+    },
+    {
+      "id": "GS-701",
+      "name": "Fin alignment jig (ground support)",
+      "file": "cad/parts/GS-701_fin_jig.scad",
+      "kind": "print",
+      "material": "PETG",
+      "qty": 1,
+      "volume_mm3": 51419.11286495975,
+      "centroid": [
+        7.216651895529454e-15,
+        -3.036012729885499e-14,
+        1118.9999999999923
+      ],
+      "bbox_min": [
+        -40.946,
+        -40.946,
+        1104.0
+      ],
+      "bbox_max": [
+        40.946,
+        40.946,
+        1134.0
+      ],
+      "triangles": 784,
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      },
+      "cgal_simple": null,
+      "cgal_volumes": null,
+      "rmax": 41.00004952009205,
+      "flight": false,
+      "mass_each_g": 19.590682001549666,
+      "mass_total_g": 19.590682001549666,
+      "centroid_offset": 3.12060473976428e-14,
+      "print": [
+        {
+          "sub": null,
+          "pose": "id",
+          "support_area_mm2": 0.0,
+          "bed_area_mm2": 1713.9704288319997,
+          "size": [
+            81.892,
+            81.892,
+            30.0
+          ],
+          "fits": true
+        }
+      ],
+      "exports": [
+        "cad/exports/stl/GS-701_fin_alignment_jig_ground_support.stl"
+      ]
+    }
+  ],
+  "cots": [
+    {
+      "id": "MT-601",
+      "name": "Certified motor envelope (EXTERNAL, placeholder length)",
+      "volume_mm3": 79127.33215750006,
+      "bbox_min": [
+        -14.2,
+        -14.2,
+        1029.0
+      ],
+      "bbox_max": [
+        14.2,
+        14.2,
+        1154.0
+      ],
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      }
+    },
+    {
+      "id": "BO-407",
+      "name": "Commercial retainer envelope",
+      "volume_mm3": 9669.204592343656,
+      "bbox_min": [
+        -19.5,
+        -19.5,
+        1144.0
+      ],
+      "bbox_max": [
+        19.5,
+        19.5,
+        1166.0
+      ],
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      }
+    },
+    {
+      "id": "BO-408",
+      "name": "Rail buttons (envelope)",
+      "volume_mm3": 2034.286201257232,
+      "bbox_min": [
+        19.0919,
+        19.0919,
+        879.0
+      ],
+      "bbox_max": [
+        33.9411,
+        33.9411,
+        1121.0
+      ],
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      }
+    },
+    {
+      "id": "AV-311",
+      "name": "M6 forged eyebolt + nut (envelope)",
+      "volume_mm3": 18546.02822768977,
+      "bbox_min": [
+        -12.0,
+        -12.0,
+        600.9
+      ],
+      "bbox_max": [
+        12.0,
+        12.0,
+        656.5
+      ],
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      }
+    },
+    {
+      "id": "AV-305",
+      "name": "M4 rods, tee-nuts, washers, nylock nuts",
+      "volume_mm3": 5673.3231363627565,
+      "bbox_min": [
+        -27.5,
+        -7.5,
+        436.5
+      ],
+      "bbox_max": [
+        27.5,
+        7.5,
+        628.0
+      ],
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      }
+    },
+    {
+      "id": "NC-104",
+      "name": "M6 ballast rod + nuts",
+      "volume_mm3": 2933.23509306639,
+      "bbox_min": [
+        -5.5,
+        -4.76314,
+        244.0
+      ],
+      "bbox_max": [
+        5.5,
+        4.76314,
+        330.0
+      ],
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      }
+    },
+    {
+      "id": "AV-307",
+      "name": "Arming switch (USER envelope)",
+      "volume_mm3": 1152.0,
+      "bbox_min": [
+        -6.0,
+        21.5,
+        523.0
+      ],
+      "bbox_max": [
+        6.0,
+        29.5,
+        535.0
+      ],
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      }
+    },
+    {
+      "id": "EL-MOD",
+      "name": "MCU / IMU / baro / SD / radio envelopes",
+      "volume_mm3": 16644.999999999993,
+      "bbox_min": [
+        -24.0,
+        9.5,
+        468.0
+      ],
+      "bbox_max": [
+        23.0,
+        18.0,
+        596.0
+      ],
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      }
+    },
+    {
+      "id": "EL-BAT",
+      "name": "Battery envelope",
+      "volume_mm3": 13859.999999999989,
+      "bbox_min": [
+        -14.0,
+        -12.7,
+        465.3
+      ],
+      "bbox_max": [
+        14.0,
+        -3.7,
+        520.3
+      ],
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      }
+    },
+    {
+      "id": "EL-GPS",
+      "name": "GPS module envelope",
+      "volume_mm3": 6999.999999999998,
+      "bbox_min": [
+        -12.5,
+        8.75,
+        360.0
+      ],
+      "bbox_max": [
+        12.5,
+        16.75,
+        395.0
+      ],
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      }
+    },
+    {
+      "id": "EL-CAM",
+      "name": "Camera envelope",
+      "volume_mm3": 15223.347731970867,
+      "bbox_min": [
+        -13.0,
+        -30.0279,
+        337.058
+      ],
+      "bbox_max": [
+        13.0,
+        -4.81661,
+        379.319
+      ],
+      "manifold": {
+        "closed": true,
+        "open_edges": 0,
+        "overused_edges": 0,
+        "degenerate": 0,
+        "ok": true
+      }
+    }
+  ],
+  "geometry": [
+    {
+      "part": "NC-101",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 19619.867396388287,
+      "status": "PASS"
+    },
+    {
+      "part": "NC-102",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 32,
+      "cgal_simple": null,
+      "volume_mm3": 50504.81287091047,
+      "status": "PASS"
+    },
+    {
+      "part": "NC-103",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 16760.182627854534,
+      "status": "PASS"
+    },
+    {
+      "part": "PL-201",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 50046.50555141338,
+      "status": "PASS"
+    },
+    {
+      "part": "PL-202",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 14855.235069221837,
+      "status": "PASS"
+    },
+    {
+      "part": "PL-203",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 10235.801337738127,
+      "status": "PASS"
+    },
+    {
+      "part": "PL-204",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 2700.6516445045854,
+      "status": "PASS"
+    },
+    {
+      "part": "PL-205",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 761.203555065883,
+      "status": "PASS"
+    },
+    {
+      "part": "PL-206",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 1185.8472495506517,
+      "status": "PASS"
+    },
+    {
+      "part": "AV-301",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 46535.3126318777,
+      "status": "PASS"
+    },
+    {
+      "part": "AV-302",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 6058.90769235471,
+      "status": "PASS"
+    },
+    {
+      "part": "AV-303",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 35185.07144005149,
+      "status": "PASS"
+    },
+    {
+      "part": "AV-304",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 35796.02366997907,
+      "status": "PASS"
+    },
+    {
+      "part": "AV-306",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 28119.98614487056,
+      "status": "PASS"
+    },
+    {
+      "part": "AV-308",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 9044.794707088313,
+      "status": "PASS"
+    },
+    {
+      "part": "AV-309",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 137.1272884120236,
+      "status": "PASS"
+    },
+    {
+      "part": "AV-312",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 1071.248333982425,
+      "status": "PASS"
+    },
+    {
+      "part": "BO-401",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 120555.62466803358,
+      "status": "PASS"
+    },
+    {
+      "part": "BO-402",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 24486.76276747977,
+      "status": "PASS"
+    },
+    {
+      "part": "BO-403",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 73115.79538818708,
+      "status": "PASS"
+    },
+    {
+      "part": "BO-404",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 14382.701424048955,
+      "status": "PASS"
+    },
+    {
+      "part": "BO-405",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 11355.57743930277,
+      "status": "PASS"
+    },
+    {
+      "part": "BO-406",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 24045.600000000006,
+      "status": "PASS"
+    },
+    {
+      "part": "BO-409",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 2183.240016602311,
+      "status": "PASS"
+    },
+    {
+      "part": "GS-701",
+      "closed": true,
+      "open_edges": 0,
+      "overused_edges": 0,
+      "degenerate": 0,
+      "cgal_simple": null,
+      "volume_mm3": 51419.11286495975,
+      "status": "PASS"
+    }
+  ],
+  "symmetry": [
+    {
+      "part": "NC-101",
+      "expected": "axi",
+      "centroid_offset_mm": 5.659569795708136e-14,
+      "status": "PASS"
+    },
+    {
+      "part": "NC-102",
+      "expected": "axi3",
+      "centroid_offset_mm": 6.347256154375458e-07,
+      "status": "PASS"
+    },
+    {
+      "part": "NC-103",
+      "expected": "axi3",
+      "centroid_offset_mm": 5.658151864050017e-07,
+      "status": "PASS"
+    },
+    {
+      "part": "AV-304",
+      "expected": "axi2",
+      "centroid_offset_mm": 5.742923855898065e-14,
+      "status": "PASS"
+    },
+    {
+      "part": "AV-309",
+      "expected": "axi",
+      "centroid_offset_mm": 2.3615498479754436e-12,
+      "status": "PASS"
+    },
+    {
+      "part": "BO-402",
+      "expected": "axi",
+      "centroid_offset_mm": 6.859897347057487e-15,
+      "status": "PASS"
+    },
+    {
+      "part": "BO-405",
+      "expected": "axi4",
+      "centroid_offset_mm": 4.7468839218019103e-14,
+      "status": "PASS"
+    },
+    {
+      "part": "GS-701",
+      "expected": "axi4",
+      "centroid_offset_mm": 3.12060473976428e-14,
+      "status": "PASS"
+    },
+    {
+      "part": "BO-406 fin set",
+      "expected": "4-fold",
+      "centroid_offset_mm": 4.841476611187342e-15,
+      "status": "PASS"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "I-00",
+      "interface": "Spigot / socket diametral clearance",
+      "measured": "0.20",
+      "requirement": "+0.1/+0.3",
+      "status": "PASS"
+    },
+    {
+      "id": "I-01",
+      "interface": "NC-102 shoulder in PL-201 (diametral)",
+      "measured": "0.300",
+      "requirement": "0.15-0.45 (+0/-0.15 on 0.3)",
+      "status": "PASS"
+    },
+    {
+      "id": "I-02/03",
+      "interface": "AV-301 in PL-201 / BO-401 (diametral)",
+      "measured": "0.200",
+      "requirement": "0.1-0.4",
+      "status": "PASS"
+    },
+    {
+      "id": "I-02",
+      "interface": "AV-303/304 inner disc in AV-301 (diametral)",
+      "measured": "0.200",
+      "requirement": ">0",
+      "status": "PASS"
+    },
+    {
+      "id": "I-04a",
+      "interface": "AV-304 on AV-309 gasket on coupler end face (axial stack)",
+      "measured": "614.0 / 614.5 / 620.5",
+      "requirement": "contiguous",
+      "status": "PASS"
+    },
+    {
+      "id": "I-05",
+      "interface": "Motor envelope in MMT (diametral)",
+      "measured": "0.600",
+      "requirement": "per motor maker",
+      "status": "PASS"
+    },
+    {
+      "id": "I-06",
+      "interface": "Fin in guide / slot / tab floor",
+      "measured": "0.20 / 0.30 / 0.20",
+      "requirement": "0.2 / 0.3 / 0.2",
+      "status": "PASS"
+    },
+    {
+      "id": "I-06",
+      "interface": "Lock ring covers tab ends (ring bore r vs tab root r)",
+      "measured": "20.00 <= 20.20",
+      "requirement": "ring bore <= tab root",
+      "status": "PASS"
+    },
+    {
+      "id": "I-07",
+      "interface": "Rail-button holes coaxial with hard points",
+      "measured": "see rail checks",
+      "requirement": "",
+      "status": "PASS"
+    },
+    {
+      "id": "I-08",
+      "interface": "Harness hole vs tray foot (edge gap)",
+      "measured": "4.0",
+      "requirement": ">= 2",
+      "status": "PASS"
+    },
+    {
+      "id": "AV-305",
+      "interface": "Rod in sleeve / AV-304 hole / tee-nut (diametral)",
+      "measured": "0.4 / 0.5 / 1.5",
+      "requirement": ">0",
+      "status": "PASS"
+    }
+  ],
+  "interference_meta": {
+    "candidates": 35,
+    "pairs_total": 595,
+    "bbox_separated": 485,
+    "radially_nested": 66,
+    "intersected": 44
+  },
+  "interference": [
+    {
+      "a": "NC-101",
+      "b": "NC-102",
+      "volume_mm3": 4.206412995699793e-12,
+      "result": "contact"
+    },
+    {
+      "a": "NC-102",
+      "b": "NC-103",
+      "volume_mm3": 1.0942358130705543e-11,
+      "result": "contact"
+    },
+    {
+      "a": "NC-102",
+      "b": "PL-201",
+      "volume_mm3": 7.958078640513122e-13,
+      "result": "contact"
+    },
+    {
+      "a": "NC-103",
+      "b": "NC-104",
+      "volume_mm3": 2.447819724693545e-12,
+      "result": "contact"
+    },
+    {
+      "a": "PL-201",
+      "b": "PL-204",
+      "volume_mm3": 0.005142826829518565,
+      "result": "contact"
+    },
+    {
+      "a": "PL-201",
+      "b": "PL-205",
+      "volume_mm3": 2.2717765169044668e-13,
+      "result": "contact"
+    },
+    {
+      "a": "PL-201",
+      "b": "PL-206",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "PL-201",
+      "b": "AV-302",
+      "volume_mm3": 2.7824853532365523e-11,
+      "result": "contact"
+    },
+    {
+      "a": "PL-202",
+      "b": "PL-203",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "PL-202",
+      "b": "AV-303",
+      "volume_mm3": 1.680788841440517e-11,
+      "result": "contact"
+    },
+    {
+      "a": "PL-202",
+      "b": "AV-305",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "PL-202",
+      "b": "EL-CAM",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "PL-203",
+      "b": "EL-CAM",
+      "volume_mm3": 0.08237520081469753,
+      "result": "contact"
+    },
+    {
+      "a": "PL-205",
+      "b": "PL-206",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "AV-301",
+      "b": "AV-303",
+      "volume_mm3": 7.44648787076585e-12,
+      "result": "contact"
+    },
+    {
+      "a": "AV-301",
+      "b": "AV-304",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "AV-301",
+      "b": "AV-309",
+      "volume_mm3": 3.410605131648481e-12,
+      "result": "contact"
+    },
+    {
+      "a": "AV-302",
+      "b": "BO-401",
+      "volume_mm3": 2.1600499167107046e-11,
+      "result": "contact"
+    },
+    {
+      "a": "AV-303",
+      "b": "AV-312",
+      "volume_mm3": 5.577760475716786e-13,
+      "result": "contact"
+    },
+    {
+      "a": "AV-303",
+      "b": "AV-305",
+      "volume_mm3": 4.405364961712621e-12,
+      "result": "contact"
+    },
+    {
+      "a": "AV-304",
+      "b": "AV-309",
+      "volume_mm3": 3.097966327914037e-11,
+      "result": "contact"
+    },
+    {
+      "a": "AV-304",
+      "b": "AV-312",
+      "volume_mm3": 1.9255708139098715e-12,
+      "result": "contact"
+    },
+    {
+      "a": "AV-304",
+      "b": "AV-311",
+      "volume_mm3": 1.1539214028744027e-11,
+      "result": "contact"
+    },
+    {
+      "a": "AV-304",
+      "b": "AV-305",
+      "volume_mm3": 5.409672709788538e-12,
+      "result": "contact"
+    },
+    {
+      "a": "AV-306",
+      "b": "AV-308",
+      "volume_mm3": 1.7479073743942308e-14,
+      "result": "contact"
+    },
+    {
+      "a": "AV-306",
+      "b": "AV-312",
+      "volume_mm3": 4.128253294766182e-12,
+      "result": "contact"
+    },
+    {
+      "a": "AV-306",
+      "b": "AV-305",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "AV-306",
+      "b": "AV-307",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "AV-306",
+      "b": "EL-MOD",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "AV-306",
+      "b": "EL-BAT",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "AV-308",
+      "b": "AV-312",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "AV-308",
+      "b": "AV-305",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "AV-308",
+      "b": "EL-BAT",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "AV-312",
+      "b": "AV-305",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "AV-312",
+      "b": "EL-BAT",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "BO-401",
+      "b": "BO-406-SET",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "BO-401",
+      "b": "BO-408",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "BO-402",
+      "b": "BO-407",
+      "volume_mm3": 1.0658141036401503e-14,
+      "result": "contact"
+    },
+    {
+      "a": "BO-403",
+      "b": "BO-405",
+      "volume_mm3": 1.4779288903810084e-10,
+      "result": "contact"
+    },
+    {
+      "a": "BO-403",
+      "b": "BO-406-SET",
+      "volume_mm3": 9.094947017729282e-13,
+      "result": "contact"
+    },
+    {
+      "a": "BO-404",
+      "b": "BO-409",
+      "volume_mm3": 1.3642420526593924e-11,
+      "result": "contact"
+    },
+    {
+      "a": "BO-405",
+      "b": "BO-406-SET",
+      "volume_mm3": 9.094947017729282e-13,
+      "result": "contact"
+    },
+    {
+      "a": "BO-406-SET",
+      "b": "BO-408",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    },
+    {
+      "a": "AV-305",
+      "b": "EL-BAT",
+      "volume_mm3": 0.0,
+      "result": "clear"
+    }
+  ],
+  "feasibility": [
+    {
+      "check": "Sled stack slides out aft of AV-301 (AV-304 removed): max radius of sled, cage, spacers, switch, modules",
+      "value": "30.10 < 30.50 (coupler bore)",
+      "margin": 0.39601355301926233,
+      "status": "PASS"
+    },
+    {
+      "check": "Nose (NC-102 shoulder) slides out of PL-201",
+      "value": "31.85 < 32.00",
+      "margin": 0.14993067637057678,
+      "status": "PASS"
+    },
+    {
+      "check": "AV-301 aft half separates from BO-401 (I-03)",
+      "value": "31.90 < 32.00",
+      "margin": 0.0999516452654916,
+      "status": "PASS"
+    },
+    {
+      "check": "Motor envelope inserts into MMT from aft",
+      "value": "14.20 < 14.50",
+      "margin": 0.29995242548814716,
+      "status": "PASS"
+    },
+    {
+      "check": "BO-405 lock ring slides off over the retainer envelope",
+      "value": "bore r 20.00 > retainer r 19.50",
+      "margin": 0.499953448288899,
+      "status": "PASS"
+    },
+    {
+      "check": "Fin tab root clears retainer envelope radius",
+      "value": "tab r_min 20.26 > retainer r 19.50",
+      "margin": 0.7555699533474396,
+      "status": "PASS"
+    },
+    {
+      "check": "Fin slides out aft 260 mm with BO-405 removed: swept fin vs BO-407",
+      "volume_mm3": 0.0,
+      "status": "PASS"
+    },
+    {
+      "check": "Fin slides out aft 260 mm with BO-405 removed: swept fin vs BO-402",
+      "volume_mm3": 0.0,
+      "status": "PASS"
+    },
+    {
+      "check": "Fin slides out aft 260 mm with BO-405 removed: swept fin vs BO-403",
+      "volume_mm3": 1.3642420526593924e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "Fin slides out aft 260 mm with BO-405 removed: swept fin vs BO-401",
+      "volume_mm3": 0.0,
+      "status": "PASS"
+    }
+  ],
+  "rail": [
+    {
+      "check": "Both rail buttons on one line parallel to the axis",
+      "value": "angles 44.851 / 44.851 deg, radii 37.500 / 37.500",
+      "status": "PASS"
+    },
+    {
+      "check": "Button spacing",
+      "value": "230.0 mm (STA 885.0 / 1115.0)",
+      "status": "PASS"
+    },
+    {
+      "check": "Hard points under both buttons (BO-409 boss / BO-403 boss contain the insert station)",
+      "value": "BO-409 z 878.0-894.0 \u220b 885.0; BO-403 boss \u220b 1115.0",
+      "status": "PASS"
+    },
+    {
+      "check": "Clearance from 1010 rail envelope (25.4 mm, ASSUMPTION) to fins, cowl and airframe",
+      "value": "nearest BO-406-SET at 52.0 mm outside the rail profile",
+      "status": "PASS"
+    }
+  ],
+  "fasteners": [
+    {
+      "check": "BO-405 lock-ring M3 heads vs retainer envelope (hex-key access from aft)",
+      "clearance_mm": 3.749953448288899,
+      "status": "PASS"
+    },
+    {
+      "check": "BO-405 lock-ring M3 heads vs booster bore",
+      "clearance_mm": 3.25,
+      "status": "PASS"
+    },
+    {
+      "check": "NC-103 M3 heads vs shoulder bore (after nose removal)",
+      "clearance_mm": 0.25,
+      "status": "PASS"
+    },
+    {
+      "check": "AV-304 M4 nut socket (dia 11 assumed) vs eyebolt envelope",
+      "clearance_mm": 2.5,
+      "status": "PASS"
+    },
+    {
+      "check": "AV-304 M4 nut socket vs coupler bore",
+      "clearance_mm": 5.0,
+      "status": "PASS"
+    },
+    {
+      "check": "PL-202 M3 heads (inside bay, sled out) vs rod spacers",
+      "clearance_mm": 12.604973174542799,
+      "status": "PASS"
+    },
+    {
+      "check": "Nose radial M3 screws: external, clear of hatch/cowl/rail",
+      "clearance_mm": null,
+      "status": "PASS"
+    }
+  ],
+  "walls": [
+    {
+      "feature": "NC-101/102 ogive wall",
+      "thickness": 1.2,
+      "status": "PASS"
+    },
+    {
+      "feature": "NC-101 spigot / NC-102 shoulder",
+      "thickness": 1.6,
+      "status": "PASS"
+    },
+    {
+      "feature": "BO-403 guide rails",
+      "thickness": 1.6,
+      "status": "PASS"
+    },
+    {
+      "feature": "PL-206 frame",
+      "thickness": 2.0,
+      "status": "PASS"
+    },
+    {
+      "feature": "PL-205 hatch panel (= tube wall)",
+      "thickness": 1.0,
+      "status": "WARN"
+    },
+    {
+      "feature": "AV-308 cage side walls",
+      "thickness": 1.6,
+      "status": "PASS"
+    },
+    {
+      "feature": "AV-312 spacer wall",
+      "thickness": 1.5499999999999998,
+      "status": "PASS"
+    },
+    {
+      "feature": "AV-306 insert boss wall",
+      "thickness": 1.45,
+      "status": "PASS"
+    },
+    {
+      "feature": "PL-202 / PL-206 insert boss wall",
+      "thickness": 1.2,
+      "status": "PASS"
+    },
+    {
+      "feature": "NC-102 lug wall beside insert",
+      "thickness": 4.0,
+      "status": "PASS"
+    },
+    {
+      "feature": "BO-403 rail-boss wall beside M4 insert",
+      "thickness": 5.2,
+      "status": "PASS"
+    },
+    {
+      "feature": "PL-203 cradle walls",
+      "thickness": 2.0,
+      "status": "PASS"
+    }
+  ],
+  "printability": [
+    {
+      "part": "NC-101",
+      "pose": "rx180",
+      "support_area_mm2": 224.49793645212233,
+      "size": [
+        53.848,
+        53.848,
+        160.0
+      ],
+      "fits": true,
+      "status": "WARN"
+    },
+    {
+      "part": "NC-102",
+      "pose": "id",
+      "support_area_mm2": 379.1416641686993,
+      "size": [
+        66.0,
+        66.0,
+        174.0
+      ],
+      "fits": true,
+      "status": "WARN"
+    },
+    {
+      "part": "NC-103",
+      "pose": "id",
+      "support_area_mm2": 0.0,
+      "size": [
+        60.3,
+        60.3,
+        6.0
+      ],
+      "fits": true,
+      "status": "PASS"
+    },
+    {
+      "part": "PL-202",
+      "pose": "rx180",
+      "support_area_mm2": 233.01287850032338,
+      "size": [
+        50.0,
+        26.0,
+        90.0
+      ],
+      "fits": true,
+      "status": "WARN"
+    },
+    {
+      "part": "PL-203",
+      "pose": "ry90",
+      "support_area_mm2": 354.1598964066075,
+      "size": [
+        48.085000000000036,
+        20.8395,
+        30.0
+      ],
+      "fits": true,
+      "status": "WARN"
+    },
+    {
+      "part": "PL-204",
+      "pose": "rx180",
+      "support_area_mm2": 36.653635556106174,
+      "size": [
+        20.0,
+        9.566999999999997,
+        43.23399999999998
+      ],
+      "fits": true,
+      "status": "WARN"
+    },
+    {
+      "part": "PL-205",
+      "pose": "ry90",
+      "support_area_mm2": 4.55366625329682,
+      "size": [
+        39.39999999999998,
+        2.0,
+        22.5366
+      ],
+      "fits": true,
+      "status": "WARN"
+    },
+    {
+      "part": "PL-206",
+      "pose": "ry90",
+      "support_area_mm2": 55.705657212427084,
+      "size": [
+        54.0,
+        4.449999999999999,
+        26.739800000000002
+      ],
+      "fits": true,
+      "status": "WARN"
+    },
+    {
+      "part": "AV-306",
+      "pose": "id",
+      "support_area_mm2": 687.8865464476958,
+      "size": [
+        52.0,
+        25.24,
+        140.0
+      ],
+      "fits": true,
+      "status": "WARN"
+    },
+    {
+      "part": "AV-308",
+      "pose": "rx-90",
+      "support_area_mm2": 76.79999999999997,
+      "size": [
+        31.8,
+        67.60000000000002,
+        11.400000000000004
+      ],
+      "fits": true,
+      "status": "WARN"
+    },
+    {
+      "part": "AV-312-fwd",
+      "pose": "id",
+      "support_area_mm2": 0.0,
+      "size": [
+        47.5,
+        7.5,
+        7.0
+      ],
+      "fits": true,
+      "status": "PASS"
+    },
+    {
+      "part": "AV-312-aft",
+      "pose": "id",
+      "support_area_mm2": 0.0,
+      "size": [
+        47.5,
+        7.5,
+        11.5
+      ],
+      "fits": true,
+      "status": "PASS"
+    },
+    {
+      "part": "BO-403",
+      "pose": "rx180",
+      "support_area_mm2": 2234.6581203605815,
+      "size": [
+        63.7,
+        63.7,
+        142.0
+      ],
+      "fits": true,
+      "status": "WARN"
+    },
+    {
+      "part": "BO-409",
+      "pose": "id",
+      "support_area_mm2": 30.630271126190518,
+      "size": [
+        18.58571,
+        18.58571,
+        16.0
+      ],
+      "fits": true,
+      "status": "WARN"
+    },
+    {
+      "part": "GS-701",
+      "pose": "id",
+      "support_area_mm2": 0.0,
+      "size": [
+        81.892,
+        81.892,
+        30.0
+      ],
+      "fits": true,
+      "status": "PASS"
+    }
+  ],
+  "electronics": [
+    {
+      "check": "Sled stack max radius vs coupler bore",
+      "value": "30.10 / 30.50",
+      "status": "PASS"
+    },
+    {
+      "check": "Switch envelope top vs coupler bore (actuator behind the access hole)",
+      "value": "30.10 < 30.50",
+      "status": "PASS"
+    },
+    {
+      "check": "M2.5 insert bosses on sled / tray / tower",
+      "value": "10 / 6 / 1",
+      "status": "PASS"
+    },
+    {
+      "check": "Battery width limit (rod sleeves)",
+      "value": "BAT_W 28.0 <= 28.8",
+      "status": "PASS"
+    },
+    {
+      "check": "GPS envelope under the hatch opening (service access)",
+      "value": "GPS z 360-395, opening 381-409",
+      "status": "PASS"
+    },
+    {
+      "check": "Module envelopes interfere with structure",
+      "value": "see interference table (EL-*)",
+      "status": "PASS"
+    }
+  ],
+  "recovery": [
+    {
+      "check": "Eyebolt on axis through AV-304 (CLR_M6 centre hole), both discs",
+      "value": "hole 6.5 mm",
+      "status": "PASS"
+    },
+    {
+      "check": "Recovery load path AV-304 -> 2x M4 rods -> tee-nuts -> AV-303 bearing on coupler end",
+      "value": "rod proof capacity 7902 N vs 710 N",
+      "status": "PASS"
+    },
+    {
+      "check": "Eyebolt envelope inside booster bore",
+      "value": "12.0 < 32.0",
+      "status": "PASS"
+    },
+    {
+      "check": "Aramid notch in BO-404 at KEVLAR_NOTCH_ANG",
+      "value": "225 deg, 6 x 3 mm",
+      "status": "PASS"
+    },
+    {
+      "check": "Recovery bay length / volume",
+      "value": "273.5 mm / 880 cm3",
+      "status": "PASS"
+    }
+  ],
+  "dimensions": [
+    {
+      "dimension": "Overall airframe length",
+      "cad": 1144.0,
+      "analysis": 1144.0,
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "dimension": "Body OD (BO-401)",
+      "cad": 66.0,
+      "analysis": 66.0,
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "dimension": "Nose exposed length (tip to shoulder)",
+      "cad": 264.0,
+      "analysis": 264.0,
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "dimension": "Nose shoulder length",
+      "cad": 60.0,
+      "analysis": 60.0,
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "dimension": "Fin span tip-to-tip",
+      "cad": 186.0,
+      "analysis": 186.0,
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "dimension": "Fin root LE station",
+      "cad": 994.0,
+      "analysis": 994.0,
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "dimension": "Fin tab depth below root line",
+      "cad": 12.8,
+      "analysis": 12.8,
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "dimension": "Payload bay clear (NC-103 aft face to AV-303)",
+      "cad": 114.0,
+      "analysis": 114.0,
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "dimension": "Avionics bay internal (AV-303 to AV-304 inner faces)",
+      "cad": 158.5,
+      "analysis": 158.5,
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "dimension": "Recovery bay (AV-304 aft face to BO-404)",
+      "cad": 273.5,
+      "analysis": 273.5,
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "dimension": "Coupler length",
+      "cad": 170.0,
+      "analysis": 170.0,
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "dimension": "MMT stations",
+      "cad": "894.0-1154.0",
+      "analysis": "894.0-1154.0",
+      "delta": null,
+      "status": "INFO"
+    },
+    {
+      "dimension": "Rail buttons (station, angle)",
+      "cad": "885.0 / 1115.0 @ 44.9 deg",
+      "analysis": "885.0 / 1115.0 @ 45 deg",
+      "delta": null,
+      "status": "INFO"
+    },
+    {
+      "dimension": "Camera lens station / angle",
+      "cad": "360.0 @ 270 deg (tilt 15.0)",
+      "analysis": "360.0",
+      "delta": null,
+      "status": "INFO"
+    },
+    {
+      "dimension": "GPS tray span",
+      "cad": "348.0-438.0",
+      "analysis": "348.0-438.0",
+      "delta": null,
+      "status": "INFO"
+    }
+  ],
+  "mass": [
+    {
+      "id": "NC-101",
+      "name": "Nose tip section (ogive 0-150, spigot)",
+      "rev_a_g": 25.4,
+      "rev_b_g": 24.917,
+      "delta_g": -0.482999999999997,
+      "rev_a_x": 96.8,
+      "rev_b_x": 106.408,
+      "source": "CAD"
+    },
+    {
+      "id": "NC-102",
+      "name": "Nose base + shoulder",
+      "rev_a_g": 61.7,
+      "rev_b_g": 64.141,
+      "delta_g": 2.4410000000000025,
+      "rev_a_x": 247.2,
+      "rev_b_x": 248.098,
+      "source": "CAD"
+    },
+    {
+      "id": "NC-103",
+      "name": "Nose bulkhead / ballast mount",
+      "rev_a_g": 13.1,
+      "rev_b_g": 12.771,
+      "delta_g": -0.32899999999999885,
+      "rev_a_x": 321.0,
+      "rev_b_x": 321.0,
+      "source": "CAD"
+    },
+    {
+      "id": "NC-104",
+      "name": "Ballast rod M6x86 + 2 nylock + 2 washers",
+      "rev_a_g": 19.9,
+      "rev_b_g": 20.855940000000004,
+      "delta_g": 0.9559400000000053,
+      "rev_a_x": 284.0,
+      "rev_b_x": 287.0,
+      "source": "estimate"
+    },
+    {
+      "id": "NC-105",
+      "name": "Nose fasteners (6x M3 insert, 6x M3 screw)",
+      "rev_a_g": 8.0,
+      "rev_b_g": 8.0,
+      "delta_g": 0.0,
+      "rev_a_x": 294.0,
+      "rev_b_x": 294.0,
+      "source": "estimate"
+    },
+    {
+      "id": "PL-201",
+      "name": "Payload tube",
+      "rev_a_g": 51.1,
+      "rev_b_g": 50.047,
+      "delta_g": -1.0530000000000044,
+      "rev_a_x": 389.0,
+      "rev_b_x": 389.047,
+      "source": "CAD"
+    },
+    {
+      "id": "PL-202",
+      "name": "GPS / sensor tray + bracket",
+      "rev_a_g": 15.0,
+      "rev_b_g": 18.866,
+      "delta_g": 3.8659999999999997,
+      "rev_a_x": 393.0,
+      "rev_b_x": 402.409,
+      "source": "CAD"
+    },
+    {
+      "id": "PL-203",
+      "name": "Camera cradle",
+      "rev_a_g": 10.0,
+      "rev_b_g": 11.7,
+      "delta_g": 1.6999999999999993,
+      "rev_a_x": 360.0,
+      "rev_b_x": 366.175,
+      "source": "CAD"
+    },
+    {
+      "id": "PL-204",
+      "name": "Lens cowl",
+      "rev_a_g": 4.0,
+      "rev_b_g": 1.734,
+      "delta_g": -2.266,
+      "rev_a_x": 360.0,
+      "rev_b_x": 376.167,
+      "source": "CAD"
+    },
+    {
+      "id": "PL-205/206",
+      "name": "Access hatch + doubler frame",
+      "rev_a_g": 8.0,
+      "rev_b_g": 2.473,
+      "delta_g": -5.527,
+      "rev_a_x": 395.0,
+      "rev_b_x": 395.0,
+      "source": "CAD"
+    },
+    {
+      "id": "EL-GPS",
+      "name": "GPS module + patch antenna",
+      "rev_a_g": 20.0,
+      "rev_b_g": 20.0,
+      "delta_g": 0.0,
+      "rev_a_x": 378.0,
+      "rev_b_x": 378.0,
+      "source": "estimate"
+    },
+    {
+      "id": "EL-CAM",
+      "name": "Mini camera (user-selected)",
+      "rev_a_g": 35.0,
+      "rev_b_g": 35.0,
+      "delta_g": 0.0,
+      "rev_a_x": 360.0,
+      "rev_b_x": 360.0,
+      "source": "estimate"
+    },
+    {
+      "id": "AV-301",
+      "name": "Coupler tube",
+      "rev_a_g": 46.7,
+      "rev_b_g": 46.535,
+      "delta_g": -0.16500000000000625,
+      "rev_a_x": 529.0,
+      "rev_b_x": 529.0,
+      "source": "CAD"
+    },
+    {
+      "id": "AV-302",
+      "name": "Switch band",
+      "rev_a_g": 6.1,
+      "rev_b_g": 6.059,
+      "delta_g": -0.04099999999999948,
+      "rev_a_x": 529.0,
+      "rev_b_x": 529.0,
+      "source": "CAD"
+    },
+    {
+      "id": "AV-303",
+      "name": "Forward bulkhead (2-ply laminate) + 2 M4 inserts",
+      "rev_a_g": 28.9,
+      "rev_b_g": 27.926,
+      "delta_g": -0.9740000000000002,
+      "rev_a_x": 444.0,
+      "rev_b_x": 443.85,
+      "source": "CAD"
+    },
+    {
+      "id": "AV-304",
+      "name": "Aft bulkhead (2-ply laminate)",
+      "rev_a_g": 24.9,
+      "rev_b_g": 24.341,
+      "delta_g": -0.5589999999999975,
+      "rev_a_x": 614.0,
+      "rev_b_x": 614.648,
+      "source": "CAD"
+    },
+    {
+      "id": "AV-311",
+      "name": "M6 forged eyebolt + nut + washers",
+      "rev_a_g": 25.0,
+      "rev_b_g": 25.0,
+      "delta_g": 0.0,
+      "rev_a_x": 638.0,
+      "rev_b_x": 638.5,
+      "source": "estimate"
+    },
+    {
+      "id": "AV-305",
+      "name": "2x M4x190 A2 rods, nuts, washers",
+      "rev_a_g": 32.4,
+      "rev_b_g": 32.35756,
+      "delta_g": -0.042439999999999145,
+      "rev_a_x": 534.0,
+      "rev_b_x": 534.0,
+      "source": "estimate"
+    },
+    {
+      "id": "AV-306",
+      "name": "Electronics sled",
+      "rev_a_g": 25.0,
+      "rev_b_g": 32.141,
+      "delta_g": 7.140999999999998,
+      "rev_a_x": 527.0,
+      "rev_b_x": 527.058,
+      "source": "CAD"
+    },
+    {
+      "id": "EL-AV",
+      "name": "Avionics set: MCU, IMU, baro, SD, radio, buzzer, wiring",
+      "rev_a_g": 59.0,
+      "rev_b_g": 59.0,
+      "delta_g": 0.0,
+      "rev_a_x": 527.0,
+      "rev_b_x": 527.0,
+      "source": "estimate"
+    },
+    {
+      "id": "EL-BAT",
+      "name": "1S LiPo battery + strap",
+      "rev_a_g": 33.0,
+      "rev_b_g": 27.0,
+      "delta_g": -6.0,
+      "rev_a_x": 502.0,
+      "rev_b_x": 492.8,
+      "source": "estimate"
+    },
+    {
+      "id": "AV-308",
+      "name": "Battery cage",
+      "rev_a_g": null,
+      "rev_b_g": 11.487,
+      "delta_g": null,
+      "rev_a_x": null,
+      "rev_b_x": 492.8,
+      "source": "CAD"
+    },
+    {
+      "id": "AV-312",
+      "name": "Rod spacers (2 fwd + 2 aft)",
+      "rev_a_g": null,
+      "rev_b_g": 1.36,
+      "delta_g": null,
+      "rev_a_x": null,
+      "rev_b_x": 546.277,
+      "source": "CAD"
+    },
+    {
+      "id": "AV-309/310",
+      "name": "Gasket, switch, adhesive allowance",
+      "rev_a_g": 12.0,
+      "rev_b_g": 12.0,
+      "delta_g": 0.0,
+      "rev_a_x": 529.0,
+      "rev_b_x": 529.0,
+      "source": "estimate"
+    },
+    {
+      "id": "BO-401",
+      "name": "Booster tube (slotted)",
+      "rev_a_g": 121.9,
+      "rev_b_g": 120.556,
+      "delta_g": -1.3440000000000083,
+      "rev_a_x": 844.0,
+      "rev_b_x": 840.433,
+      "source": "CAD"
+    },
+    {
+      "id": "BO-402",
+      "name": "Motor mount tube",
+      "rev_a_g": 24.5,
+      "rev_b_g": 24.487,
+      "delta_g": -0.013000000000001677,
+      "rev_a_x": 1024.0,
+      "rev_b_x": 1024.0,
+      "source": "CAD"
+    },
+    {
+      "id": "BO-404",
+      "name": "Forward centering ring",
+      "rev_a_g": 9.9,
+      "rev_b_g": 9.78,
+      "delta_g": -0.120000000000001,
+      "rev_a_x": 897.0,
+      "rev_b_x": 897.0,
+      "source": "CAD"
+    },
+    {
+      "id": "BO-403",
+      "name": "Fin-can core (ASA)",
+      "rev_a_g": 59.9,
+      "rev_b_g": 66.499,
+      "delta_g": 6.598999999999997,
+      "rev_a_x": 1067.0,
+      "rev_b_x": 1067.549,
+      "source": "CAD"
+    },
+    {
+      "id": "BO-405",
+      "name": "Aft fin lock ring",
+      "rev_a_g": 7.9,
+      "rev_b_g": 7.722,
+      "delta_g": -0.17799999999999994,
+      "rev_a_x": 1141.0,
+      "rev_b_x": 1141.0,
+      "source": "CAD"
+    },
+    {
+      "id": "BO-406",
+      "name": "Fins x4 (3 mm birch ply, finished)",
+      "rev_a_g": 77.4,
+      "rev_b_g": 71.944,
+      "delta_g": -5.456000000000003,
+      "rev_a_x": 1077.4,
+      "rev_b_x": 1077.849,
+      "source": "CAD"
+    },
+    {
+      "id": "BO-407",
+      "name": "Motor retainer (commercial)",
+      "rev_a_g": 25.0,
+      "rev_b_g": 25.0,
+      "delta_g": 0.0,
+      "rev_a_x": 1154.0,
+      "rev_b_x": 1154.0,
+      "source": "estimate"
+    },
+    {
+      "id": "BO-408/409",
+      "name": "2 rail buttons + fwd boss + screws",
+      "rev_a_g": 10.0,
+      "rev_b_g": 10.0,
+      "delta_g": 0.0,
+      "rev_a_x": 1000.0,
+      "rev_b_x": 1000.0,
+      "source": "estimate"
+    },
+    {
+      "id": "BO-410",
+      "name": "Aramid anchor leader + lock-ring screws",
+      "rev_a_g": 14.0,
+      "rev_b_g": 14.0,
+      "delta_g": 0.0,
+      "rev_a_x": 934.0,
+      "rev_b_x": 934.0,
+      "source": "estimate"
+    },
+    {
+      "id": "BO-ADH",
+      "name": "Epoxy fillets and bonds (booster)",
+      "rev_a_g": 20.0,
+      "rev_b_g": 20.0,
+      "delta_g": 0.0,
+      "rev_a_x": 1014.0,
+      "rev_b_x": 1014.0,
+      "source": "estimate"
+    },
+    {
+      "id": "PL-PNT",
+      "name": "Primer + paint, forward airframe",
+      "rev_a_g": 10.0,
+      "rev_b_g": 10.0,
+      "delta_g": 0.0,
+      "rev_a_x": 330.0,
+      "rev_b_x": 330,
+      "source": "estimate"
+    },
+    {
+      "id": "BO-PNT",
+      "name": "Primer + paint, booster",
+      "rev_a_g": 15.0,
+      "rev_b_g": 15.0,
+      "delta_g": 0.0,
+      "rev_a_x": 844.0,
+      "rev_b_x": 844.0,
+      "source": "estimate"
+    },
+    {
+      "id": "RC-501",
+      "name": "Parachute (~0.9 m, ripstop)",
+      "rev_a_g": 55.0,
+      "rev_b_g": 55.0,
+      "delta_g": 0.0,
+      "rev_a_x": 740.0,
+      "rev_b_x": 740.5,
+      "source": "estimate"
+    },
+    {
+      "id": "RC-502",
+      "name": "Flame-resistant chute protector",
+      "rev_a_g": 20.0,
+      "rev_b_g": 20.0,
+      "delta_g": 0.0,
+      "rev_a_x": 800.0,
+      "rev_b_x": 800.5,
+      "source": "estimate"
+    },
+    {
+      "id": "RC-503",
+      "name": "Shock cord 4 m",
+      "rev_a_g": 40.0,
+      "rev_b_g": 40.0,
+      "delta_g": 0.0,
+      "rev_a_x": 720.0,
+      "rev_b_x": 720.5,
+      "source": "estimate"
+    },
+    {
+      "id": "RC-504/505",
+      "name": "3 quick links + swivel",
+      "rev_a_g": 15.0,
+      "rev_b_g": 15.0,
+      "delta_g": 0.0,
+      "rev_a_x": 680.0,
+      "rev_b_x": 680.5,
+      "source": "estimate"
+    },
+    {
+      "id": "MT-601",
+      "name": "Certified motor (EXTERNAL, placeholder mass)",
+      "rev_a_g": 110.0,
+      "rev_b_g": 110.0,
+      "delta_g": 0.0,
+      "rev_a_x": 1091.5,
+      "rev_b_x": 1091.5,
+      "source": "estimate"
+    }
+  ],
+  "totals": {
+    "rev_a": {
+      "M0": 1199.4482944675983,
+      "Mb": 1144.4482944675983,
+      "Me": 1089.4482944675983,
+      "cg0": 698.2262363426697,
+      "cgb": 679.3262501172409,
+      "cp": 870.3151102674981,
+      "sm0": 2.6074071806792176,
+      "smb": 2.8937706083372303
+    },
+    "rev_b": {
+      "M0": 1210.6995,
+      "Mb": 1155.6995,
+      "Me": 1100.6995,
+      "cg0": 696.4213448308188,
+      "cgb": 677.6194624779192,
+      "cp": 870.3151102674981,
+      "sm0": 2.6347540217678675,
+      "smb": 2.919631027114831
+    }
+  },
+  "drawings": [
+    [
+      "CAD-A01.svg",
+      "Full assembly section, 1:1"
+    ],
+    [
+      "CAD-A02.svg",
+      "Nose detail section"
+    ],
+    [
+      "CAD-A03.svg",
+      "Payload and avionics section"
+    ],
+    [
+      "CAD-A04.svg",
+      "Fin can section"
+    ],
+    [
+      "CAD-A05.svg",
+      "Exploded half-section"
+    ],
+    [
+      "CAD-A06.svg",
+      "Cross-sections at 9 stations"
+    ],
+    [
+      "CAD-NC-101.svg",
+      "NC-101 Nose tip section"
+    ],
+    [
+      "CAD-NC-102.svg",
+      "NC-102 Nose base + shoulder"
+    ],
+    [
+      "CAD-NC-103.svg",
+      "NC-103 Nose bulkhead / ballast mount"
+    ],
+    [
+      "CAD-PL-201.svg",
+      "PL-201 Payload tube"
+    ],
+    [
+      "CAD-PL-202.svg",
+      "PL-202 GPS / sensor tray"
+    ],
+    [
+      "CAD-PL-203.svg",
+      "PL-203 Camera cradle"
+    ],
+    [
+      "CAD-PL-204.svg",
+      "PL-204 Lens cowl"
+    ],
+    [
+      "CAD-PL-205.svg",
+      "PL-205 Access hatch"
+    ],
+    [
+      "CAD-PL-206.svg",
+      "PL-206 Hatch doubler frame"
+    ],
+    [
+      "CAD-AV-301.svg",
+      "AV-301 Avionics coupler"
+    ],
+    [
+      "CAD-AV-302.svg",
+      "AV-302 Switch band"
+    ],
+    [
+      "CAD-AV-303.svg",
+      "AV-303 Forward bulkhead (2 discs)"
+    ],
+    [
+      "CAD-AV-304.svg",
+      "AV-304 Aft bulkhead (2 discs)"
+    ],
+    [
+      "CAD-AV-306.svg",
+      "AV-306 Electronics sled"
+    ],
+    [
+      "CAD-AV-308.svg",
+      "AV-308 Battery cage"
+    ],
+    [
+      "CAD-AV-309.svg",
+      "AV-309 Aft bulkhead face gasket"
+    ],
+    [
+      "CAD-AV-312.svg",
+      "AV-312 Rod spacers (2 fwd + 2 aft)"
+    ],
+    [
+      "CAD-BO-401.svg",
+      "BO-401 Booster tube"
+    ],
+    [
+      "CAD-BO-402.svg",
+      "BO-402 Motor mount tube"
+    ],
+    [
+      "CAD-BO-403.svg",
+      "BO-403 Fin-can core"
+    ],
+    [
+      "CAD-BO-404.svg",
+      "BO-404 Forward centering ring"
+    ],
+    [
+      "CAD-BO-405.svg",
+      "BO-405 Aft fin lock ring"
+    ],
+    [
+      "CAD-BO-406.svg",
+      "BO-406 Fin (x4 + 1 spare)"
+    ],
+    [
+      "CAD-BO-409.svg",
+      "BO-409 Forward rail-button boss"
+    ],
+    [
+      "CAD-GS-701.svg",
+      "GS-701 Fin alignment jig (ground support)"
+    ]
+  ],
+  "images": [
+    [
+      "astra66_assembly.png",
+      "Assembly, commercial envelopes transparent"
+    ],
+    [
+      "astra66_exploded.png",
+      "Exploded modules (90 mm)"
+    ],
+    [
+      "astra66_half_section.png",
+      "Half-section through the 90/270 deg plane"
+    ],
+    [
+      "astra66_vertical.png",
+      "Assembly, nose up (display pose)"
+    ]
+  ],
+  "motor_status": "PLACEHOLDER",
+  "modules": {
+    "100 Nose": {
+      "m": 130.68494,
+      "x": 237.22525131051827
+    },
+    "200 Payload": {
+      "m": 149.82,
+      "x": 376.69095902416234
+    },
+    "300 Avionics": {
+      "m": 305.20656,
+      "x": 532.4599399370709
+    },
+    "400 Booster": {
+      "m": 384.988,
+      "x": 980.2360077586834
+    },
+    "500 Recovery": {
+      "m": 130.0,
+      "x": 736.6538461538462
+    },
+    "600 Motor": {
+      "m": 110.0,
+      "x": 1091.5
+    }
+  },
+  "sens": {
+    "m_min": 40,
+    "sm_at_min": 3.0020924979296644,
+    "m_max": 320,
+    "sm_at_max": 1.749930420249336
+  },
+  "fins": {
+    "cad_span": 186.0,
+    "root": 150.0,
+    "cad_tip_z": [
+      1124.0,
+      1064.0,
+      1064.0,
+      1064.0,
+      1124.0,
+      1064.0,
+      1064.0,
+      1124.0,
+      1064.0,
+      1064.0,
+      1124.0,
+      1064.0,
+      1064.0,
+      1064.0,
+      1124.0,
+      1064.0,
+      1064.0,
+      1124.0,
+      1124.0,
+      1064.0,
+      1124.0,
+      1124.0,
+      1124.0,
+      1064.0,
+      1064.0,
+      1064.0
+    ]
+  },
+  "n_exports": {
+    "stl": 15,
+    "dxf": 8,
+    "svg_profiles": 8,
+    "drawings": 31,
+    "assembly": 2
+  },
+  "scad_files": [
+    "cad/assembly/astra66_assembly.scad",
+    "cad/astra66.scad",
+    "cad/astra66_params.scad",
+    "cad/lib/astra66_core.scad",
+    "cad/parts/AV-301_coupler.scad",
+    "cad/parts/AV-302_switch_band.scad",
+    "cad/parts/AV-303_fwd_bulkhead.scad",
+    "cad/parts/AV-304_aft_bulkhead.scad",
+    "cad/parts/AV-306_electronics_sled.scad",
+    "cad/parts/AV-308_battery_cage.scad",
+    "cad/parts/AV-309_gasket.scad",
+    "cad/parts/AV-312_rod_spacers.scad",
+    "cad/parts/BO-401_booster_tube.scad",
+    "cad/parts/BO-402_motor_mount_tube.scad",
+    "cad/parts/BO-403_fincan_core.scad",
+    "cad/parts/BO-404_fwd_centering_ring.scad",
+    "cad/parts/BO-405_fin_lock_ring.scad",
+    "cad/parts/BO-406_fin.scad",
+    "cad/parts/BO-409_rail_button_boss.scad",
+    "cad/parts/COTS_envelopes.scad",
+    "cad/parts/GS-701_fin_jig.scad",
+    "cad/parts/NC-101_nose_tip.scad",
+    "cad/parts/NC-102_nose_base.scad",
+    "cad/parts/NC-103_nose_bulkhead.scad",
+    "cad/parts/PL-201_payload_tube.scad",
+    "cad/parts/PL-202_gps_tray.scad",
+    "cad/parts/PL-203_camera_cradle.scad",
+    "cad/parts/PL-204_lens_cowl.scad",
+    "cad/parts/PL-205_access_hatch.scad",
+    "cad/parts/PL-206_hatch_frame.scad"
+  ]
+}

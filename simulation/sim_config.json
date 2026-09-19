@@ -1,0 +1,26 @@
+{
+  "_readme": [
+    "Simulation settings for ASTRA-66 (non-propulsion). Every value is validated by simulation/config.py.",
+    "launch_site values are USER planning defaults: replace them with the range's elevation and expected temperature.",
+    "rail.length_m = null uses RAIL_L from analysis/analysis.py (USER planning value).",
+    "aerodynamics values are ASSUMPTIONS of the drag build-up (see simulation/aerodynamics.py)."
+  ],
+  "launch_site": {
+    "status": "PLANNING_DEFAULT",
+    "site_elevation_m": 0.0,
+    "temp_offset_K": 0.0
+  },
+  "rail": {
+    "length_m": null
+  },
+  "aerodynamics": {
+    "surface_roughness_m": 2e-05,
+    "protuberance_fraction": 0.08
+  },
+  "integration": {
+    "dt_burn_s": 0.001,
+    "dt_coast_s": 0.005,
+    "dt_descent_s": 0.02,
+    "t_max_s": 400.0
+  }
+}

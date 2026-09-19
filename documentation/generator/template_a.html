@@ -1,0 +1,432 @@
+<title>ASTRA-66 Engineering Package</title>
+<meta charset="utf-8">
+<meta name="description" content="Modular student rocket airframe: CAD architecture, drawings, analysis, BOM, test plan and flight-readiness route.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{
+  --paper:#F4F5F2; --paper-2:#E9ECE7; --part:#E3E7E2; --part-2:#D5DBD5; --comp:#DCE3EA;
+  --ink:#1B2126; --ink-2:#4A545C; --ink-3:#87918F; --rule:#CDD3CE; --hatch:#7D8784;
+  --dimc:#1D6A86; --dim-soft:#DDEBF0; --acc:#C24A0C; --acc-soft:#F8E3D5;
+  --asm:#8A5A00; --asm-soft:#F3E6C8; --cots:#2F6A47; --cots-soft:#DCEBDF; --user:#5B4B8A; --user-soft:#E6E1F2;
+  --ok:#2F6A47; --warn:#8A5A00; --bad:#A3321A;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --sans:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",Consolas,"Courier New",monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#14181B; --paper-2:#1B2125; --part:#242B30; --part-2:#2E363C; --comp:#213039;
+    --ink:#E2E6E3; --ink-2:#A9B2B0; --ink-3:#6E7876; --rule:#30383D; --hatch:#78827F;
+    --dimc:#62B6D2; --dim-soft:#16303A; --acc:#FF7D3A; --acc-soft:#3A2317;
+    --asm:#E0B55A; --asm-soft:#382C12; --cots:#7CC596; --cots-soft:#173024; --user:#B7A6EE; --user-soft:#2A2440;
+    --ok:#7CC596; --warn:#E0B55A; --bad:#FF8A6B;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#14181B; --paper-2:#1B2125; --part:#242B30; --part-2:#2E363C; --comp:#213039;
+  --ink:#E2E6E3; --ink-2:#A9B2B0; --ink-3:#6E7876; --rule:#30383D; --hatch:#78827F;
+  --dimc:#62B6D2; --dim-soft:#16303A; --acc:#FF7D3A; --acc-soft:#3A2317;
+  --asm:#E0B55A; --asm-soft:#382C12; --cots:#7CC596; --cots-soft:#173024; --user:#B7A6EE; --user-soft:#2A2440;
+  --ok:#7CC596; --warn:#E0B55A; --bad:#FF8A6B;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font:15px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--dimc)} a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.frame{display:grid;grid-template-columns:232px minmax(0,1fr);max-width:1480px;margin:0 auto}
+nav.index{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px 30px 22px;border-right:1px solid var(--rule)}
+nav.index .brand{font:700 26px/1 var(--display);letter-spacing:.04em}
+nav.index .brand small{display:block;font:500 11px/1.4 var(--mono);color:var(--ink-3);letter-spacing:.06em;margin-top:6px}
+nav.index ol{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:1px}
+nav.index a{display:grid;grid-template-columns:34px 1fr;gap:6px;text-decoration:none;color:var(--ink-2);font:13px/1.35 var(--sans);padding:5px 6px;border-radius:3px}
+nav.index a span{font:500 11px/1.6 var(--mono);color:var(--ink-3)}
+nav.index a:hover{background:var(--paper-2);color:var(--ink)}
+nav.index a.on{background:var(--paper-2);color:var(--ink);box-shadow:inset 2px 0 0 var(--dimc)}
+main{padding:0 40px 80px;min-width:0}
+@media (max-width:980px){.frame{grid-template-columns:1fr} nav.index{position:static;height:auto;border-right:0;border-bottom:1px solid var(--rule)} nav.index ol{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))} main{padding:0 18px 60px}}
+
+/* title block masthead */
+.tb{margin:28px 0 18px;border:1.5px solid var(--ink);display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;background:var(--paper)}
+.tb > div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:8px 12px;min-width:0}
+.tb > div:nth-child(4n){border-right:0}
+.tb .lbl{display:block;font:500 10px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.tb .val{font:500 14px/1.35 var(--mono)}
+.tb .name{grid-row:span 2;display:flex;flex-direction:column;justify-content:center}
+.tb .name h1{font:700 64px/.9 var(--display);letter-spacing:.02em;margin:4px 0 6px;text-wrap:balance}
+.tb .name p{margin:0;color:var(--ink-2);font-size:14px}
+.tb .status{grid-column:1 / -1;border-bottom:0;background:var(--acc-soft);color:var(--acc);font:600 13px/1.4 var(--mono);letter-spacing:.04em}
+@media (max-width:760px){.tb{grid-template-columns:1fr 1fr}.tb > div:nth-child(4n){border-right:1px solid var(--ink)}.tb > div:nth-child(2n){border-right:0}.tb .name{grid-column:1/-1;grid-row:auto}.tb .name h1{font-size:48px}}
+
+.specrow{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;border:1px solid var(--rule);margin:0 0 26px}
+.specrow div{padding:10px 12px;border-right:1px solid var(--rule)} .specrow div:last-child{border-right:0}
+.specrow b{display:block;font:600 24px/1.1 var(--display);letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.specrow span{font:500 10.5px/1.3 var(--mono);color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase}
+@media (max-width:900px){.specrow{grid-template-columns:repeat(3,1fr)}.specrow div:nth-child(3n){border-right:0}.specrow div{border-bottom:1px solid var(--rule)}}
+
+section{padding-top:34px;scroll-margin-top:8px}
+h2{font:600 34px/1.05 var(--display);letter-spacing:.02em;margin:0 0 4px;text-wrap:balance;display:flex;gap:14px;align-items:baseline}
+h2 .code{font:500 13px/1 var(--mono);color:var(--dimc);letter-spacing:.06em;border:1px solid var(--dimc);padding:4px 6px;border-radius:2px;flex:none;transform:translateY(-4px)}
+h3{font:600 21px/1.2 var(--display);letter-spacing:.03em;margin:28px 0 8px;text-wrap:balance}
+h4{font:600 12px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin:18px 0 6px}
+.lede{color:var(--ink-2);max-width:72ch;margin:6px 0 16px}
+p,li{max-width:76ch}
+hr.sec{border:0;border-top:1.5px solid var(--ink);margin:40px 0 0}
+code,.mono{font-family:var(--mono);font-size:.92em}
+.num,td.num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px 28px}
+
+/* callouts */
+.boundary{border:1.5px solid var(--acc);background:var(--acc-soft);padding:14px 18px;display:grid;grid-template-columns:auto 1fr;gap:4px 16px;margin:0 0 18px}
+.boundary .h{grid-column:1/-1;font:600 13px/1.3 var(--mono);letter-spacing:.08em;color:var(--acc);text-transform:uppercase}
+.boundary ul{margin:4px 0 0;padding-left:18px}
+.boundary .c{min-width:0}
+.boundary .c b{font:600 12px var(--mono);letter-spacing:.06em}
+@media (max-width:760px){.boundary{grid-template-columns:1fr}}
+.note{border-left:3px solid var(--dimc);background:var(--dim-soft);padding:10px 14px;margin:14px 0;max-width:80ch}
+.validate{border-left:3px solid var(--acc);background:var(--acc-soft);padding:10px 14px;margin:14px 0;max-width:80ch}
+.validate b:first-child{font:600 11px var(--mono);letter-spacing:.08em;color:var(--acc);display:block}
+.legend{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:6px 0 4px;font-size:13.5px;color:var(--ink-2)}
+
+/* tags & chips */
+.tag{display:inline-block;font:600 10px/1 var(--mono);letter-spacing:.06em;padding:4px 6px 3px;border-radius:2px;white-space:nowrap;vertical-align:1px}
+.t-calc{color:var(--dimc);background:var(--dim-soft)}
+.t-asm{color:var(--asm);background:var(--asm-soft)}
+.t-user{color:var(--user);background:var(--user-soft)}
+.t-cots{color:var(--cots);background:var(--cots-soft)}
+.chip{font:600 10px/1 var(--mono);letter-spacing:.06em;padding:4px 6px 3px;border:1px solid currentColor;border-radius:2px;white-space:nowrap}
+.chip.make{color:var(--ink-2)} .chip.buy{color:var(--cots)} .chip.ext{color:var(--acc)}
+.risk{font:600 10.5px/1 var(--mono);padding:4px 6px 3px;border-radius:2px;white-space:nowrap}
+.r-high{color:var(--bad);background:var(--acc-soft)} .r-med{color:var(--warn);background:var(--asm-soft)} .r-low{color:var(--ok);background:var(--cots-soft)}
+
+/* tables */
+.tw{overflow-x:auto;margin:10px 0 18px;border-top:1.5px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+caption{text-align:left;font:600 12px var(--mono);letter-spacing:.06em;color:var(--ink-2);padding:6px 0}
+th{font:600 10.5px/1.3 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2);text-align:left;padding:8px 10px;border-bottom:1px solid var(--ink);white-space:nowrap;background:var(--paper)}
+td{padding:7px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+tfoot td{border-top:1px solid var(--ink);border-bottom:0;background:var(--paper-2)}
+table.compact td{padding:6px 9px;font-size:13px}
+table.wide{min-width:1500px} table.wide td{font-size:12.5px}
+table.wide td:first-child,table.compact td:first-child{font-family:var(--mono);font-size:12px;white-space:nowrap}
+tbody tr:hover td{background:var(--paper-2)}
+details{margin:8px 0 16px;border:1px solid var(--rule)}
+details > summary{cursor:pointer;padding:9px 14px;font:600 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);list-style:none;display:flex;justify-content:space-between;gap:12px}
+details > summary::after{content:"+";font-size:16px;line-height:1} details[open] > summary::after{content:"−"}
+details > .tw,details > .inner{margin:0 14px 14px}
+
+/* drawing sheets */
+.sheet{margin:22px 0 30px;border:1.5px solid var(--ink);background:var(--paper)}
+.sheet .canvas{overflow-x:auto;padding:10px 12px 4px;background:var(--paper)}
+.sheet .canvas svg{display:block;width:100%;height:auto;min-width:880px}
+.sheet .block{display:grid;grid-template-columns:130px 1fr 110px 90px 90px 70px;border-top:1.5px solid var(--ink)}
+.sheet .block > div{padding:6px 10px;border-right:1px solid var(--ink);min-width:0}
+.sheet .block > div:last-child{border-right:0}
+.sheet .block .lbl{display:block;font:500 9.5px/1.2 var(--mono);letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase}
+.sheet .block .val{font:500 13px/1.3 var(--mono)}
+.sheet .block .ttl{font:600 16px/1.2 var(--display);letter-spacing:.04em}
+.sheet figcaption{padding:9px 12px;border-top:1px solid var(--rule);color:var(--ink-2);font-size:13.5px}
+@media (max-width:760px){.sheet .block{grid-template-columns:1fr 1fr 1fr}.sheet .block > div{border-bottom:1px solid var(--ink)}}
+.proj{display:inline-block;vertical-align:middle}
+.fig{margin:16px 0 24px}
+.fig .canvas{overflow-x:auto;border:1px solid var(--rule);padding:8px;background:var(--paper)}
+.fig svg{display:block;width:100%;height:auto;min-width:860px}
+.fig figcaption{font-size:13.5px;color:var(--ink-2);padding:8px 2px 0}
+
+/* SVG drawing styles */
+.dwg .ln{fill:none;stroke:var(--ink);stroke-width:1.3;stroke-linejoin:round}
+.dwg .thin{stroke-width:.8}
+.dwg .body{fill:var(--part);stroke:var(--ink);stroke-width:1.3;stroke-linejoin:round}
+.dwg .band{fill:var(--part-2);stroke:var(--ink);stroke-width:1}
+.dwg .comp{fill:var(--comp);stroke:var(--ink);stroke-width:.8}
+.dwg .cut{stroke:var(--ink);stroke-width:1}
+.dwg .hatch{stroke:var(--hatch);stroke-width:.8}
+.dwg .hatchbg{fill:var(--paper)} .dwg .hatchbg2{fill:var(--paper-2)}
+.dwg .hid{fill:none;stroke:var(--ink-3);stroke-width:.9;stroke-dasharray:5 3}
+.dwg .ctr{fill:none;stroke:var(--ink-3);stroke-width:.7;stroke-dasharray:22 4 3 4}
+.dwg .ph{fill:none;stroke:var(--acc);stroke-width:1.3;stroke-dasharray:14 4 3 4 3 4}
+.dwg .dim{fill:none;stroke:var(--dimc);stroke-width:.8}
+.dwg .ext{fill:none;stroke:var(--dimc);stroke-width:.6}
+.dwg .mk{fill:var(--dimc)} .dwg .mkink{fill:var(--ink)} .dwg .mkacc{fill:var(--acc)}
+.dwg .ldr{fill:none;stroke:var(--ink-2);stroke-width:.7} .dwg .dot{fill:var(--ink-2)}
+.dwg text{font-family:var(--mono);font-size:12px;fill:var(--ink)}
+.dwg .td{fill:var(--dimc)} .dwg .ta{fill:var(--acc)} .dwg .tm{fill:var(--ink-2)}
+.dwg .tb{font-weight:600} .dwg .ts{font-size:10.5px}
+.dwg .tl{font-family:var(--display);font-size:17px;font-weight:600;letter-spacing:.05em}
+.dwg .pill{fill:var(--paper);stroke:var(--ink);stroke-width:1}
+.dwg .cgf{fill:var(--ink)} .dwg .cgb{fill:var(--paper);stroke:var(--ink);stroke-width:1.4} .dwg .accf{fill:var(--acc)}
+.dwg .eye{fill:none;stroke:var(--ink);stroke-width:2.4}
+.dwg .box{fill:var(--paper-2);stroke:var(--ink);stroke-width:1.1}
+.dwg .boxacc{fill:var(--acc-soft);stroke:var(--acc);stroke-width:1.2;stroke-dasharray:6 3}
+.dwg .boxdim{fill:var(--dim-soft);stroke:var(--dimc);stroke-width:1.1}
+.dwg .arrow{fill:none;stroke:var(--ink);stroke-width:1.3}
+.dwg .arrowacc{fill:none;stroke:var(--acc);stroke-width:1.6}
+.dwg .arrowdim{fill:none;stroke:var(--dimc);stroke-width:1.3;stroke-dasharray:6 4}
+
+/* chart */
+.chartwrap{position:relative;border:1px solid var(--rule);padding:10px;max-width:780px}
+.chart{display:block;width:100%;height:auto}
+.chart .band{fill:var(--cots-soft)} .chart .bandlab{font:600 10px var(--mono);fill:var(--cots);letter-spacing:.06em}
+.chart .grid{stroke:var(--rule);stroke-width:1}
+.chart .ax{font:11px var(--mono);fill:var(--ink-3);font-variant-numeric:tabular-nums}
+.chart .axt{font:11.5px var(--sans);fill:var(--ink-2)}
+.chart .area{fill:var(--dimc);opacity:.08}
+.chart .series{fill:none;stroke:var(--dimc);stroke-width:2;stroke-linejoin:round}
+.chart .pt{fill:var(--dimc);stroke:var(--paper);stroke-width:2}
+.chart .pt.hi{fill:var(--acc)}
+.chart .lab{font:600 11px var(--mono);fill:var(--ink)}
+.chart .hit{fill:transparent;cursor:crosshair}
+.chart .xhair{stroke:var(--ink-3);stroke-width:1;stroke-dasharray:3 3;opacity:0}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--paper);font:12px/1.45 var(--mono);padding:7px 9px;border-radius:3px;white-space:nowrap;opacity:0;transform:translate(-50%,-110%)}
+
+/* equations, trees, steps, checklists */
+.eq{font:13.5px/1.9 var(--mono);background:var(--paper-2);border:1px solid var(--rule);padding:12px 16px;overflow-x:auto;white-space:pre;margin:10px 0 14px}
+.tree{font:13px/1.55 var(--mono);background:var(--paper-2);border:1px solid var(--rule);padding:14px 18px;overflow-x:auto;white-space:pre}
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:10px 0 18px;display:grid;gap:0}
+ol.steps > li{counter-increment:s;display:grid;grid-template-columns:44px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--rule);max-width:none}
+ol.steps > li::before{content:counter(s,decimal-leading-zero);font:600 13px/1.6 var(--mono);color:var(--dimc)}
+ol.steps > li b{font-weight:600}
+ul.ticks{padding-left:18px} ul.ticks li{margin:3px 0}
+.check{columns:2 360px;column-gap:30px;margin:8px 0 18px}
+.check h4{break-after:avoid;margin-top:14px}
+.check label{display:grid;grid-template-columns:20px 1fr;gap:8px;padding:5px 0;break-inside:avoid;font-size:14px;cursor:pointer;border-bottom:1px dotted var(--rule)}
+.check input{accent-color:var(--dimc);margin-top:4px}
+.check input:checked + span{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--ink-3)}
+.check .crit{color:var(--acc);font:600 10px var(--mono);letter-spacing:.06em;margin-left:6px}
+.gates{display:grid;gap:0;border-top:1.5px solid var(--ink);margin:12px 0}
+.gate{display:grid;grid-template-columns:120px 1fr 240px;gap:16px;padding:12px 0;border-bottom:1px solid var(--rule)}
+.gate .ph{font:600 12px/1.4 var(--mono);letter-spacing:.06em;color:var(--dimc)}
+.gate h5{font:600 18px/1.2 var(--display);letter-spacing:.03em;margin:0 0 4px}
+.gate p{margin:0;color:var(--ink-2);font-size:14px}
+.gate .exit{font-size:13px;border-left:2px solid var(--acc);padding-left:10px;color:var(--ink)}
+.gate .exit b{display:block;font:600 10px var(--mono);letter-spacing:.08em;color:var(--acc)}
+@media (max-width:860px){.gate{grid-template-columns:1fr}}
+footer{margin-top:50px;border-top:1.5px solid var(--ink);padding-top:14px;font:12px/1.6 var(--mono);color:var(--ink-3)}
+</style>
+
+<div class="frame">
+<nav class="index" aria-label="Document index">
+  <div class="brand">ASTRA-66<small>ASTRA-66-EP-001 · REV B</small></div>
+  <ol>
+    <li><a href="#scope"><span>§0</span>Scope &amp; safety boundary</a></li>
+    <li><a href="#spec"><span>§1</span>Technical specification</a></li>
+    <li><a href="#objectives"><span>§2</span>Design objectives</a></li>
+    <li><a href="#architecture"><span>§3</span>System architecture</a></li>
+    <li><a href="#cad"><span>§4</span>CAD architecture</a></li>
+    <li><a href="#assumptions"><span>§5</span>Assumptions</a></li>
+    <li><a href="#drawings"><span>§6</span>Drawing package</a></li>
+    <li><a href="#analysis"><span>§7</span>Engineering analysis</a></li>
+    <li><a href="#avionics"><span>§8</span>Avionics &amp; payload</a></li>
+    <li><a href="#parts"><span>§9</span>Parts list &amp; BOM</a></li>
+    <li><a href="#manufacturing"><span>§10</span>Manufacturing plan</a></li>
+    <li><a href="#assembly"><span>§11</span>Assembly procedure</a></li>
+    <li><a href="#testing"><span>§12</span>Testing plan</a></li>
+    <li><a href="#simulation"><span>§13</span>Simulation workflow</a></li>
+    <li><a href="#checklists"><span>§14</span>Checklists</a></li>
+    <li><a href="#risk"><span>§15</span>Risk assessment</a></li>
+    <li><a href="#cost"><span>§16</span>Cost estimate</a></li>
+    <li><a href="#software"><span>§17</span>Software</a></li>
+    <li><a href="#route"><span>§18</span>CAD → flight route</a></li>
+    <li><a href="#future"><span>§19</span>Future improvements</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="tb" id="top">
+  <div class="name"><span class="lbl">Project</span><h1>ASTRA-66</h1><p>Modular student rocket airframe, 66 mm class, for a commercially certified 29 mm-class model-rocket motor (external component)</p></div>
+  <div><span class="lbl">Document</span><span class="val">ASTRA-66-EP-001</span></div>
+  <div><span class="lbl">Revision</span><span class="val">B · CAD-validated draft</span></div>
+  <div><span class="lbl">Date</span><span class="val">2026-09-19</span></div>
+  <div><span class="lbl">Units · projection</span><span class="val">mm, g, N · 3rd angle</span></div>
+  <div><span class="lbl">Datum</span><span class="val">STA 0 = nose tip</span></div>
+  <div><span class="lbl">Sheets</span><span class="val">A-001 … A-007</span></div>
+  <div class="status">STATUS: DRAFT DESIGN · NOT FLIGHT CERTIFIED · requires review and sign-off by a qualified rocketry mentor or institution before any launch</div>
+</header>
+
+<div class="specrow" aria-label="Headline specifications">
+  <div><b>{{V:L}} mm</b><span>Airframe length</span></div>
+  <div><b>⌀{{V:D}} mm</b><span>Body · L/D {{V:LD}}</span></div>
+  <div><b>≈{{V:M0}} g</b><span>Liftoff est. (placeholder motor)</span></div>
+  <div><b>{{V:sm0}} cal</b><span>Static margin, liftoff</span></div>
+  <div><b>{{V:n_parts}}</b><span>Numbered parts</span></div>
+  <div><b>{{V:cost_rec}}</b><span>Recommended build</span></div>
+</div>
+
+<section id="scope">
+<h2><span class="code">§0</span>Scope &amp; safety boundary</h2>
+<div class="boundary" role="note">
+  <div class="h">Propulsion is outside this design</div>
+  <div class="c"><b>IN SCOPE</b><ul><li>Airframe, structures, fins, recovery bay and attachment points</li><li>Sensing, logging and telemetry electronics (no outputs that fire anything)</li><li>Analysis, drawings, test plan, and the gates that lead to a supervised flight</li></ul></div>
+  <div class="c"><b>OUT OF SCOPE — NEVER FABRICATED</b><ul><li>Motors, propellant, ejection charges, igniters, pyrotechnics</li><li>Motor interface dimensions: left as parameters to be taken from the maker's current documents</li><li>Electronic deployment: recovery uses the certified motor's own ejection, prepared by a mentor</li></ul></div>
+</div>
+<p class="lede">This package covers a complete, manufacturable airframe. Motor mass, length and retainer geometry appear only as clearly marked <em>placeholders</em> so that the centre of gravity (CG) can be computed. When your mentor has selected the certified motor, copy its published data into <code>simulation/motor_config.json</code>. Set <code>status</code> to <code>MANUFACTURER_DATA</code> and record the source, verifier and date, then re-run <code>python cad/build_cad.py</code>.</p>
+<h4>Data provenance legend (used throughout)</h4>
+<div class="legend"><span class="tag t-calc">CALCULATED</span> derived in <code>analysis/analysis.py</code> <span class="tag t-asm">ASSUMPTION</span> engineering estimate, to be verified <span class="tag t-user">USER-SUPPLIED</span> you measure or obtain it <span class="tag t-cots">COMMERCIAL SPEC</span> from the manufacturer's documents only</div>
+</section>
+
+<section id="spec">
+<h2><span class="code">§1</span>Technical specification</h2>
+<p class="lede">Presentation-ready specification sheet. Every mass, CG and stability value comes from the parametric model, using the placeholder motor.</p>
+<div class="tw"><table>
+<thead><tr><th>Item</th><th>Value</th><th>Provenance</th></tr></thead>
+<tbody>
+<tr><td>Project title</td><td><b>ASTRA-66</b>: Modular Student Rocket Airframe with Sensing Payload</td><td>—</td></tr>
+<tr><td>Configuration</td><td>Tangent-ogive nose · payload bay · coupler avionics bay with switch band · booster with slide-in 4-fin can</td><td>—</td></tr>
+<tr><td>Overall length / body diameter</td><td class="num">{{V:L}} mm / ⌀{{V:D}} mm (L/D {{V:LD}})</td><td><span class="tag t-calc">CALCULATED</span></td></tr>
+<tr><td>Mass: empty / liftoff / burnout</td><td class="num">{{V:Me}} / {{V:M0}} / {{V:Mb}} g</td><td><span class="tag t-calc">CALCULATED</span> from ASSUMPTION masses</td></tr>
+<tr><td>CG (liftoff) / CP (Barrowman)</td><td class="num">STA {{V:cg0}} / STA {{V:xcp}} mm</td><td><span class="tag t-calc">CALCULATED</span></td></tr>
+<tr><td>Static margin: liftoff / burnout</td><td class="num">{{V:sm0}} / {{V:smb}} cal</td><td><span class="tag t-calc">CALCULATED</span> {{V:motor_flag}}</td></tr>
+<tr><td>Fins</td><td>4 × trapezoidal, root {{V:fin_CR}} · tip {{V:fin_CT}} · span {{V:fin_S}} · sweep {{V:fin_XR}} mm, {{V:fin_T}} mm birch ply</td><td><span class="tag t-asm">ASSUMPTION</span> sized by trade study</td></tr>
+<tr><td>Motor system</td><td>Commercially certified 29 mm-class motor + commercial screw-on retainer, selected by mentor</td><td><span class="tag t-cots">COMMERCIAL SPEC</span></td></tr>
+<tr><td>Recovery</td><td>Motor ejection → single parachute, {{V:chute_D}} mm (42 in) class, ≈{{V:v_sel}} m/s descent, {{V:cord_L}} m shock cord</td><td><span class="tag t-calc">CALCULATED</span> Cd ASSUMPTION</td></tr>
+<tr><td>Payload</td><td>GPS, camera, and an optional sensor tray in a {{V:pay_bay}} mm clear bay with a service hatch</td><td>—</td></tr>
+<tr><td>Avionics</td><td>MCU, ±32 g IMU, barometer, temperature, microSD, LoRa downlink, breakwire separation sensing</td><td>—</td></tr>
+<tr><td>Launch guide</td><td>2 × 1010-size rail buttons, {{V:rb_span}} mm apart, at 45°</td><td><span class="tag t-user">USER-SUPPLIED</span> confirm range rail</td></tr>
+<tr><td>Design envelope</td><td>V ≤ {{V:v_max}} m/s · axial ≤ {{V:n_ax}} g · wind ≤ 15 km/h</td><td><span class="tag t-asm">ASSUMPTION</span></td></tr>
+<tr><td>Estimated cost (excl. motors)</td><td>Low-cost {{V:cost_low}} · Recommended {{V:cost_rec}}</td><td><span class="tag t-asm">ASSUMPTION</span></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="objectives">
+<h2><span class="code">§2</span>Design objectives</h2>
+<div class="cols">
+<div><h4>Flight &amp; safety</h4><ul class="ticks">
+<li>Static margin 1.5–3.0 cal from rail exit to burnout, confirmed by measured CG</li>
+<li>Recovery-train hardware rated at ≥ 2× the estimated deployment load</li>
+<li>No energetic material is designed, stored in, or controlled by the airframe</li>
+<li>Subsonic envelope (≤ {{V:v_max}} m/s) matched to printed and paper-tube structures</li></ul></div>
+<div><h4>Build &amp; cost</h4><ul class="ticks">
+<li>Uses only a hobby FDM printer, hand tools, and an optional laser-cutting service</li>
+<li>Metric ISO fasteners and heat-set inserts: no machining</li>
+<li>Low-cost build under {{V:cost_low}}, excluding motors</li>
+<li>Every interface is parameterised, so a tube-size change only needs a rebuild</li></ul></div>
+<div><h4>Service &amp; demonstration</h4><ul class="ticks">
+<li>Fins replaceable in minutes (slide-in, locked by a screwed ring)</li>
+<li>Nose, hatch and aft bulkhead give tool-light access to every compartment</li>
+<li>Electronics sled can be removed and bench-tested on a harness</li>
+<li>Exhibition-ready: cutaway drawings, live telemetry demo, display stand</li></ul></div>
+</div>
+</section>
+
+<section id="architecture">
+<h2><span class="code">§3</span>System architecture</h2>
+<p class="lede">Four airframe modules join at numbered interfaces. Only interface I-03 separates in flight. Thrust enters through the commercial retainer (I-05) and passes forward along the motor mount tube, centering rings and body tube. Recovery loads run from the eyebolt, through the tether, to the aramid anchor bonded to the motor mount.</p>
+<figure class="fig"><div class="canvas">{{S:arch}}</div><figcaption>Figure 3-1. Modules, interfaces and load paths. Orange marks the separating joint and the external certified motor system.</figcaption></figure>
+<h3>Interface control table</h3>
+{{T:icd}}
+</section>
+
+<section id="cad">
+<h2><span class="code">§4</span>CAD architecture</h2>
+<p class="lede">One parameter set drives everything. <code>analysis/analysis.py</code> holds the values, and <code>build.py</code> writes them to <code>cad/astra66_params.scad</code>. Every OpenSCAD source includes that file:
+<ul>
+<li>the master assembly <code>cad/assembly/astra66_assembly.scad</code>;</li>
+<li>one file per part in <code>cad/parts/</code>;</li>
+<li>the station library <code>cad/lib/astra66_core.scad</code>.</li>
+</ul>
+Changing a length or diameter moves every dependent feature. <code>cad/build_cad.py</code> renders, validates and exports the whole model; the results are in <code>documentation/CAD_VALIDATION.md</code>.</p>
+<div class="cols">
+<div><h4>Assembly hierarchy</h4>
+<div class="tree">ASTRA-66-000  TOP ASSEMBLY
+├─ 100 NOSE CONE ASSY
+│  ├─ NC-101 nose tip            (print)
+│  ├─ NC-102 nose base+shoulder  (print)
+│  ├─ NC-103 nose bulkhead       (print)
+│  └─ NC-104 ballast rod kit     (buy)
+├─ 200 PAYLOAD SECTION
+│  ├─ PL-201 payload tube        (cut)
+│  ├─ PL-202 GPS/sensor tray     (print)
+│  ├─ PL-203 camera cradle       (print)
+│  ├─ PL-204 lens cowl           (print)
+│  └─ PL-205/206 hatch + frame   (print)
+├─ 300 AVIONICS BAY
+│  ├─ AV-301 coupler · AV-302 switch band
+│  ├─ AV-303 fwd bulkhead (bonded)
+│  ├─ AV-304 aft bulkhead (removable)
+│  ├─ AV-305 rods · AV-306 sled · AV-307 switch
+│  ├─ AV-308 battery cage · AV-309 face gasket · AV-312 spacers
+│  └─ AV-311 eyebolt             (buy)
+├─ 400 BOOSTER
+│  ├─ BO-401 tube · BO-402 MMT · BO-403 fin-can core
+│  ├─ BO-404 fwd ring · BO-405 lock ring · BO-406 fins ×4
+│  ├─ BO-407 retainer   ◄ COMMERCIAL
+│  └─ BO-408/409 rail buttons + boss · BO-410 aramid
+├─ 500 RECOVERY  RC-501…505  (all buy)
+├─ 600 MOTOR SYSTEM  MT-601/602  ◄ EXTERNAL, NOT MODELLED
+└─ 700 GROUND SUPPORT  GS-701…705</div></div>
+<div><h4>Modelling rules</h4><ul class="ticks">
+<li><b>Datum:</b> rocket axis = +Z; station 0 at the nose tip. Every part is modelled in assembly coordinates, so there are no mating constraints to break.</li>
+<li><b>Naming:</b> modules use <code>nose_base()</code>, <code>fincan_core()</code> and so on. Part numbers appear in comments and in the STL filenames.</li>
+<li><b>Fits:</b> all clearances are named parameters (<code>FIT_SH</code>, <code>FIN_SLOT_CLR</code>, <code>FIN_GUIDE_CLR</code>). Print a coupon first, then adjust.</li>
+<li><b>External parts</b> are transparent <code>%</code> envelopes: motor, retainer, rail buttons, eyebolt. Their sizes are COMMERCIAL SPEC parameters.</li>
+<li><b>Outputs:</b> the pipeline writes print-oriented STLs to <code>cad/exports/stl</code>, laser-cut DXF/SVG profiles to <code>cad/exports/dxf</code>, and drawings made from true sections of the rendered meshes to <code>cad/drawings</code>. <code>cad/astra66.scad</code> keeps the rev A <code>PART=</code> selector.</li>
+<li><b>Porting:</b> <code>analysis/results/parameters.csv</code> maps 1:1 onto a FreeCAD spreadsheet, Onshape variables, or Fusion user parameters if you rebuild in a feature-based CAD tool.</li></ul>
+<div class="note"><b>CAD rev {{V:cad_rev}}: rendered and checked {{V:cad_date}}</b> with {{V:cad_osc}}. {{V:cad_parts}} parts were checked: {{V:cad_pass}} checks passed, {{V:cad_warn}} gave warnings, {{V:cad_fail}} failed. The checks cover:
+<ul>
+<li>mesh validity, interference and assembly sweeps;</li>
+<li>printability, fastener access and rail-button alignment;</li>
+<li>masses measured from the CAD (these now feed the mass budget in §7).</li>
+</ul>
+The discrepancies found and fixed are listed in <code>documentation/CAD_VALIDATION.md</code>. The most important one: fin tabs now clear the commercial retainer, so fins can be removed with the retainer fitted.</div>
+</div>
+</div>
+<details><summary>Full parameter table ({{V:n_parts}} parts are driven by these values)</summary>{{T:params}}</details>
+</section>
+
+<section id="assumptions">
+<h2><span class="code">§5</span>Engineering assumptions</h2>
+<div class="cols">
+<div><h4>Geometry &amp; materials</h4><ul class="ticks">
+<li>The nominal 66.0 / 64.0 mm tube and 63.8 / 61.0 mm coupler must be measured when bought. <span class="tag t-asm">ASSUMPTION</span></li>
+<li>Densities: paper tube 1.0, PETG 1.27, ASA 1.07, birch ply 0.68 g/cm³. <span class="tag t-asm">ASSUMPTION</span></li>
+<li>Allowables are deliberately low: 1 MPa for paper-tube bonds and 40 MPa for ply bending. <span class="tag t-asm">ASSUMPTION</span></li>
+<li>Electronics, camera and recovery masses are planning values: weigh everything. <span class="tag t-user">USER-SUPPLIED</span></li></ul></div>
+<div><h4>Aerodynamics &amp; flight</h4><ul class="ticks">
+<li>Barrowman method: subsonic, small angle of attack, thin fins, no body lift. <span class="tag t-asm">ASSUMPTION</span></li>
+<li>Design axial load factor {{V:n_ax}} g, until replaced by 1.5× the simulated peak acceleration. <span class="tag t-asm">ASSUMPTION</span></li>
+<li>Parachute Cd 0.8 and opening-shock factor 1.8. <span class="tag t-asm">ASSUMPTION</span></li>
+<li>Motor {{V:motor_L}} mm / {{V:motor_m0}} g loaded / {{V:motor_mb}} g burnout are <b>placeholders, not a real product</b>. <span class="tag t-cots">COMMERCIAL SPEC</span> required</li></ul></div>
+</div>
+<div class="validate"><b>MUST BE EXPERIMENTALLY VALIDATED OR MENTOR-REVIEWED BEFORE FLIGHT</b>Measured CG with the actual motor installed · OpenRocket stability with weighed masses · motor, retainer, delay and igniter choice (mentor/RSO) · separation force at I-03 · recovery hardware ratings and static proof load · fin alignment · heat tolerance of printed parts near the motor · radio legality · the range's own safety code and site limits.</div>
+</section>
+
+<section id="drawings">
+<h2><span class="code">§6</span>Drawing package</h2>
+<p class="lede">Seven sheets generated from the parameter set, so their dimensions always match the analysis. Standalone SVGs are in <code>documentation/drawings/</code>. Dimensions in mm. Dimension lines are blue; orange dash-dot lines show external certified envelopes; hatched areas are cut surfaces.</p>
+
+<figure class="sheet" id="A-001"><div class="canvas">{{S:ga}}</div>
+<div class="block"><div><span class="lbl">DWG no.</span><span class="val">A-001</span></div><div><span class="lbl">Title</span><span class="ttl">General arrangement · side elevation</span></div><div><span class="lbl">Scale</span><span class="val">1:1 vb</span></div><div><span class="lbl">Units</span><span class="val">mm</span></div><div><span class="lbl">Sheet</span><span class="val">1 / 7</span></div><div><span class="lbl">Rev</span><span class="val">A</span></div></div>
+<figcaption>Overall assembly with module lengths, fin station and CG/CP. The static margin of {{V:sm0}} cal uses the placeholder motor, so re-check it with the real one.</figcaption></figure>
+
+<figure class="sheet" id="A-002"><div class="canvas">{{S:ex}}</div>
+<div class="block"><div><span class="lbl">DWG no.</span><span class="val">A-002</span></div><div><span class="lbl">Title</span><span class="ttl">Exploded assembly · balloon references</span></div><div><span class="lbl">Scale</span><span class="val">0.78 vb</span></div><div><span class="lbl">Units</span><span class="val">mm</span></div><div><span class="lbl">Sheet</span><span class="val">2 / 7</span></div><div><span class="lbl">Rev</span><span class="val">A</span></div></div>
+<figcaption>Assembly order runs left to right along each row. Fins slide out radially and axially from the booster. The motor and retainer are phantoms: they are purchased, not built.</figcaption></figure>
+
+<figure class="sheet" id="A-003"><div class="canvas">{{S:sa}}</div>
+<div class="block"><div><span class="lbl">DWG no.</span><span class="val">A-003</span></div><div><span class="lbl">Title</span><span class="ttl">Section A-A · nose, payload &amp; avionics</span></div><div><span class="lbl">Scale</span><span class="val">2:1 vb</span></div><div><span class="lbl">Units</span><span class="val">mm</span></div><div><span class="lbl">Sheet</span><span class="val">3 / 7</span></div><div><span class="lbl">Rev</span><span class="val">A</span></div></div>
+<figcaption>Internal layout forward of the separation joint. The forward bulkhead is bonded; the aft bulkhead slides off the rods so the sled can come out.</figcaption></figure>
+
+<figure class="sheet" id="A-004"><div class="canvas">{{S:sb}}</div>
+<div class="block"><div><span class="lbl">DWG no.</span><span class="val">A-004</span></div><div><span class="lbl">Title</span><span class="ttl">Section B-B · fin can &amp; motor interface</span></div><div><span class="lbl">Scale</span><span class="val">2.5:1 vb</span></div><div><span class="lbl">Units</span><span class="val">mm</span></div><div><span class="lbl">Sheet</span><span class="val">4 / 7</span></div><div><span class="lbl">Rev</span><span class="val">A</span></div></div>
+<figcaption>Values in [brackets] depend on the manufacturer. Final values come from the certified motor's and retainer's current documentation, never from this drawing.</figcaption></figure>
+
+<figure class="sheet" id="A-005"><div class="canvas">{{S:fn}}</div>
+<div class="block"><div><span class="lbl">DWG no.</span><span class="val">A-005</span></div><div><span class="lbl">Title</span><span class="ttl">BO-406 fin · section C-C fin can</span></div><div><span class="lbl">Scale</span><span class="val">3:1 vb</span></div><div><span class="lbl">Units</span><span class="val">mm</span></div><div><span class="lbl">Sheet</span><span class="val">5 / 7</span></div><div><span class="lbl">Rev</span><span class="val">A</span></div></div>
+<figcaption>How each tab is held (fins are never glued):
+<ul>
+<li><b>Sideways:</b> by the printed guide rails.</li>
+<li><b>Radially:</b> by the core's tab floors.</li>
+<li><b>Axially:</b> by the aft lock ring.</li>
+</ul>
+Since rev B, the tab root sits above the commercial retainer body, so a fin slides out aft with the retainer installed.</figcaption></figure>
+
+<figure class="sheet" id="A-006"><div class="canvas">{{S:nc}}</div>
+<div class="block"><div><span class="lbl">DWG no.</span><span class="val">A-006</span></div><div><span class="lbl">Title</span><span class="ttl">NC-101/102 nose cone · half section</span></div><div><span class="lbl">Scale</span><span class="val">2.4:1 vb</span></div><div><span class="lbl">Units</span><span class="val">mm</span></div><div><span class="lbl">Sheet</span><span class="val">6 / 7</span></div><div><span class="lbl">Rev</span><span class="val">A</span></div></div>
+<figcaption>Split at STA 150 so each half fits a 250 mm-tall printer. The {{V:tip_angle}}° tip half-angle is well under the ~45° overhang limit, so no supports are needed.</figcaption></figure>
+
+<figure class="sheet" id="A-007"><div class="canvas">{{S:av}}</div>
+<div class="block"><div><span class="lbl">DWG no.</span><span class="val">A-007</span></div><div><span class="lbl">Title</span><span class="ttl">AV-300 avionics bay · bulkheads</span></div><div><span class="lbl">Scale</span><span class="val">2.2:1 vb</span></div><div><span class="lbl">Units</span><span class="val">mm</span></div><div><span class="lbl">Sheet</span><span class="val">7 / 7</span></div><div><span class="lbl">Rev</span><span class="val">A</span></div></div>
+<figcaption>Recovery load path: the eyebolt pulls the aft bulkhead, the rods carry the load to the forward bulkhead, and that bulkhead bears on the coupler's end face. The glue is not load-bearing here.</figcaption></figure>
+</section>

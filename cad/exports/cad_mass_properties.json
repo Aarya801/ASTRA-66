@@ -1,0 +1,365 @@
+{
+  "cad_rev": "B",
+  "generated": "2026-09-19",
+  "openscad": "OpenSCAD version 2021.01",
+  "note": "Written by cad/build_cad.py. analysis.py replaces the matching mass items with these values.",
+  "parts": {
+    "NC-101": {
+      "volume_mm3": 19619.867,
+      "mass_each_g": 24.917,
+      "mass_total_g": 24.917,
+      "centroid": [
+        0.0,
+        -0.0,
+        106.408
+      ]
+    },
+    "NC-102": {
+      "volume_mm3": 50504.813,
+      "mass_each_g": 64.141,
+      "mass_total_g": 64.141,
+      "centroid": [
+        -0.0,
+        0.0,
+        248.098
+      ]
+    },
+    "NC-103": {
+      "volume_mm3": 16760.183,
+      "mass_each_g": 12.771,
+      "mass_total_g": 12.771,
+      "centroid": [
+        0.0,
+        -0.0,
+        321.0
+      ]
+    },
+    "PL-201": {
+      "volume_mm3": 50046.506,
+      "mass_each_g": 50.047,
+      "mass_total_g": 50.047,
+      "centroid": [
+        -0.0,
+        -0.403,
+        389.047
+      ]
+    },
+    "PL-202": {
+      "volume_mm3": 14855.235,
+      "mass_each_g": 18.866,
+      "mass_total_g": 18.866,
+      "centroid": [
+        -0.0,
+        -1.972,
+        402.409
+      ]
+    },
+    "PL-203": {
+      "volume_mm3": 10235.801,
+      "mass_each_g": 11.7,
+      "mass_total_g": 11.7,
+      "centroid": [
+        0.0,
+        -25.211,
+        366.175
+      ]
+    },
+    "PL-204": {
+      "volume_mm3": 2700.652,
+      "mass_each_g": 1.734,
+      "mass_total_g": 1.734,
+      "centroid": [
+        0.0,
+        -36.236,
+        376.167
+      ]
+    },
+    "PL-205": {
+      "volume_mm3": 761.204,
+      "mass_each_g": 0.967,
+      "mass_total_g": 0.967,
+      "centroid": [
+        -0.0,
+        32.002,
+        395.0
+      ]
+    },
+    "PL-206": {
+      "volume_mm3": 1185.847,
+      "mass_each_g": 1.506,
+      "mass_total_g": 1.506,
+      "centroid": [
+        0.0,
+        30.189,
+        395.0
+      ]
+    },
+    "AV-301": {
+      "volume_mm3": 46535.313,
+      "mass_each_g": 46.535,
+      "mass_total_g": 46.535,
+      "centroid": [
+        -0.0,
+        -0.047,
+        529.0
+      ]
+    },
+    "AV-302": {
+      "volume_mm3": 6058.908,
+      "mass_each_g": 6.059,
+      "mass_total_g": 6.059,
+      "centroid": [
+        -0.0,
+        -0.269,
+        529.0
+      ]
+    },
+    "AV-303": {
+      "volume_mm3": 35185.071,
+      "mass_each_g": 23.926,
+      "mass_total_g": 27.926,
+      "centroid": [
+        -0.0,
+        -0.153,
+        443.85
+      ]
+    },
+    "AV-304": {
+      "volume_mm3": 35796.024,
+      "mass_each_g": 24.341,
+      "mass_total_g": 24.341,
+      "centroid": [
+        0.0,
+        0.0,
+        614.648
+      ]
+    },
+    "AV-306": {
+      "volume_mm3": 28119.986,
+      "mass_each_g": 32.141,
+      "mass_total_g": 32.141,
+      "centroid": [
+        0.0,
+        1.623,
+        527.058
+      ]
+    },
+    "AV-308": {
+      "volume_mm3": 9044.795,
+      "mass_each_g": 11.487,
+      "mass_total_g": 11.487,
+      "centroid": [
+        -0.0,
+        -5.537,
+        492.8
+      ]
+    },
+    "AV-309": {
+      "volume_mm3": 137.127,
+      "mass_each_g": 0.014,
+      "mass_total_g": 0.014,
+      "centroid": [
+        -0.0,
+        0.0,
+        614.25
+      ]
+    },
+    "AV-312": {
+      "volume_mm3": 1071.248,
+      "mass_each_g": 1.36,
+      "mass_total_g": 1.36,
+      "centroid": [
+        0.0,
+        -0.0,
+        546.277
+      ]
+    },
+    "BO-401": {
+      "volume_mm3": 120555.625,
+      "mass_each_g": 120.556,
+      "mass_total_g": 120.556,
+      "centroid": [
+        -0.006,
+        -0.006,
+        840.433
+      ]
+    },
+    "BO-402": {
+      "volume_mm3": 24486.763,
+      "mass_each_g": 24.487,
+      "mass_total_g": 24.487,
+      "centroid": [
+        0.0,
+        -0.0,
+        1024.0
+      ]
+    },
+    "BO-403": {
+      "volume_mm3": 73115.795,
+      "mass_each_g": 66.499,
+      "mass_total_g": 66.499,
+      "centroid": [
+        0.823,
+        0.823,
+        1067.549
+      ]
+    },
+    "BO-404": {
+      "volume_mm3": 14382.701,
+      "mass_each_g": 9.78,
+      "mass_total_g": 9.78,
+      "centroid": [
+        0.094,
+        0.094,
+        897.0
+      ]
+    },
+    "BO-405": {
+      "volume_mm3": 11355.577,
+      "mass_each_g": 7.722,
+      "mass_total_g": 7.722,
+      "centroid": [
+        0.0,
+        -0.0,
+        1141.0
+      ]
+    },
+    "BO-406": {
+      "volume_mm3": 24045.6,
+      "mass_each_g": 17.986,
+      "mass_total_g": 71.944,
+      "centroid": [
+        51.842,
+        -0.0,
+        1077.849
+      ]
+    },
+    "BO-409": {
+      "volume_mm3": 2183.24,
+      "mass_each_g": 2.218,
+      "mass_total_g": 2.218,
+      "centroid": [
+        19.545,
+        19.545,
+        886.078
+      ]
+    },
+    "GS-701": {
+      "volume_mm3": 51419.113,
+      "mass_each_g": 19.591,
+      "mass_total_g": 19.591,
+      "centroid": [
+        0.0,
+        -0.0,
+        1119.0
+      ]
+    }
+  },
+  "analysis_overrides": {
+    "NC-101": {
+      "m": 24.917,
+      "x": 106.408,
+      "basis": "NC-101 V=19.62 cm3 x 1.27 x fill 1.0"
+    },
+    "NC-102": {
+      "m": 64.141,
+      "x": 248.098,
+      "basis": "NC-102 V=50.50 cm3 x 1.27 x fill 1.0"
+    },
+    "NC-103": {
+      "m": 12.771,
+      "x": 321.0,
+      "basis": "NC-103 V=16.76 cm3 x 1.27 x fill 0.6"
+    },
+    "PL-201": {
+      "m": 50.047,
+      "x": 389.047,
+      "basis": "PL-201 V=50.05 cm3 x 1.0 x fill 1.0"
+    },
+    "PL-202": {
+      "m": 18.866,
+      "x": 402.409,
+      "basis": "PL-202 V=14.86 cm3 x 1.27 x fill 1.0"
+    },
+    "PL-203": {
+      "m": 11.7,
+      "x": 366.175,
+      "basis": "PL-203 V=10.24 cm3 x 1.27 x fill 0.9"
+    },
+    "PL-204": {
+      "m": 1.734,
+      "x": 376.167,
+      "basis": "PL-204 V=2.70 cm3 x 1.07 x fill 0.6"
+    },
+    "PL-205/206": {
+      "m": 2.473,
+      "x": 395.0,
+      "basis": "PL-205 V=0.76 cm3 x 1.27 x fill 1.0; PL-206 V=1.19 cm3 x 1.27 x fill 1.0"
+    },
+    "AV-301": {
+      "m": 46.535,
+      "x": 529.0,
+      "basis": "AV-301 V=46.54 cm3 x 1.0 x fill 1.0"
+    },
+    "AV-302": {
+      "m": 6.059,
+      "x": 529.0,
+      "basis": "AV-302 V=6.06 cm3 x 1.0 x fill 1.0"
+    },
+    "AV-303": {
+      "m": 27.926,
+      "x": 443.85,
+      "basis": "AV-303 V=35.19 cm3 x 0.68 x fill 1.0 +4.0 g tee-nuts (ASM)"
+    },
+    "AV-304": {
+      "m": 24.341,
+      "x": 614.648,
+      "basis": "AV-304 V=35.80 cm3 x 0.68 x fill 1.0"
+    },
+    "AV-306": {
+      "m": 32.141,
+      "x": 527.058,
+      "basis": "AV-306 V=28.12 cm3 x 1.27 x fill 0.9"
+    },
+    "AV-308": {
+      "m": 11.487,
+      "x": 492.8,
+      "basis": "AV-308 V=9.04 cm3 x 1.27 x fill 1.0"
+    },
+    "AV-312": {
+      "m": 1.36,
+      "x": 546.277,
+      "basis": "AV-312 V=1.07 cm3 x 1.27 x fill 1.0"
+    },
+    "BO-401": {
+      "m": 120.556,
+      "x": 840.433,
+      "basis": "BO-401 V=120.56 cm3 x 1.0 x fill 1.0"
+    },
+    "BO-402": {
+      "m": 24.487,
+      "x": 1024.0,
+      "basis": "BO-402 V=24.49 cm3 x 1.0 x fill 1.0"
+    },
+    "BO-403": {
+      "m": 66.499,
+      "x": 1067.549,
+      "basis": "BO-403 V=73.12 cm3 x 1.07 x fill 0.85"
+    },
+    "BO-404": {
+      "m": 9.78,
+      "x": 897.0,
+      "basis": "BO-404 V=14.38 cm3 x 0.68 x fill 1.0"
+    },
+    "BO-405": {
+      "m": 7.722,
+      "x": 1141.0,
+      "basis": "BO-405 V=11.36 cm3 x 0.68 x fill 1.0"
+    },
+    "BO-406": {
+      "m": 71.944,
+      "x": 1077.849,
+      "basis": "BO-406 V=24.05 cm3 x 0.68 x fill 1.0 x finish 1.1 x 4"
+    }
+  }
+}

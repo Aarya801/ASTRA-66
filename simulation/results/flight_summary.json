@@ -1,0 +1,331 @@
+{
+  "project": "ASTRA-66",
+  "generated": "2026-09-19",
+  "model": "1-DOF vertical point mass, RK4",
+  "cad_rev": "B",
+  "motor_data_status": "PLACEHOLDER",
+  "trajectory_uses_placeholder_propulsion": true,
+  "results_are_predictions": false,
+  "valid_for_flight_planning": false,
+  "disclaimer": "PLACEHOLDER TEST INPUT: illustrative software/sensitivity results only; not representative of any real motor. Draft student design, not flight certified; requires qualified mentor/range review.",
+  "placeholder_dependency": {
+    "apogee, velocity, acceleration, dynamic pressure, burnout state, coast time, rail-exit speed": "DEPENDS ON PLACEHOLDER (thrust curve, motor mass)",
+    "static margin at liftoff / rail exit / burnout": "DEPENDS ON PLACEHOLDER (motor mass and CG station)",
+    "descent rate, descent time": "DEPENDS ON PLACEHOLDER (burnout mass)",
+    "burn-phase base drag": "DEPENDS ON PLACEHOLDER (MMT_ID sets the exhaust-filled base area)",
+    "no-motor static margin, airframe mass and CG": "motor excluded, but includes the PLACEHOLDER retainer mass (RET_MASS) and the MMT, retainer envelope and fin-tab depth sized from placeholder data",
+    "CP (Barrowman on CAD geometry)": "independent of propulsion data",
+    "drag build-up coefficients (coast)": "independent of propulsion data (ASSUMPTION model)",
+    "sensitivity deltas": "trends are meaningful; absolute values DEPEND ON PLACEHOLDER"
+  },
+  "motor_input": {
+    "name": "PLACEHOLDER-TEST",
+    "placeholder": true,
+    "source": "motors/PLACEHOLDER_TEST_INPUT.eng",
+    "total_impulse_Ns": 115.75,
+    "burn_time_s": 1.5,
+    "average_thrust_N": 77.16666666666667,
+    "peak_thrust_N": 100.0,
+    "total_mass_g": 110.0,
+    "prop_mass_g": 55.0,
+    "burnout_mass_g": 55.0
+  },
+  "vehicle": {
+    "liftoff_mass_g": 1210.6995,
+    "burnout_mass_g": 1155.6995,
+    "airframe_mass_g": 1100.6995,
+    "airframe_cg_mm": 656.938586758693,
+    "cp_mm": 870.3151102674981,
+    "body_od_mm": 66.0,
+    "length_mm": 1144.0
+  },
+  "aerodynamics": {
+    "A_ref_m2": 0.003421194399759285,
+    "length_m": 1.144,
+    "fineness": 17.333333333333332,
+    "S_body_wet_m2": 0.21929723954728425,
+    "S_nose_wet_m2": 0.0368335382267891,
+    "S_fins_wet_m2": 0.0504,
+    "fin_t_over_c": 0.02857142857142857,
+    "roughness_m": 2e-05,
+    "parasitic_fraction": 0.08
+  },
+  "sim_config": {
+    "rail_length_m": 1.0,
+    "site_elevation_m": 0.0,
+    "temp_offset_K": 0.0,
+    "cd_scale": 1.0,
+    "density_scale": 1.0,
+    "mass_scale": 1.0,
+    "payload_g": 0.0,
+    "cg_shift_mm": 0.0,
+    "deploy": "apogee",
+    "remove": [],
+    "dt_burn": 0.001,
+    "dt_coast": 0.005,
+    "dt_descent": 0.02,
+    "t_max": 400.0,
+    "label": "baseline"
+  },
+  "results": {
+    "apogee_m": 328.2358583723043,
+    "t_apogee_s": 8.512849942319274,
+    "v_max_mps": 80.29509039385132,
+    "t_v_max_s": 1.450999999999951,
+    "mach_max": 0.23612997192471125,
+    "a_max_g": 7.430472809619756,
+    "q_max_Pa": 3924.5904391315985,
+    "cd_at_v_max": 0.44590304269125164,
+    "t_liftoff_s": 0.006,
+    "peak_T_over_W": 8.42253765676725,
+    "average_T_over_W": 6.4993915584720625,
+    "rail_exit_v_mps": 11.73558297895929,
+    "t_rail_exit_s": 0.19141711179329038,
+    "sm_rail_exit": 2.6735368219769193,
+    "t_burnout_s": 1.4999999999999456,
+    "h_burnout_m": 68.47473513231974,
+    "v_burnout_mps": 79.92513200333143,
+    "coast_to_apogee_s": 7.0128499423193285,
+    "sm_liftoff": 2.6347540217678675,
+    "sm_min_powered": 2.6348385990246417,
+    "sm_burnout": 2.919631027114831,
+    "mass_liftoff_g": 1210.6995,
+    "mass_burnout_g": 1155.6995,
+    "descent_rate_mps": 5.0862976666498145,
+    "t_landing_s": 72.90422108580103,
+    "descent_time_s": 64.39137114348175
+  },
+  "events": {
+    "liftoff": {
+      "t": 0.006,
+      "T_over_W": 1.010718799139687
+    },
+    "rail_exit": {
+      "t": 0.19141711179329038,
+      "h": 0.971,
+      "v": 11.73558297895929,
+      "sm": 2.6735368219769193
+    },
+    "burnout": {
+      "t": 1.4999999999999456,
+      "h": 68.47473513231974,
+      "v": 79.92513200333143
+    },
+    "apogee": {
+      "t": 8.512849942319274,
+      "h": 328.2358583723043
+    },
+    "landing": {
+      "t": 72.90422108580103,
+      "v": -5.086310935715567
+    }
+  },
+  "envelope_checks": [
+    {
+      "item": "Rail-exit velocity >= 15 m/s (guideline)",
+      "value": 11.73558297895929,
+      "ok": false
+    },
+    {
+      "item": "Max velocity <= 90 m/s (airframe design limit)",
+      "value": 80.29509039385132,
+      "ok": true
+    },
+    {
+      "item": "Max axial acceleration <= 15 g (design load factor)",
+      "value": 7.430472809619756,
+      "ok": true
+    },
+    {
+      "item": "Mach < 0.3 (incompressible assumptions valid)",
+      "value": 0.23612997192471125,
+      "ok": true
+    },
+    {
+      "item": "Descent rate 4.5-6.0 m/s (package target)",
+      "value": 5.0862976666498145,
+      "ok": true
+    }
+  ],
+  "ejection_timing": [
+    {
+      "offset_s": -3,
+      "speed_mps": 30.212849636574507,
+      "altitude_m": 283.54324372897315
+    },
+    {
+      "offset_s": -2,
+      "speed_mps": 19.843067560883554,
+      "altitude_m": 308.5352604060022
+    },
+    {
+      "offset_s": -1,
+      "speed_mps": 9.819854837769311,
+      "altitude_m": 323.3447398369417
+    },
+    {
+      "offset_s": 0,
+      "speed_mps": 0.021084863438090677,
+      "altitude_m": 328.23586575078804
+    },
+    {
+      "offset_s": 1,
+      "speed_mps": 9.79329438148491,
+      "altitude_m": 323.3204420317405
+    },
+    {
+      "offset_s": 2,
+      "speed_mps": 19.38907017316879,
+      "altitude_m": 308.708466062926
+    },
+    {
+      "offset_s": 3,
+      "speed_mps": 28.671857991650764,
+      "altitude_m": 284.646888109975
+    }
+  ],
+  "stability_requirements": [
+    {
+      "id": "REQ-STAB-1",
+      "requirement": "1.5 <= SM <= 3.0 cal at rail exit",
+      "value": 2.6735368219769193,
+      "ok": true
+    },
+    {
+      "id": "REQ-STAB-2",
+      "requirement": "SM >= 1.5 cal throughout powered flight",
+      "value": 2.6348385990246417,
+      "ok": true
+    },
+    {
+      "id": "REQ-STAB-3",
+      "requirement": "SM <= 3.0 cal at liftoff",
+      "value": 2.6347540217678675,
+      "ok": true
+    }
+  ],
+  "verification": [
+    {
+      "check": "ISA density at 0 m [kg/m3]",
+      "expected": 1.225,
+      "computed": 1.225000018124288,
+      "tolerance": "0.05 %",
+      "ok": true,
+      "method": "ISO 2533 table"
+    },
+    {
+      "check": "ISA density at 11 000 m [kg/m3]",
+      "expected": 0.36392,
+      "computed": 0.3639176481016034,
+      "tolerance": "0.1 %",
+      "ok": true,
+      "method": "ISO 2533 table"
+    },
+    {
+      "check": "ISA speed of sound at 0 m [m/s]",
+      "expected": 340.294,
+      "computed": 340.293988026089,
+      "tolerance": "0.01 %",
+      "ok": true,
+      "method": "ISO 2533 table"
+    },
+    {
+      "check": "Thrust-curve impulse, midpoint quadrature vs piecewise-analytic [N s]",
+      "expected": 115.75,
+      "computed": 115.75000073437499,
+      "tolerance": "0.01 %",
+      "ok": true,
+      "method": "20 000-panel midpoint rule"
+    },
+    {
+      "check": "Motor mass after burnout [g]",
+      "expected": 55.0,
+      "computed": 55.0,
+      "tolerance": "1e-07 %",
+      "ok": true,
+      "method": "m_total - m_prop"
+    },
+    {
+      "check": "Burnout altitude, constant thrust & mass, no drag [m]",
+      "expected": 79.42347161512848,
+      "computed": 79.42355107835057,
+      "tolerance": "0.1 %",
+      "ok": true,
+      "method": "h = a t^2 / 2"
+    },
+    {
+      "check": "Apogee, same case [m]",
+      "expected": 401.36830830576275,
+      "computed": 401.36847963725137,
+      "tolerance": "0.1 %",
+      "ok": true,
+      "method": "h_b + v_b^2 / 2g"
+    },
+    {
+      "check": "Landing descent rate vs terminal velocity [m/s]",
+      "expected": 5.085988772804895,
+      "computed": 5.086310935715567,
+      "tolerance": "0.5 %",
+      "ok": true,
+      "method": "v_t = sqrt(2 m g / (rho Cd A))"
+    },
+    {
+      "check": "Apogee time-step convergence (dt halved)",
+      "expected": 328.2358583723043,
+      "computed": 328.2358845114185,
+      "tolerance": "0.1 %",
+      "ok": true,
+      "method": "RK4, dt vs dt/2"
+    },
+    {
+      "check": "Liftoff mass: simulation vehicle vs analysis.py [g]",
+      "expected": 1210.6995,
+      "computed": 1210.6995,
+      "tolerance": "0.0001 %",
+      "ok": true,
+      "method": "same CAD-derived items"
+    },
+    {
+      "check": "Liftoff CG: simulation vehicle vs analysis.py [mm]",
+      "expected": 696.4213448308188,
+      "computed": 696.4213448308188,
+      "tolerance": "0.0001 %",
+      "ok": true,
+      "method": "same CAD-derived items"
+    },
+    {
+      "check": "CP: independent Barrowman on CAD-measured geometry vs analysis.py [mm]",
+      "expected": 870.3151102674981,
+      "computed": 870.3151102674981,
+      "tolerance": "0.05",
+      "ok": true,
+      "method": "re-implemented equations"
+    },
+    {
+      "check": "Build-up Cd at 50 m/s coasting within 0.35-0.75 (plausibility band for similar model rockets, ASSUMPTION)",
+      "expected": "0.35-0.75",
+      "computed": 0.46370865341812656,
+      "tolerance": "band",
+      "ok": true,
+      "method": "component build-up"
+    }
+  ],
+  "plots": [
+    "simulation/plots/altitude_vs_time.svg",
+    "simulation/plots/velocity_vs_time.svg",
+    "simulation/plots/acceleration_vs_time.svg",
+    "simulation/plots/thrust_input_vs_time.svg",
+    "simulation/plots/vehicle_mass_vs_time.svg",
+    "simulation/plots/static_margin_vs_time.svg",
+    "simulation/plots/drag_coefficient_vs_mach.svg",
+    "simulation/plots/apogee_vs_drag_scale.svg",
+    "simulation/plots/apogee_vs_airframe_mass.svg",
+    "simulation/plots/apogee_vs_payload_mass.svg",
+    "simulation/plots/static_margin_vs_payload_mass.svg",
+    "simulation/plots/static_margin_vs_cg_shift.svg",
+    "simulation/plots/apogee_vs_site_elevation.svg",
+    "simulation/plots/rail_exit_velocity_vs_rail_length.svg",
+    "simulation/plots/tornado_apogee.svg",
+    "simulation/plots/tornado_static_margin.svg"
+  ]
+}

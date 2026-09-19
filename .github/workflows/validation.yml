@@ -1,0 +1,44 @@
+# Runs the project's existing validation workflow (run_validation.py) on every push and pull request.
+# No OpenSCAD is installed here: the CAD step verifies that the committed CAD validation matches the current CAD
+# sources and parameters (hash check). The pipeline is standard-library Python only.
+name: ASTRA-66 validation
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: run_validation.py (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.14"]   # the two versions the project was tested with locally
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run validation pipeline (build, CAD currency, simulation, regression tests)
+        env:
+          PYTHONIOENCODING: utf-8
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python run_validation.py
+
+      - name: Upload validation status
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-status-py${{ matrix.python-version }}
+          path: |
+            simulation/results/pipeline_status.json
+            documentation/ENGINEERING_STATUS.md
+          if-no-files-found: warn

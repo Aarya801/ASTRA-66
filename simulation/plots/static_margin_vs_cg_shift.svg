@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" role="img" aria-label="Static margin vs CG location error" style="background:#FFFFFF;font-family:'IBM Plex Sans','Segoe UI',system-ui,sans-serif">
+<rect width="820" height="470" fill="#FFFFFF"/>
+<text x="78" y="28" font-size="17" font-weight="600" fill="#1B2126">Static margin vs CG location error</text>
+<text x="78" y="48" font-size="12" fill="#5A646B">Models build/measurement error in the airframe CG</text>
+<rect x="78" y="171.0" width="714" height="118.5" fill="#E1EFE5"/>
+<text x="786" y="185.0" text-anchor="end" font-size="11" fill="#2F6A47">target 1.5-3.0 cal</text>
+<line x1="78" x2="792" y1="408.0" y2="408.0" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="412.0" text-anchor="end" font-size="11" fill="#5A646B">0</text>
+<line x1="78" x2="792" y1="329.0" y2="329.0" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="333.0" text-anchor="end" font-size="11" fill="#5A646B">1</text>
+<line x1="78" x2="792" y1="250.0" y2="250.0" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="254.0" text-anchor="end" font-size="11" fill="#5A646B">2</text>
+<line x1="78" x2="792" y1="171.0" y2="171.0" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="175.0" text-anchor="end" font-size="11" fill="#5A646B">3</text>
+<line x1="78" x2="792" y1="92.0" y2="92.0" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="96.0" text-anchor="end" font-size="11" fill="#5A646B">4</text>
+<line x1="78.0" x2="78.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="78.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">-30</text>
+<line x1="197.0" x2="197.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="197.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">-20</text>
+<line x1="316.0" x2="316.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="316.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">-10</text>
+<line x1="435.0" x2="435.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="435.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">0</text>
+<line x1="554.0" x2="554.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="554.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">10</text>
+<line x1="673.0" x2="673.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="673.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">20</text>
+<line x1="792.0" x2="792.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="792.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">30</text>
+<line x1="78" x2="792" y1="408" y2="408" stroke="#5A646B" stroke-width="1"/>
+<polyline points="78.0,167.2 197.0,178.1 316.0,189.0 435.0,199.9 554.0,210.7 673.0,221.6 792.0,232.5" fill="none" stroke="#1D6A86" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="78.0" cy="167.2" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="197.0" cy="178.1" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="316.0" cy="189.0" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="435.0" cy="199.9" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="554.0" cy="210.7" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="673.0" cy="221.6" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="792.0" cy="232.5" r="4" fill="#1D6A86" stroke="#FFFFFF" stroke-width="1.5"/>
+<polyline points="78.0,163.9 197.0,174.9 316.0,185.8 435.0,196.8 554.0,207.7 673.0,218.7 792.0,229.6" fill="none" stroke="#C24A0C" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="78.0" cy="163.9" r="4" fill="#C24A0C" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="197.0" cy="174.9" r="4" fill="#C24A0C" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="316.0" cy="185.8" r="4" fill="#C24A0C" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="435.0" cy="196.8" r="4" fill="#C24A0C" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="554.0" cy="207.7" r="4" fill="#C24A0C" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="673.0" cy="218.7" r="4" fill="#C24A0C" stroke="#FFFFFF" stroke-width="1.5"/>
+<circle cx="792.0" cy="229.6" r="4" fill="#C24A0C" stroke="#FFFFFF" stroke-width="1.5"/>
+<line x1="78" x2="100" y1="70" y2="70" stroke="#1D6A86" stroke-width="2.5"/>
+<text x="106" y="74" font-size="12" fill="#1B2126">liftoff</text>
+<line x1="167" x2="189" y1="70" y2="70" stroke="#C24A0C" stroke-width="2.5"/>
+<text x="195" y="74" font-size="12" fill="#1B2126">rail exit</text>
+<text x="435" y="454" text-anchor="middle" font-size="12" fill="#1B2126">Airframe CG shift (mm, + = aft)</text>
+<text x="18" y="250" text-anchor="middle" font-size="12" fill="#1B2126" transform="rotate(-90 18 250)">Static margin (calibres)</text>
+</svg>

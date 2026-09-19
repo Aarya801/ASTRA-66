@@ -1,0 +1,46 @@
+{
+  "date": "2026-09-19T21:18:28",
+  "overall": "PASS",
+  "steps": [
+    {
+      "step": "Engineering package build (build.py)",
+      "ok": true,
+      "seconds": 0.2,
+      "tail": [
+        "built; missing placeholders: none",
+        "cost low (232.4, 437.0) rec (292.3, 635.5)"
+      ]
+    },
+    {
+      "step": "CAD integration (committed validation is current)",
+      "ok": true,
+      "seconds": 0.0,
+      "tail": [
+        "CAD validation 2026-09-19: {'PASS': 147, 'WARN': 12, 'FAIL': 0}",
+        "CAD sources + parameters unchanged since CAD validation"
+      ]
+    },
+    {
+      "step": "Flight simulation, stability, sensitivity, reports",
+      "ok": true,
+      "seconds": 6.0,
+      "tail": [
+        "apogee 328.2 m (PLACEHOLDER TEST INPUT)  v_max 80.3 m/s  a_max 7.4 g  rail exit 11.7 m/s  SM rail 2.67 cal  descent 5.09 m/s",
+        "verification 13/13 passed; files written: 22"
+      ]
+    },
+    {
+      "step": "Regression tests",
+      "ok": true,
+      "seconds": 2.3,
+      "tail": [
+        "ResourceWarning: Enable tracemalloc to get the object allocation traceback",
+        "......",
+        "----------------------------------------------------------------------",
+        "Ran 40 tests in 2.067s",
+        "",
+        "OK"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,385 @@
+<section id="analysis">
+<h2><span class="code">§7</span>Engineering analysis</h2>
+<p class="lede">Non-propulsion analysis only. Every figure is reproducible with <code>python analysis/analysis.py</code>, and the numbers update when a parameter changes.</p>
+
+<h3>7.1 Mass budget</h3>
+{{T:modules}}
+<details><summary>Itemised mass budget, sorted by station</summary>{{T:mass}}</details>
+<div class="note">Built rockets almost always come out heavier than planned, and most of the extra mass (epoxy fillets, paint) ends up aft. Weigh each module as it is finished, update <code>analysis/analysis.py</code>, and watch the static margin.</div>
+
+<h3>7.2 Centre of gravity, centre of pressure, static margin</h3>
+<div class="eq">CG  = Σ(mᵢ·xᵢ) / Σmᵢ                                  → liftoff STA {{V:cg0}} · burnout {{V:cgb}} · no motor {{V:cge}} mm
+
+Nose (tangent ogive):   CNα = 2          X_N = 0.466·L_N = {{V:x_nose}} mm
+Fins (Barrowman):       L_F = √(S² + (X_R + C_T/2 − C_R/2)²) = {{V:lf}} mm
+                        CNα_F = [1 + R/(S+R)] · 4N(S/d)² / [1 + √(1 + (2L_F/(C_R+C_T))²)] = {{V:cn_f}}   (K_FB = {{V:kfb}})
+                        X_F = X_B + (X_R/3)(C_R+2C_T)/(C_R+C_T) + (1/6)[(C_R+C_T) − C_R·C_T/(C_R+C_T)] = {{V:x_f}} mm
+CP  = (2·X_N + CNα_F·X_F) / (2 + CNα_F)                  → STA {{V:xcp}} mm
+SM  = (CP − CG) / d                                     → liftoff {{V:sm0}} cal · burnout {{V:smb}} cal · no motor {{V:sme}} cal</div>
+<p>The margin grows as propellant burns, because the CG moves forward. The worst case is therefore at liftoff and rail exit, which is the case to confirm with the real motor. The chart shows how sensitive the margin is to motor mass. Heavier motors in the same class are usually also longer, which moves the CG further aft than this chart models.</p>
+<div class="chartwrap"><div class="tip" id="tip" role="status" aria-live="polite"></div>{{CHART}}</div>
+<p class="mono" style="font-size:12.5px;color:var(--ink-3)">At {{V:m_sens_max}} g the model still gives {{V:sm_at_max}} cal. Use the NC-104 ballast stack if a measured CG moves the margin below 1.5 cal.</p>
+
+<h3>7.3 Fin sizing rationale</h3>
+{{T:trade}}
+<ul class="ticks">
+<li><b>Option C</b> gives 2.6–2.9 cal. That is enough margin to absorb the aft mass growth normal in builds and heavier motors in the class, without becoming so over-stable that the rocket weathercocks hard off a short rail.</li>
+<li>Four fins rather than three give a symmetric slide-in guide, keep the rail buttons and camera clear at 45°, and share landing loads. Option E (3 fins) has similar margin, saves about 12 g, but needs larger fins.</li>
+<li>The {{V:sweep}}° swept leading edge and a tip trailing edge 20 mm forward of the tail mean the tube hits the ground first, which protects the fins. A 150 mm root chord spreads tab loads over the core rails.</li>
+<li>Aspect ratio {{V:AR}} and 3 mm plywood give the flutter screening result in 7.6, with stiffness to spare at subsonic speed.</li></ul>
+
+<h3>7.4 Nose-cone geometry rationale</h3>
+<ul class="ticks">
+<li><b>Tangent ogive, fineness 4.0:</b> below Mach 0.3, skin friction dominates drag, and ogive, elliptical and Haack shapes differ by only a few percent. The ogive has a simple closed-form CP (0.466 L), is supported directly by OpenRocket, and looks right for an aerospace-style vehicle.</li>
+<li>ρ = {{V:rho_nose}} mm. The tip half-angle of {{V:tip_angle}}° means the shell prints tip-up with no support. Wall thickness is three 0.4 mm perimeters.</li>
+<li>The internal volume holds the ballast stack, well forward where each gram of ballast shifts the CG most.</li></ul>
+
+<h3>7.5 Aerodynamic configuration</h3>
+<p>L/D of {{V:LD}} with a continuous 66 mm body and no transitions. Surface steps are limited to the switch band joints, the lens cowl (8 mm high, streamlined) and the rail buttons. A small asymmetric side force from the cowl and buttons is expected; it is negligible at this margin, but OpenRocket should include the buttons. Fin edges are fully rounded, not airfoiled: the drag penalty is small at M &lt; 0.3, and rounded edges are easy to reproduce.</p>
+
+<h3>7.6 Structural load considerations &amp; safety factors</h3>
+<div class="cols">
+<div><h4>Axial (boost)</h4><ul class="ticks">
+<li>Mass above I-03 = {{V:m_upper}} g → joint compression ≈ {{V:F_joint}} N at {{V:n_ax}} g. The paper tubes have a large margin in axial compression.</li>
+<li>Thrust transfer (derived from the load factor, not a motor curve) ≈ {{V:F_thrust}} N. It passes into the three ring bonds on the motor mount tube: {{V:bond_area}} mm² × 1 MPa = {{V:bond_cap}} N.</li></ul></div>
+<div><h4>Recovery (deployment)</h4>
+{{T:shock}}
+<p style="font-size:13.5px">F = ½ρv²·Cd·A·k with a {{V:chute_D}} mm chute and k = 1.8. The 30 m/s case covers a mis-timed ejection.</p></div>
+</div>
+{{T:sf}}
+<div class="validate"><b>VALIDATE</b>Replace the assumed load factor with the simulated peak acceleration of the actual motor. Proof-load the recovery train statically (§12) and have a mentor inspect the retainer bond.</div>
+
+<h3>7.7 Vibration considerations</h3>
+<ul class="ticks">
+<li>Uniform-beam estimate of the first free–free bending mode: ≈ {{V:f1}} Hz (EI from the assumed tube modulus). This is an upper bound, because joints reduce it. Treat it as an order of magnitude only.</li>
+<li>Main excitation sources: motor combustion roughness, rail-exit shock, fin buffeting, and the deployment snatch. The biggest avionics risks are connectors backing out and the battery shifting.</li>
+<li>Mitigations: locking connectors (JST-GH), wires tied down within 20 mm of every solder joint, battery in a cage plus strap, nylock nuts, no threadlocker on plastic. Hard-mount the IMU; rubber isolation would distort its data. The SD card is retained with tape.</li>
+<li>Test: a hand shake/drop test with the logger running, then check the log for dropouts (§12).</li></ul>
+
+<h3>7.8 Recovery-system considerations</h3>
+<div class="cols">
+<div>{{T:chutes}}<p style="font-size:13.5px">Descent mass = burnout mass {{V:md}} g. Diameter for 5.0 m/s ≈ {{V:D_req}} mm → select the 42 in class ({{V:v_sel}} m/s, landing KE ≈ {{V:ke_sel}} J).</p></div>
+<div>{{T:drift}}<p style="font-size:13.5px">Drift ≈ wind × descent time. Compare with the size of the field before choosing the motor.</p></div>
+</div>
+<ul class="ticks">
+<li>Deployment relies on the certified motor's ejection. The mentor chooses the delay from the simulated optimum and the manufacturer's options.</li>
+<li>Recovery bay {{V:rec_bay}} mm long. Packing order from the motor end: aramid leader → protector-wrapped chute → folded shock cord → AV bulkhead. Rehearse packing until the parts slide out freely.</li>
+<li>Tie the chute at about 1/3 of the cord length from the avionics end, so the separated sections don't collide.</li>
+<li>The I-03 friction fit must be loose enough for ejection to separate it but tight enough not to drift apart under coast drag. The mentor sets the target from experience with the chosen motor.</li></ul>
+
+<h3>7.9 Maximum recommended operating envelope</h3>
+{{T:envelope}}
+
+<h3>7.10 Manufacturing tolerances</h3>
+{{T:tol}}
+</section>
+
+<section id="avionics">
+<h2><span class="code">§8</span>Avionics &amp; payload</h2>
+<p class="lede">Sensing, logging and telemetry only, kept separate from propulsion. No channel on the board can drive an igniter or charge.</p>
+<figure class="fig"><div class="canvas">{{S:elec}}</div><figcaption>Figure 8-1. Avionics block diagram. The camera has its own power and is electrically isolated from the flight logger.</figcaption></figure>
+{{T:electronics}}
+<figure class="fig"><div class="canvas">{{S:fsm}}</div><figcaption>Figure 8-2. Flight-phase detection for data tagging. A breakwire across I-03 confirms separation independently of the barometer.</figcaption></figure>
+<div class="cols">
+<div><h4>Ground-station telemetry concept</h4><ul class="ticks">
+<li>Downlink packet at 2–5 Hz: time, state, baro altitude, vertical speed, accel magnitude, GPS lat/lon/fix, battery voltage, breakwire.</li>
+<li>Receiver = second LoRa module + MCU → USB serial → a Python script on the laptop plots the data live and writes CSV (a strong exhibition demo).</li>
+<li>Full-rate data (≥ 100 Hz IMU) goes to microSD only; the radio carries summaries.</li></ul></div>
+<div><h4>Integration rules</h4><ul class="ticks">
+<li>Keep the GPS antenna in the payload bay, with its sky view forward and away from the LoRa antenna and battery.</li>
+<li>Use keyed connectors at the I-08 grommet so the sled comes out without desoldering.</li>
+<li>Arm on the pad with the switch-band switch; the buzzer confirms the state.</li>
+<li>Seal the barometer from light and draughts with open-cell foam; size static ports per the sensor maker's guidance.</li>
+<li>Use a radio band and power level legal in your country only.</li></ul></div>
+</div>
+</section>
+
+<section id="parts">
+<h2><span class="code">§9</span>Parts list &amp; bill of materials</h2>
+<h3>9.1 Complete parts list (B)</h3>
+<p class="lede">Scroll the table sideways. Mass values link to the mass budget; parts marked "—" are included in a group line there.</p>
+{{T:parts}}
+<h3>9.2 Bill of materials with cost</h3>
+{{T:bom}}
+<div class="cols">
+<div><h3>9.3 Fastener list</h3>{{T:fasteners}}</div>
+<div><h3>9.4 Material list</h3>{{T:materials}}</div>
+</div>
+<h3>9.5 Buy, don't fabricate</h3>
+{{T:buy}}
+</section>
+
+<section id="manufacturing">
+<h2><span class="code">§10</span>Manufacturing plan</h2>
+<ol class="steps">
+<li><div><b>Measure purchased stock.</b> Measure tube, coupler and MMT diameters at 3 stations × 2 axes; weigh 100 mm offcuts. Update <code>analysis/analysis.py</code> and run <code>build.py</code>.</div></li>
+<li><div><b>Print fit coupons.</b> Print 10 mm-tall shoulder rings at −0.1, −0.2, −0.3 and −0.4 mm, plus a guide-slot coupon and an insert coupon. Choose the values and set <code>FIT_SH</code> and <code>FIN_GUIDE_CLR</code>.</div></li>
+<li><div><b>Print jigs first.</b> Print GS-701 fin jig, a wrap-around tube marking guide (slots, holes at 45°/90°/270°) and a tube-cutting collar.</div></li>
+<li><div><b>Cut tubes.</b> PL-201, AV-302 and BO-401 from body stock; AV-301 from coupler stock; BO-402 from MMT stock. Square each end on a sanding plate.</div></li>
+<li><div><b>Machine tube features.</b> Cut the four fin slots with a fine saw and file to width using a fin offcut as a gauge. Drill the nose-screw, rail-button, lens, switch and static-port holes through the guide. Cut the hatch opening only after bonding PL-206.</div></li>
+<li><div><b>Plywood parts.</b> Laser-cut AV-303/304 (2 discs each), BO-404, BO-405, and 5 fins (1 spare) from the DXFs in <code>cad/exports/dxf</code>. Knife-cut the AV-309 gasket. Laminate the bulkhead discs with epoxy under weight.</div></li>
+<li><div><b>Printed parts.</b> Print from the ready-oriented STLs in <code>cad/exports/stl</code>. The pose and support needs of each part are listed in <code>documentation/CAD_VALIDATION.md</code> §4.9.
+<ul>
+<li><b>PETG:</b> NC-101, NC-102, NC-103, PL-202–206, AV-306, AV-308, AV-312, BO-409.</li>
+<li><b>ASA</b> (enclosed printer): BO-403, PL-204.</li>
+</ul>
+Install heat-set inserts while the parts are fresh.</div></li>
+<li><div><b>Fin finishing.</b> Radius the leading and trailing edges (R1.5), seal the edges with thin epoxy, and sand. Keep the tabs bare and check each fin in the guide coupon.</div></li>
+<li><div><b>Inspection.</b> Check every part against the tolerance table (7.10) and record results in the inspection log before assembly.</div></li>
+</ol>
+<div class="cols">
+<div><h4>Manufacturing notes</h4><ul class="ticks">
+<li>Dry PETG/ASA before printing; wet filament weakens layer bonding.</li>
+<li>Orient printed parts so loads cross layers along their length: core rails are printed vertically; sled flat.</li>
+<li>Epoxy: sand both surfaces (120 grit), wipe with isopropyl alcohol, weigh the mix ratio, and record the batch and date.</li>
+<li>Round edges on paper-tube slots and seal them with thin CA or epoxy to stop delamination.</li>
+<li>Keep paint light; each 10 g aft costs about 0.05 cal of margin.</li></ul></div>
+<div><h4>Tools required</h4>{{T:tools}}</div>
+</div>
+<h4>Approximate build time</h4>
+{{T:buildtime}}
+</section>
+
+<section id="assembly">
+<h2><span class="code">§11</span>Assembly procedure</h2>
+<div class="cols">
+<div><h4>Booster (400)</h4><ol class="steps">
+<li><div>Dry-fit BO-402 MMT, BO-404, BO-403 and fins inside BO-401, with GS-701 on the tail. Mark the ring positions.</div></li>
+<li><div>Wrap the BO-410 aramid leader around the MMT between the ring stations, saturate it with epoxy, and route it through the BO-404 notch.</div></li>
+<li><div>Bond BO-404 at the top of the MMT and BO-403 at the aft end, with fillets on the forward faces. Keep glue out of the fin guides.</div></li>
+<li><div>Insert the fins into the guides and slide the whole motor-mount assembly into BO-401, using the fins in the tube slots as keys. Bond the rings to the tube wall. Tape the jig on and leave to cure.</div></li>
+<li><div>Remove the fins. Bond BO-409 against the BO-404 forward face at 45°. Install both rail buttons and check them against a straight-edge.</div></li>
+<li><div>Bond the <b>commercial</b> retainer BO-407 exactly per the maker's instructions and have a mentor inspect it.</div></li>
+<li><div>Refit the fins, fit BO-405, and tighten 4× M3 × 12. Check cant and spacing (7.10).</div></li></ol></div>
+<div><h4>Forward section (100–300)</h4><ol class="steps">
+<li><div>Bond NC-101 to NC-102 on a V-block, with the seam flush. Fit NC-103 and the NC-104 rod.</div></li>
+<li><div>Bond PL-206 inside PL-201, then cut the hatch opening. Bond PL-203 (camera in place for alignment) and PL-204.</div></li>
+<li><div>Install the M4 inserts in AV-303 and bond it into the forward end of AV-301.</div></li>
+<li><div>Bond AV-302 at the centre of AV-301 with the coupler inserted into offcuts on both sides for alignment. Drill the switch and static-port holes.</div></li>
+<li><div>Bond the AV-301 forward half into PL-201 (I-02), with the switch hole aligned on the 90° line.</div></li>
+<li><div>Bolt PL-202 to AV-303 with 2× M3 × 16 from inside the bay into the foot inserts. Route the harness through the grommet and seal around it with putty.</div></li>
+<li><div>Fit rods, then the forward AV-312 spacers, the sled (modules on standoffs, battery cage screwed from below), the aft spacers, the AV-309 gasket, AV-304 with its eyebolt, and a washer + nylock nut on each rod.</div></li>
+<li><div>Attach the nose with 3× M3 × 8. Tune the I-03 fit with sanding or a single wrap of tape until it meets the separation-force target.</div></li></ol></div>
+</div>
+</section>
+
+<section id="testing">
+<h2><span class="code">§12</span>Testing plan</h2>
+<div class="tw"><table class="compact">
+<thead><tr><th>ID</th><th>Test</th><th>Method</th><th>Pass criterion</th><th>Level</th></tr></thead>
+<tbody>
+<tr><td>T-01</td><td>Fit coupons</td><td>Printed shoulder/guide/insert coupons</td><td>Chosen clearances recorded</td><td>Part</td></tr>
+<tr><td>T-02</td><td>Dimensional inspection</td><td>Calipers, templates, tolerance table</td><td>All features within 7.10</td><td>Part</td></tr>
+<tr><td>T-03</td><td>Mass &amp; CG</td><td>Weigh modules; GS-702 knife-edge with the <b>real motor installed by mentor</b> (or an inert mass-matched dummy)</td><td>Measured CG gives ≥ 1.5 cal in OpenRocket</td><td>Vehicle</td></tr>
+<tr><td>T-04</td><td>Fin alignment</td><td>Angle gauge on each fin vs tube datum; wiggle test</td><td>Cant ±0.25°, spacing ±0.5°, no free play</td><td>Assembly</td></tr>
+<tr><td>T-05</td><td>Rail fit</td><td>GS-704 rail offcut / range rail</td><td>Slides freely full length, no binding</td><td>Assembly</td></tr>
+<tr><td>T-06</td><td>Separation force (I-03)</td><td>Spring scale, 5 pulls, horizontal</td><td>Within mentor-agreed window; repeatable ±20 %</td><td>Assembly</td></tr>
+<tr><td>T-07</td><td>Recovery packing</td><td>Pack, then pull out by hand from the open booster</td><td>Deploys cleanly in 3 of 3 attempts</td><td>Assembly</td></tr>
+<tr><td>T-08</td><td>Recovery static proof load</td><td>Hang a known mass / spring scale on each joint and hardware item, one at a time, up to the design load (not to failure)</td><td>No slip, cracking or permanent deformation</td><td>Assembly</td></tr>
+<tr><td>T-09</td><td>Swing test (low-speed indication only)</td><td>Rocket on a string at the CG, swung in a circle</td><td>Flies nose-forward. Does not replace simulation.</td><td>Vehicle</td></tr>
+<tr><td>T-10</td><td>Electronics bench</td><td>Harness test of each sensor, logging rate, SD integrity</td><td>All sensors plausible; ≥ 99 % frames written</td><td>Subsystem</td></tr>
+<tr><td>T-11</td><td>Baro response</td><td>Sealed jar with syringe, or a lift ride / stair climb</td><td>Altitude change detected; apogee logic triggers</td><td>Subsystem</td></tr>
+<tr><td>T-12</td><td>Pad endurance</td><td>Armed, in the bay, at the expected ambient temperature</td><td>≥ 2 h with ≥ 20 % battery remaining</td><td>Subsystem</td></tr>
+<tr><td>T-13</td><td>Shake / drop</td><td>Hand shake 60 s, 0.5 m drop onto foam, logger running</td><td>No resets, no loose parts, no data gaps</td><td>Subsystem</td></tr>
+<tr><td>T-14</td><td>GPS &amp; telemetry range</td><td>Line-of-sight walk test with the ground station</td><td>Link margin at ≥ 2× the expected distance; GPS fix &lt; 60 s warm</td><td>System</td></tr>
+<tr><td>T-15</td><td>Breakwire / state machine</td><td>Separate I-03 by hand while logging</td><td>State and timestamp logged correctly</td><td>System</td></tr>
+<tr><td>T-16</td><td>Flight readiness review</td><td>Present the package, sims and test log to the mentor and RSO</td><td>Written sign-off</td><td>Gate</td></tr>
+</tbody></table></div>
+<div class="note">Ejection testing of a commercial motor system is not part of this student test plan. If the range or mentor requires ground ejection testing, they plan and perform it under their own procedures.</div>
+</section>
+
+<section id="simulation">
+<h2><span class="code">§13</span>Simulation workflow (OpenRocket)</h2>
+<ol class="steps">
+<li><div><b>Build the component tree</b>, top to bottom: Nose cone → Body tube "Payload" → Body tube "Switch band" (inner tube "AV coupler" + bulkheads) → Body tube "Booster" (inner tube "MMT", centering rings, fin set, rail buttons, parachute, shock cord, mass components).</div></li>
+<li><div><b>Enter geometry</b> from the table below. Set every length relative to its parent so it matches the CAD stations.</div></li>
+<li><div><b>Enter masses:</b> first as materials, then replace each component with its <em>weighed</em> mass (override mass). Add mass components for electronics, battery, camera, GPS and ballast at their stations.</div></li>
+<li><div><b>Compare with this package:</b> with no motor, OpenRocket's CG should be within ±10 mm of STA {{V:cge}} and its CP within ±15 mm of STA {{V:xcp}}. Investigate any bigger difference before continuing.</div></li>
+<li><div><b>Motor configuration:</b> with your mentor, choose certified motors from OpenRocket's built-in database (sourced from ThrustCurve) that fit the 29 mm mount and your range's limits. Add each ejection-delay option as its own configuration.</div></li>
+<li><div><b>Launch conditions:</b> the range's rail length and angle, site altitude and temperature, and wind at 0, 10 and 15 km/h.</div></li>
+<li><div><b>Read and record:</b> stability at rail exit (≥ 1.5 cal), rail-exit velocity, max velocity (≤ {{V:v_max}} m/s), max acceleration (≤ {{V:n_ax}} g), apogee, optimum delay vs available delay, deployment velocity (≤ 20 m/s), descent rate, ground-hit velocity, landing distance.</div></li>
+<li><div><b>Iterate:</b> if any limit fails, change the airframe (ballast, fins) or pick a different certified motor. Do not alter a motor. Re-run <code>build.py</code> so the drawings stay in step.</div></li>
+<li><div><b>Cross-check (optional):</b> RASAero II for drag and CP at Mach 0.1–0.3; Monte-Carlo in OpenRocket for wind and mass scatter.</div></li>
+</ol>
+{{T:openrocket}}
+</section>
+
+<section id="checklists">
+<h2><span class="code">§14</span>Checklists</h2>
+<p class="lede">Ticks are saved only in this browser, for your convenience. The signed paper copy in the build log is the record of truth.</p>
+<h3>Engineering validation checklist (E)</h3>
+<div class="check" data-list="validation">
+<h4>Stability</h4>
+<label><input type="checkbox"><span>OpenRocket static margin at rail exit ≥ 1.5 cal for every motor configuration<em class="crit">CRITICAL</em></span></label>
+<label><input type="checkbox"><span>Margin ≤ 3.0 cal at liftoff, or weathercocking accepted by mentor</span></label>
+<label><input type="checkbox"><span>Swing test (T-09) nose-forward, recorded as supporting evidence only</span></label>
+<h4>CG</h4>
+<label><input type="checkbox"><span>CG measured on GS-702 with motor installed (or mass-matched dummy)<em class="crit">CRITICAL</em></span></label>
+<label><input type="checkbox"><span>Measured CG entered as override in OpenRocket</span></label>
+<label><input type="checkbox"><span>Ballast washers counted, logged and secured with nylock</span></label>
+<h4>CP</h4>
+<label><input type="checkbox"><span>OpenRocket CP within ±15 mm of STA {{V:xcp}}, or discrepancy explained</span></label>
+<label><input type="checkbox"><span>As-built fin dimensions measured and entered</span></label>
+<h4>Mass</h4>
+<label><input type="checkbox"><span>Every module weighed; mass budget updated</span></label>
+<label><input type="checkbox"><span>Liftoff mass within envelope and within the local model-rocket limit</span></label>
+<h4>Recovery</h4>
+<label><input type="checkbox"><span>Chute, cord, links, swivel and eyebolt ratings ≥ {{V:F_rec_req}} N<em class="crit">CRITICAL</em></span></label>
+<label><input type="checkbox"><span>Static proof load T-08 passed</span></label>
+<label><input type="checkbox"><span>Separation force T-06 in window; packing T-07 3/3</span></label>
+<label><input type="checkbox"><span>Simulated deployment velocity ≤ 20 m/s with chosen delay</span></label>
+<h4>Structural integrity</h4>
+<label><input type="checkbox"><span>All bonds inspected: full fillets, no dry spots, no delamination</span></label>
+<label><input type="checkbox"><span>Retainer installed per maker and inspected by mentor<em class="crit">CRITICAL</em></span></label>
+<label><input type="checkbox"><span>Printed parts free of layer splits; ASA used for BO-403</span></label>
+<h4>Fin alignment</h4>
+<label><input type="checkbox"><span>Cant 0° ±0.25° on all four fins</span></label>
+<label><input type="checkbox"><span>Spacing 90° ±0.5°; no free play after lock ring tightened</span></label>
+<h4>Launch interface</h4>
+<label><input type="checkbox"><span>Rail buttons match the range rail; slide test T-05 passed</span></label>
+<label><input type="checkbox"><span>Buttons in line ±0.5 mm; screws secure</span></label>
+<h4>Electronics mounting</h4>
+<label><input type="checkbox"><span>Battery caged and strapped; connectors locking</span></label>
+<label><input type="checkbox"><span>Shake/drop T-13 and endurance T-12 passed</span></label>
+<label><input type="checkbox"><span>Radio band and power confirmed legal</span></label>
+</div>
+
+<div class="cols">
+<div><h3>Pre-flight inspection</h3>
+<div class="check" data-list="preflight" style="columns:1">
+<label><input type="checkbox"><span>Range safety briefing attended; RSO aware of vehicle and motor</span></label>
+<label><input type="checkbox"><span>Wind, sky and field conditions within the envelope</span></label>
+<label><input type="checkbox"><span>Nose screws tight, nose tip on axis</span></label>
+<label><input type="checkbox"><span>Fins: no cracks, lock ring screws tight, no free play</span></label>
+<label><input type="checkbox"><span>Electronics: battery charged, SD inserted, logger started, GPS fix, telemetry received</span></label>
+<label><input type="checkbox"><span>AV bay closed: gasket seated, wing nuts tight, breakwire connected</span></label>
+<label><input type="checkbox"><span>Recovery packed: leader → protector + chute → cord; links closed</span></label>
+<label><input type="checkbox"><span>I-03 fit checked: correct force, no tape bulge</span></label>
+<label><input type="checkbox"><span>Motor prepared and installed <b>by mentor per maker instructions</b>; retainer closed<em class="crit">CRITICAL</em></span></label>
+<label><input type="checkbox"><span>CG re-checked with motor installed against the marked line</span></label>
+<label><input type="checkbox"><span>Rail buttons slide freely on the pad rail</span></label>
+<label><input type="checkbox"><span>Switch armed at the pad; buzzer confirms state; igniter handled per range procedure</span></label>
+</div></div>
+<div><h3>Post-flight inspection</h3>
+<div class="check" data-list="postflight" style="columns:1">
+<label><input type="checkbox"><span>Wait for RSO clearance; approach spent motor only when safe; mentor handles motor hardware</span></label>
+<label><input type="checkbox"><span>Photograph the landing site before moving anything</span></label>
+<label><input type="checkbox"><span>Stop logger; copy SD data; back up telemetry CSV</span></label>
+<label><input type="checkbox"><span>Inspect shock cord, leader and protector for burns or cuts</span></label>
+<label><input type="checkbox"><span>Inspect eyebolt, rods, bulkheads for deformation</span></label>
+<label><input type="checkbox"><span>Inspect fins, core and lock ring; replace damaged fins</span></label>
+<label><input type="checkbox"><span>Check printed parts near motor for heat distortion</span></label>
+<label><input type="checkbox"><span>Check tubes for zippering at I-03 and slot roots</span></label>
+<label><input type="checkbox"><span>Clean ejection residue from recovery bay and MMT</span></label>
+<label><input type="checkbox"><span>Compare flight data with simulation; log differences</span></label>
+<label><input type="checkbox"><span>Record anomalies and corrective actions before next flight</span></label>
+</div></div>
+</div>
+</section>
+
+<section id="risk">
+<h2><span class="code">§15</span>Risk assessment</h2>
+<p class="lede">Severity (S) and likelihood (L) on a 1–5 scale; risk = S × L. These are pre-mitigation planning scores for the mentor review.</p>
+{{T:risks}}
+</section>
+
+<section id="cost">
+<h2><span class="code">§16</span>Cost estimate</h2>
+<p class="lede">USD planning ranges. Local prices, taxes and shipping vary widely, so convert and re-price using your own suppliers. Motors, retainer casing systems (if reloadable), range fees and tools are excluded.</p>
+{{T:cost}}
+<div class="cols">
+<div><h4>Low-cost version · {{V:cost_low}}</h4><ul class="ticks">
+<li>Same airframe, fins, recovery and safety hardware. Structure and recovery are never downgraded.</li>
+<li>Electronics: MCU, IMU, barometer, microSD, buzzer, breakwire. Data is recovered after landing.</li>
+<li>No camera, GPS, radio link, hatch, lens cowl or display stand.</li></ul></div>
+<div><h4>Recommended version · {{V:cost_rec}}</h4><ul class="ticks">
+<li>Everything in the low-cost version plus GPS, LoRa ground station, camera, temperature sensor, access hatch, swivel, rail gauge and display stand.</li>
+<li>Optional upgrade: G10 fins (≈ +100 g aft: re-check margin) or a fibreglass sleeve on the booster.</li></ul></div>
+</div>
+</section>
+
+<section id="software">
+<h2><span class="code">§17</span>Software</h2>
+<div class="cols">
+<div><h3>Free / low-cost CAD (G)</h3><ul class="ticks">
+<li><b>OpenSCAD</b> (free): runs the provided parametric master model directly.</li>
+<li><b>FreeCAD</b> (free, open source): Part Design with a spreadsheet of parameters from <code>parameters.csv</code>; TechDraw for drawings.</li>
+<li><b>Onshape Education</b> (free for students): browser-based, variables and assemblies, easy team collaboration.</li>
+<li><b>Autodesk Fusion</b> (free education licence): user parameters, drawings, CAM for laser/CNC.</li>
+<li><b>SolidWorks Student</b>: often available through the university.</li>
+<li><b>Slicer:</b> PrusaSlicer, OrcaSlicer or Cura (free).</li></ul></div>
+<div><h3>Free simulation (H)</h3><ul class="ticks">
+<li><b>OpenRocket</b> (free, open source): primary stability, trajectory and recovery simulation, with the built-in certified-motor database.</li>
+<li><b>RASAero II</b> (free): independent drag and CP cross-check.</li>
+<li><b>ThrustCurve.org</b>: reference for published certified-motor data (read-only).</li>
+<li><b>Python</b> (numpy, matplotlib): <code>analysis/analysis.py</code>, telemetry plotting, flight-data comparison.</li>
+<li><b>FreeCAD FEM</b> (CalculiX): optional check of bulkhead and fin-can stresses.</li></ul></div>
+</div>
+</section>
+
+<section id="route">
+<h2><span class="code">§18</span>Route from CAD to supervised flight (I)</h2>
+<p class="lede">Each phase has an exit gate. Don't start the next phase until the gate is signed.</p>
+<div class="gates">
+<div class="gate"><div class="ph">PHASE 1<br>WEEKS 1–2</div><div><h5>Requirements &amp; mentor engagement</h5><p>Join or contact a rocketry club or institution with certified mentors. Confirm local law, range rules, rail type, motor classes allowed, and the radio band. Fill in the USER-SUPPLIED values.</p></div><div class="exit"><b>EXIT GATE</b>Mentor named; range and rules confirmed in writing</div></div>
+<div class="gate"><div class="ph">PHASE 2<br>WEEKS 2–4</div><div><h5>CAD &amp; preliminary design review</h5><p>Buy the tubes first and measure them. Update the parameters, rebuild, render every part in OpenSCAD or rebuild in FreeCAD/Onshape, and model the airframe in OpenRocket.</p></div><div class="exit"><b>EXIT GATE</b>PDR: drawings + OpenRocket match within ±10/±15 mm</div></div>
+<div class="gate"><div class="ph">PHASE 3<br>WEEKS 4–7</div><div><h5>Manufacturing</h5><p>Coupons → jigs → parts → inspection log (§10). Build the electronics on the bench in parallel.</p></div><div class="exit"><b>EXIT GATE</b>All parts pass tolerance inspection</div></div>
+<div class="gate"><div class="ph">PHASE 4<br>WEEKS 7–9</div><div><h5>Assembly &amp; ground testing</h5><p>Follow §11, then tests T-03 to T-15. Weigh everything and update the simulation with measured masses and CG.</p></div><div class="exit"><b>EXIT GATE</b>Validation checklist (§14) complete; test log signed</div></div>
+<div class="gate"><div class="ph">PHASE 5<br>WEEK 10</div><div><h5>Critical &amp; flight-readiness review</h5><p>The mentor selects the certified motor and delay using your simulations. Present the package, risks and test results. The mentor inspects retainer, recovery and fins.</p></div><div class="exit"><b>EXIT GATE</b>Written flight-readiness sign-off by mentor/institution</div></div>
+<div class="gate"><div class="ph">PHASE 6<br>LAUNCH DAY</div><div><h5>Supervised flight</h5><p>Fly only at a sanctioned range under its RSO. Use the pre-flight checklist. The mentor prepares and installs the motor. Follow the range's safety code and distances.</p></div><div class="exit"><b>EXIT GATE</b>RSO approval at the pad</div></div>
+<div class="gate"><div class="ph">PHASE 7<br>AFTER</div><div><h5>Post-flight review &amp; exhibition</h5><p>Complete the post-flight checklist, compare data with simulation, and write a lessons-learned report. Prepare the display stand, cutaway drawings and telemetry replay.</p></div><div class="exit"><b>EXIT GATE</b>Anomalies closed before any re-flight</div></div>
+</div>
+</section>
+
+<section id="future">
+<h2><span class="code">§19</span>Future improvements</h2>
+<div class="cols">
+<ul class="ticks">
+<li>Fibreglass-sleeved booster and G10 fins for durability (re-run stability)</li>
+<li>Commercial altimeter-controlled dual deployment, <i>only</i> after mentor certification and range approval, using commercial hardware</li>
+<li>Roll-rate logging and a fin-cant experiment module (swap fin sets)</li></ul>
+<ul class="ticks">
+<li>Kalman-filter state estimation (baro + IMU) with an on-board apogee prediction</li>
+<li>Live 3D attitude display on the ground station for exhibitions</li>
+<li>Pitot/static experiment in a nose-tip module; compare with baro velocity</li>
+<li>FEM of fin can and bulkheads in FreeCAD; coupon tensile tests of printed parts</li></ul>
+</div>
+</section>
+
+<footer>ASTRA-66-EP-001 Rev B · CAD rev B · generated by build.py from analysis/analysis.py · Draft design package for education. Not flight certified. All propulsion items are external certified commercial components handled under qualified supervision.</footer>
+</main>
+</div>
+
+<script>
+(function(){
+  // chart hover
+  var svg=document.querySelector('.chart'), tip=document.getElementById('tip'), xh=document.getElementById('xh');
+  if(svg&&tip){
+    svg.querySelectorAll('.hit').forEach(function(h){
+      function show(){var vb=svg.viewBox.baseVal, r=svg.getBoundingClientRect(), k=r.width/vb.width;
+        var x=+h.dataset.x, y=+h.dataset.y;
+        tip.innerHTML=h.dataset.m+' g motor<br>margin '+h.dataset.sm+' cal<br>CG sta '+h.dataset.cg+' · '+h.dataset.mass+' g';
+        tip.style.left=(x*k+10)+'px'; tip.style.top=(y*k+10)+'px'; tip.style.opacity=1;
+        xh.setAttribute('x1',x); xh.setAttribute('x2',x); xh.style.opacity=1;}
+      h.addEventListener('mouseenter',show); h.addEventListener('focus',show);
+      h.addEventListener('mouseleave',function(){tip.style.opacity=0; xh.style.opacity=0;});
+    });
+  }
+  // checklist persistence (per viewer convenience only)
+  document.querySelectorAll('.check').forEach(function(list){
+    var key='astra66-'+list.dataset.list, state={};
+    try{state=JSON.parse(localStorage.getItem(key)||'{}');}catch(e){}
+    list.querySelectorAll('input').forEach(function(cb,i){
+      cb.checked=!!state[i];
+      cb.addEventListener('change',function(){state[i]=cb.checked; try{localStorage.setItem(key,JSON.stringify(state));}catch(e){}});
+    });
+  });
+  // active index link
+  var links=[].slice.call(document.querySelectorAll('nav.index a'));
+  var map={}; links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.remove('on')}); var a=map[e.target.id]; if(a) a.classList.add('on');}});},{rootMargin:'-20% 0px -70% 0px'});
+    document.querySelectorAll('main section[id]').forEach(function(s){io.observe(s);});
+  }
+})();
+</script>

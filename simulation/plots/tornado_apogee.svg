@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 378" role="img" aria-label="Apogee sensitivity (one-at-a-time) (PLACEHOLDER TEST INPUT: illustrative)" style="background:#FFFFFF;font-family:'IBM Plex Sans','Segoe UI',system-ui,sans-serif">
+<rect width="820" height="378" fill="#FFFFFF"/>
+<text x="24" y="30" font-size="17" font-weight="600" fill="#1B2126">Apogee sensitivity (one-at-a-time) (PLACEHOLDER TEST INPUT: illustrative)</text>
+<text x="24" y="50" font-size="12" fill="#5A646B">Bars span the tested range of each non-propulsion assumption</text>
+<line x1="250.0" x2="250.0" y1="74" y2="318" stroke="#DDE2DE"/>
+<text x="250.0" y="336" text-anchor="middle" font-size="11" fill="#5A646B">200</text>
+<line x1="356.0" x2="356.0" y1="74" y2="318" stroke="#DDE2DE"/>
+<text x="356.0" y="336" text-anchor="middle" font-size="11" fill="#5A646B">250</text>
+<line x1="462.0" x2="462.0" y1="74" y2="318" stroke="#DDE2DE"/>
+<text x="462.0" y="336" text-anchor="middle" font-size="11" fill="#5A646B">300</text>
+<line x1="568.0" x2="568.0" y1="74" y2="318" stroke="#DDE2DE"/>
+<text x="568.0" y="336" text-anchor="middle" font-size="11" fill="#5A646B">350</text>
+<line x1="674.0" x2="674.0" y1="74" y2="318" stroke="#DDE2DE"/>
+<text x="674.0" y="336" text-anchor="middle" font-size="11" fill="#5A646B">400</text>
+<line x1="780.0" x2="780.0" y1="74" y2="318" stroke="#DDE2DE"/>
+<text x="780.0" y="336" text-anchor="middle" font-size="11" fill="#5A646B">450</text>
+<rect x="521.9" y="80" width="215.0" height="26" rx="3" fill="#1D6A86"/>
+<text x="742.8" y="97.0" text-anchor="start" font-size="11" fill="#1B2126">x0.8: 430</text>
+<rect x="354.6" y="80" width="167.3" height="26" rx="3" fill="#C24A0C"/>
+<text x="348.6" y="97.0" text-anchor="end" font-size="11" fill="#1B2126">x1.2: 249</text>
+<text x="88" y="97.0" font-size="12" fill="#1B2126">Airframe mass</text>
+<rect x="305.3" y="118" width="216.6" height="26" rx="3" fill="#C24A0C"/>
+<text x="299.3" y="135.0" text-anchor="end" font-size="11" fill="#1B2126">+300 g: 226</text>
+<text x="88" y="135.0" font-size="12" fill="#1B2126">Payload mass</text>
+<rect x="521.9" y="156" width="46.5" height="26" rx="3" fill="#1D6A86"/>
+<text x="574.4" y="173.0" text-anchor="start" font-size="11" fill="#1B2126">x0.7: 350</text>
+<rect x="482.5" y="156" width="39.4" height="26" rx="3" fill="#C24A0C"/>
+<text x="476.5" y="173.0" text-anchor="end" font-size="11" fill="#1B2126">x1.3: 310</text>
+<text x="88" y="173.0" font-size="12" fill="#1B2126">Drag coefficient</text>
+<rect x="521.9" y="194" width="14.2" height="26" rx="3" fill="#1D6A86"/>
+<text x="542.0" y="211.0" text-anchor="start" font-size="11" fill="#1B2126">x0.90: 335</text>
+<rect x="508.4" y="194" width="13.5" height="26" rx="3" fill="#C24A0C"/>
+<text x="502.4" y="211.0" text-anchor="end" font-size="11" fill="#1B2126">x1.10: 322</text>
+<text x="88" y="211.0" font-size="12" fill="#1B2126">Air density</text>
+<rect x="521.9" y="232" width="25.9" height="26" rx="3" fill="#C24A0C"/>
+<text x="553.8" y="249.0" text-anchor="start" font-size="11" fill="#1B2126">2000 m: 340</text>
+<text x="88" y="249.0" font-size="12" fill="#1B2126">Site elevation</text>
+<rect x="514.3" y="270" width="7.5" height="26" rx="3" fill="#1D6A86"/>
+<text x="508.3" y="287.0" text-anchor="end" font-size="11" fill="#1B2126">-15 K: 325</text>
+<rect x="521.9" y="270" width="13.2" height="26" rx="3" fill="#C24A0C"/>
+<text x="541.0" y="287.0" text-anchor="start" font-size="11" fill="#1B2126">+30 K: 334</text>
+<text x="88" y="287.0" font-size="12" fill="#1B2126">ISA temperature offset</text>
+<line x1="521.9" x2="521.9" y1="70" y2="318" stroke="#1B2126" stroke-width="1.5"/>
+<text x="521.9" y="66" text-anchor="middle" font-size="11" font-weight="600" fill="#1B2126">baseline 328</text>
+<rect x="560" y="352" width="12" height="12" fill="#1D6A86"/><text x="578" y="362" font-size="11" fill="#1B2126">lower setting</text>
+<rect x="670" y="352" width="12" height="12" fill="#C24A0C"/><text x="688" y="362" font-size="11" fill="#1B2126">higher setting</text>
+<text x="515" y="362" text-anchor="middle" font-size="12" fill="#1B2126">Apogee (m)</text>
+</svg>

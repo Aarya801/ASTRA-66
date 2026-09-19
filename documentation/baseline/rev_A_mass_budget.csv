@@ -1,0 +1,40 @@
+id,item,module,mass_g,cg_station_mm,provenance,note
+NC-101,"Nose tip section (ogive 0-150, spigot)",100 Nose,25.4,96.8,CALCULATED,"PETG shell, area x wall"
+NC-102,Nose base + shoulder,100 Nose,61.7,247.2,CALCULATED,incl. 4 g bosses (ASM)
+NC-103,Nose bulkhead / ballast mount,100 Nose,13.1,321.0,CALCULATED,60 % effective infill (ASM)
+NC-104,Ballast rod M6x80 + 2 nylock + 2 washers,100 Nose,19.9,284.0,CALCULATED,no ballast washers in baseline
+NC-105,"Nose fasteners (6x M3 insert, 6x M3 screw)",100 Nose,8.0,294.0,ASSUMPTION,
+PL-201,Payload tube,200 Payload,51.1,389.0,CALCULATED,
+PL-202,GPS / sensor tray + bracket,200 Payload,15.0,393.0,ASSUMPTION,
+PL-203,Camera cradle,200 Payload,10.0,360.0,ASSUMPTION,
+PL-204,Lens cowl,200 Payload,4.0,360.0,ASSUMPTION,
+PL-205/206,Access hatch + doubler frame,200 Payload,8.0,395.0,ASSUMPTION,
+EL-GPS,GPS module + patch antenna,200 Payload,20.0,378.0,ASSUMPTION,weigh
+EL-CAM,Mini camera (user-selected),200 Payload,35.0,360.0,USER-SUPPLIED,weigh
+AV-301,Coupler tube,300 Avionics,46.7,529.0,CALCULATED,
+AV-302,Switch band,300 Avionics,6.1,529.0,CALCULATED,
+AV-303,Forward bulkhead (2-ply laminate) + 2 M4 inserts,300 Avionics,28.9,444.0,CALCULATED,
+AV-304,Aft bulkhead (2-ply laminate),300 Avionics,24.9,614.0,CALCULATED,
+AV-311,M6 forged eyebolt + nut + washers,300 Avionics,25.0,638.0,ASSUMPTION,weigh
+AV-305,"2x M4x190 A2 rods, nuts, washers",300 Avionics,32.4,534.0,CALCULATED,
+AV-306,Electronics sled,300 Avionics,25.0,527.0,ASSUMPTION,
+EL-AV,"Avionics set: MCU, IMU, baro, SD, radio, buzzer, wiring",300 Avionics,59.0,527.0,ASSUMPTION,sum of module estimates -- weigh
+EL-BAT,1S LiPo battery + cage + strap,300 Avionics,33.0,502.0,ASSUMPTION,weigh
+AV-309/310,"Gasket, switch, adhesive allowance",300 Avionics,12.0,529.0,ASSUMPTION,
+BO-401,Booster tube (slotted),400 Booster,121.9,844.0,CALCULATED,minus fin slots
+BO-402,Motor mount tube,400 Booster,24.5,1024.0,CALCULATED,
+BO-404,Forward centering ring,400 Booster,9.9,897.0,CALCULATED,
+BO-403,Fin-can core (ASA),400 Booster,59.9,1067.0,CALCULATED,"rings 70 % infill, rails solid (ASM)"
+BO-405,Aft fin lock ring,400 Booster,7.9,1141.0,CALCULATED,
+BO-406,"Fins x4 (3 mm birch ply, finished)",400 Booster,77.4,1077.4,CALCULATED,
+BO-407,Motor retainer (commercial),400 Booster,25.0,1154.0,COMMERCIAL SPEC,placeholder
+BO-408/409,2 rail buttons + fwd boss + screws,400 Booster,10.0,1000.0,ASSUMPTION,
+BO-410,Aramid anchor leader + lock-ring screws,400 Booster,14.0,934.0,ASSUMPTION,
+BO-ADH,Epoxy fillets and bonds (booster),400 Booster,20.0,1014.0,ASSUMPTION,
+PL-PNT,"Primer + paint, forward airframe",200 Payload,10.0,330,ASSUMPTION,
+BO-PNT,"Primer + paint, booster",400 Booster,15.0,844.0,ASSUMPTION,
+RC-501,"Parachute (~0.9 m, ripstop)",500 Recovery,55.0,740.0,ASSUMPTION,weigh purchased chute
+RC-502,Flame-resistant chute protector,500 Recovery,20.0,800.0,ASSUMPTION,
+RC-503,Shock cord 4 m,500 Recovery,40.0,720.0,ASSUMPTION,
+RC-504/505,3 quick links + swivel,500 Recovery,15.0,680.0,ASSUMPTION,
+MT-601,"Certified motor (EXTERNAL, placeholder mass)",600 Motor,110.0,1091.5,COMMERCIAL SPEC,replace with certification data

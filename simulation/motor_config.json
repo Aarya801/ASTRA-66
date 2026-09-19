@@ -1,0 +1,39 @@
+{
+  "_readme": [
+    "External certified motor system data for ASTRA-66. This file is the ONLY place motor, retainer and motor-mount numbers are entered.",
+    "status PLACEHOLDER: planning values that do not describe any real product; every stability result is flagged as provisional.",
+    "status MANUFACTURER_DATA: copy each value from the selected certified product's current published documentation.",
+    "  designation, manufacturer, certification, data_source, retainer model/data_source, verified_by and date become mandatory.",
+    "Never alter, re-work or fabricate a motor. Motor selection, preparation and handling are done by a certified mentor or range officer.",
+    "After editing: python cad/build_cad.py --openscad <path>  (re-seats MMT, retainer envelope, lock ring, fin tabs, CG, margin)."
+  ],
+  "status": "PLACEHOLDER",
+  "thrust_curve_file": "motors/PLACEHOLDER_TEST_INPUT.eng",
+  "_thrust_curve_note": "Synthetic test signal, not a real motor. For MANUFACTURER_DATA point this to the certified motor's published RASP (.eng) file placed in simulation/motors/.",
+  "motor": {
+    "designation": null,
+    "manufacturer": null,
+    "certification": null,
+    "data_source": null,
+    "diameter_class_mm": 29,
+    "length_mm": 125.0,
+    "loaded_mass_g": 110.0,
+    "burnout_mass_g": 55.0
+  },
+  "retainer": {
+    "model": null,
+    "data_source": null,
+    "body_od_mm": 39.0,
+    "length_aft_of_airframe_mm": 22.0,
+    "mass_g": 25.0
+  },
+  "motor_mount": {
+    "mmt_id_mm": 29.0,
+    "mmt_length_mm": 260.0,
+    "mmt_aft_extension_mm": 10.0
+  },
+  "verification": {
+    "verified_by": null,
+    "date": null
+  }
+}

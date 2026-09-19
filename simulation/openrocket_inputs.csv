@@ -1,0 +1,22 @@
+component,field,value,provenance
+Nose cone,Shape / shape parameter,Ogive / 1.0 (tangent),ASM
+Nose cone,Length · base ⌀ · wall,264 mm · 66 mm · 1.2 mm,ASM
+Nose cone,Shoulder length · ⌀ · thickness,60 · 63.7 · 1.6 mm,ASM
+Nose cone,Material / override mass,PETG 1270 kg/m³ → then OVERRIDE with weighed mass,USER
+Body tube 'Payload',Length · OD · ID,250 · 66 · 64 mm,ASM→USER
+Body tube 'Switch band',Length,30 mm,ASM
+Body tube 'Booster',Length,600 mm,ASM
+Inner tube 'AV coupler',Position · length · OD · ID,top of Switch band −70 · 170 · 63.8 · 61,ASM
+Bulkheads (in coupler),2 × 2 discs,6 mm ply at coupler ends (⌀60.8 / ⌀63.8),ASM
+Inner tube 'MMT' (motor mount ON),Length · OD · ID · overhang,260 · 31 · from motor maker · 10,COTS
+Centering rings,Positions,top of MMT (6 ply); core rings 8 mm at tab front and aft,ASM
+Trapezoidal fin set,Count · root · tip · height · sweep,4 · 150 · 60 · 60 · 70 mm,ASM
+Trapezoidal fin set,Thickness · cross-section · position,"3 mm · Rounded · bottom of Booster, offset 0",ASM
+Trapezoidal fin set,Fin tabs,height 12.8 · length 134 · offset 10 from root LE,ASM
+Rail buttons,Profile / position,"1010 class, 2 buttons, at CAD stations; angle 45°",USER (range rail)
+Parachute,Diameter · Cd · deploy,1067 mm · 0.8 (or maker value) · at ejection,ASM
+Shock cord,Length · material,4 m tubular nylon (mass component OK),ASM
+Mass components,"Electronics, battery, camera, GPS, ballast",Enter each at CAD station with WEIGHED mass,USER
+Motor,Motor configuration,Select certified motor from built-in ThrustCurve database; set ejection delay option,COTS
+Launch conditions,Rail length · angle · wind · site altitude · temp,From YOUR range; wind 0/10/15 km/h cases,USER
+Simulation options,Time step / geodetic,"Defaults; run ≥ 3 wind cases, Monte-Carlo optional",ASM

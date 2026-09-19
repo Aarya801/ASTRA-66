@@ -1,0 +1,18 @@
+fastener,qty,standard,used_at
+"M3 × 8 button head, A2",3,ISO 7380,NC-102 ↔ PL-201 (I-01)
+"M3 × 10 socket head, A2",3,ISO 4762,NC-103 → NC-102 lugs
+"M3 × 12 socket head, A2",4,ISO 4762,BO-405 → BO-403
+"M3 brass heat-set insert, L≈5",14,maker spec,"NC-102 (6), BO-403 (4), PL-202 foot (2), AV-306 (2)"
+"M3 × 16 socket head, A2",2,ISO 4762,AV-303 → PL-202 foot (from inside the AV bay)
+"M3 × 16 socket head, A2",2,ISO 4762,AV-308 → AV-306 (from below)
+"M2.5 × 6 button head, A2",2,ISO 7380,PL-205 hatch → PL-206 ledges
+M2.5 brass heat-set insert,19,maker spec,"PL-206 (2), PL-202 (6), AV-306 grid (10) + switch tower (1)"
+M2.5 nylon standoffs + screws kit,1,—,Electronics modules
+"M4 threaded rod A2-70, 190 mm",2,DIN 976,AV-305
+M4 threaded insert / tee-nut,2,maker spec,AV-303
+M4 nylock wing nut or nylock + washer,2,DIN 985 / DIN 315,AV-304
+M4 insert + rail-button screw,2,per button maker,BO-408 / BO-409 / BO-403
+M6 forged eyebolt + M6 nylock + fender washer,1,rated,AV-311
+"M6 threaded rod A2, 86 mm + 2 nylock + washers",1,DIN 976 / 985,NC-104
+"Quick link, rated",3,marked WLL,RC-504
+"Cable ties 2.5 mm, grommet ⌀8",kit,—,Harness

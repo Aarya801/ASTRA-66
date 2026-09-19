@@ -1,0 +1,11 @@
+material,quantity,parts,note,cost_usd_low,cost_usd_high
+"Kraft or phenolic body tube, 66 mm class",2 lengths (≥ 900 mm total),"PL-201, AV-302, BO-401",Measure OD/ID; buy a matching coupler from the same supplier,20,35
+Matching coupler tube,≥ 200 mm,AV-301,Same supplier/series as body tube,5,8
+29 mm-class motor mount tube,≥ 300 mm,BO-402,Confirm fit with motor maker's casing dimensions,4,7
+Aircraft birch plywood 3 mm (3-ply),300 × 300,BO-406,"Aviation grade; flat, void-free",8,14
+Birch plywood 6 mm,300 × 300,"AV-303/304, BO-404/405",Laser-cut service or hole saw,6,10
+PETG filament,≈ 0.35 kg,"Nose, payload parts, sled, jigs",Dry before printing,8,12
+ASA filament,≈ 0.1 kg,"BO-403, PL-204",Print enclosed; ventilate,4,8
+"Epoxy, 30-min structural + laminating",2 kits,"All bonds, fillets, fin edge sealing",Measure by weight; record batch,15,25
+"Primer, filler, paint, sandpaper",—,Finish,Light coats — paint is mass aft,15,30
+"Foam, tape, grommets, zip ties",—,"Gasket, fit tuning, harness",—,5,8

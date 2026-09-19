@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 264" role="img" aria-label="Rail-exit static-margin sensitivity" style="background:#FFFFFF;font-family:'IBM Plex Sans','Segoe UI',system-ui,sans-serif">
+<rect width="820" height="264" fill="#FFFFFF"/>
+<text x="24" y="30" font-size="17" font-weight="600" fill="#1B2126">Rail-exit static-margin sensitivity</text>
+<text x="24" y="50" font-size="12" fill="#5A646B">Drag, density and temperature do not move CG or CP in this model</text>
+<line x1="250.0" x2="250.0" y1="74" y2="204" stroke="#DDE2DE"/>
+<text x="250.0" y="222" text-anchor="middle" font-size="11" fill="#5A646B">2</text>
+<line x1="402.8" x2="402.8" y1="74" y2="204" stroke="#DDE2DE"/>
+<text x="402.8" y="222" text-anchor="middle" font-size="11" fill="#5A646B">2.5</text>
+<line x1="555.6" x2="555.6" y1="74" y2="204" stroke="#DDE2DE"/>
+<text x="555.6" y="222" text-anchor="middle" font-size="11" fill="#5A646B">3</text>
+<line x1="708.4" x2="708.4" y1="74" y2="204" stroke="#DDE2DE"/>
+<text x="708.4" y="222" text-anchor="middle" font-size="11" fill="#5A646B">3.5</text>
+<rect x="455.9" y="80" width="290.7" height="26" rx="3" fill="#C24A0C"/>
+<text x="752.6" y="97.0" text-anchor="start" font-size="11" fill="#1B2126">+300 g: 3.62</text>
+<text x="88" y="97.0" font-size="12" fill="#1B2126">Payload mass</text>
+<rect x="455.9" y="118" width="127.1" height="26" rx="3" fill="#1D6A86"/>
+<text x="589.0" y="135.0" text-anchor="start" font-size="11" fill="#1B2126">-30 mm: 3.09</text>
+<rect x="328.7" y="118" width="127.1" height="26" rx="3" fill="#C24A0C"/>
+<text x="322.7" y="135.0" text-anchor="end" font-size="11" fill="#1B2126">+30 mm: 2.26</text>
+<text x="88" y="135.0" font-size="12" fill="#1B2126">Airframe CG shift</text>
+<rect x="416.0" y="156" width="39.8" height="26" rx="3" fill="#1D6A86"/>
+<text x="410.0" y="173.0" text-anchor="end" font-size="11" fill="#1B2126">x0.8: 2.54</text>
+<rect x="455.9" y="156" width="27.5" height="26" rx="3" fill="#C24A0C"/>
+<text x="489.3" y="173.0" text-anchor="start" font-size="11" fill="#1B2126">x1.2: 2.76</text>
+<text x="88" y="173.0" font-size="12" fill="#1B2126">Airframe mass</text>
+<line x1="455.9" x2="455.9" y1="70" y2="204" stroke="#1B2126" stroke-width="1.5"/>
+<text x="455.9" y="66" text-anchor="middle" font-size="11" font-weight="600" fill="#1B2126">baseline 2.67</text>
+<rect x="560" y="238" width="12" height="12" fill="#1D6A86"/><text x="578" y="248" font-size="11" fill="#1B2126">lower setting</text>
+<rect x="670" y="238" width="12" height="12" fill="#C24A0C"/><text x="688" y="248" font-size="11" fill="#1B2126">higher setting</text>
+<text x="515" y="248" text-anchor="middle" font-size="12" fill="#1B2126">Static margin at rail exit (calibres)</text>
+</svg>

@@ -1,0 +1,3 @@
+# Store every file byte-for-byte (no line-ending conversion), so a checkout on any OS is identical to the
+# REV-B package and MANIFEST.sha256 stays valid. The validation scripts compare text content independent of CRLF/LF.
+* -text

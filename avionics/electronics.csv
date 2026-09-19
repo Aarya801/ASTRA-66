@@ -1,0 +1,14 @@
+function,example_class,role,bus,location,cost_usd_low,cost_usd_high,build
+Microcontroller,RP2040 (e.g. Raspberry Pi Pico) or ESP32-S3 dev board,"Sensor fusion, state machine, logging",—,AV sled,5,15,both
+IMU,"6-axis, ±32 g accel class (e.g. ST LSM6DSO32 breakout)","Acceleration, rotation rate, liftoff detect",I²C / SPI,"AV sled, hard-mounted near axis",10,18,both
+Barometer,Bosch BMP390 or TE MS5611 breakout,"Pressure altitude, apogee detect",I²C,"AV sled, foam cover vs. light/draughts",8,15,both
+Temperature,TI TMP117 breakout or baro internal sensor,Bay temperature log,I²C,AV sled / probe through band,0,10,rec
+Data logging,microSD SPI breakout + industrial / high-endurance card,Primary data store,SPI,AV sled; card retained with tape,5,15,both
+GPS,u-blox M8/M9/M10-class module + patch antenna,"Position for recovery, ground track",UART,Payload bay tray (I-08),12,45,rec
+Telemetry radio (×2),Semtech SX127x LoRa module pair — ONLY on a band/power legal in your country,Downlink to ground station,SPI,"AV sled; antenna along band, away from GPS",15,40,rec
+Battery,"1S LiPo with protection circuit, JST-PH","Power (>2 h pad hold, measure)",—,AV-308 cage,6,12,both
+Regulator,3.3 V LDO or buck (≥500 mA),Clean rail,—,AV sled,2,6,both
+Buzzer + LED,"Active piezo buzzer, status LED","State annunciation, locate on ground",GPIO,AV sled,2,4,both
+Separation sense,Breakwire loop across I-03 (thin enamel wire + 2-pin connector),Detects deployment (logging only),GPIO input,Band → booster,1,2,both
+Camera,Mini action / FPV-style recorder with own battery (USER choice),Onboard video,Standalone,PL-203 cradle,25,80,rec
+Ground station,2nd LoRa module + MCU + USB to laptop (Python logger),Live telemetry display,USB serial,Ground,0,0,rec

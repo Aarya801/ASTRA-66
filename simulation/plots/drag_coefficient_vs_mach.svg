@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" role="img" aria-label="Drag build-up vs Mach (ASSUMPTION model)" style="background:#FFFFFF;font-family:'IBM Plex Sans','Segoe UI',system-ui,sans-serif">
+<rect width="820" height="470" fill="#FFFFFF"/>
+<text x="78" y="28" font-size="17" font-weight="600" fill="#1B2126">Drag build-up vs Mach (ASSUMPTION model)</text>
+<text x="78" y="48" font-size="12" fill="#5A646B">Sea-level ISA; Reynolds number from speed and body length; +8 % protuberance allowance in total</text>
+<line x1="78" x2="792" y1="408.0" y2="408.0" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="412.0" text-anchor="end" font-size="11" fill="#5A646B">0</text>
+<line x1="78" x2="792" y1="355.3" y2="355.3" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="359.3" text-anchor="end" font-size="11" fill="#5A646B">0.1</text>
+<line x1="78" x2="792" y1="302.7" y2="302.7" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="306.7" text-anchor="end" font-size="11" fill="#5A646B">0.2</text>
+<line x1="78" x2="792" y1="250.0" y2="250.0" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="254.0" text-anchor="end" font-size="11" fill="#5A646B">0.3</text>
+<line x1="78" x2="792" y1="197.3" y2="197.3" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="201.3" text-anchor="end" font-size="11" fill="#5A646B">0.4</text>
+<line x1="78" x2="792" y1="144.7" y2="144.7" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="148.7" text-anchor="end" font-size="11" fill="#5A646B">0.5</text>
+<line x1="78" x2="792" y1="92.0" y2="92.0" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="96.0" text-anchor="end" font-size="11" fill="#5A646B">0.6</text>
+<line x1="78.0" x2="78.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="78.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">0</text>
+<line x1="197.0" x2="197.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="197.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">0.05</text>
+<line x1="316.0" x2="316.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="316.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">0.1</text>
+<line x1="435.0" x2="435.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="435.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">0.15</text>
+<line x1="554.0" x2="554.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="554.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">0.2</text>
+<line x1="673.0" x2="673.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="673.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">0.25</text>
+<line x1="792.0" x2="792.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="792.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">0.3</text>
+<line x1="78" x2="792" y1="408" y2="408" stroke="#5A646B" stroke-width="1"/>
+<polyline points="125.6,87.0 142.3,101.2 158.9,111.6 175.6,119.6 192.2,126.2 208.9,131.6 225.6,136.2 242.2,140.3 258.9,143.8 275.5,146.9 292.2,149.7 308.9,152.3 325.5,154.6 342.2,156.6 358.8,158.6 375.5,160.3 392.2,161.9 408.8,163.4 425.5,163.8 442.1,163.5 458.8,163.2 475.5,162.9 492.1,162.6 508.8,162.3 525.4,161.9 542.1,161.6 558.8,161.2 575.4,160.8 592.1,160.4 608.7,160.0 625.4,159.6 642.1,159.1 658.7,158.7 675.4,158.2 692.0,157.7 708.7,157.2 725.4,156.7 742.0,156.2 758.7,155.6 775.3,155.1 792.0,154.5" fill="none" stroke="#1D6A86" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="125.6,180.7 142.3,193.9 158.9,203.5 175.6,211.1 192.2,217.2 208.9,222.3 225.6,226.7 242.2,230.5 258.9,233.9 275.5,237.0 292.2,239.7 308.9,242.2 325.5,244.5 342.2,246.6 358.8,248.6 375.5,250.4 392.2,252.1 408.8,253.7 425.5,254.4 442.1,254.4 458.8,254.4 475.5,254.4 492.1,254.4 508.8,254.4 525.4,254.4 542.1,254.4 558.8,254.4 575.4,254.4 592.1,254.4 608.7,254.4 625.4,254.4 642.1,254.4 658.7,254.4 675.4,254.4 692.0,254.4 708.7,254.4 725.4,254.4 742.0,254.4 758.7,254.4 775.3,254.4 792.0,254.4" fill="none" stroke="#C24A0C" stroke-width="2" stroke-linejoin="round" stroke-dasharray="7 5"/>
+<polyline points="125.6,344.8 142.3,344.8 158.9,344.7 175.6,344.7 192.2,344.6 208.9,344.6 225.6,344.5 242.2,344.5 258.9,344.4 275.5,344.3 292.2,344.2 308.9,344.2 325.5,344.1 342.2,344.0 358.8,343.8 375.5,343.7 392.2,343.6 408.8,343.5 425.5,343.3 442.1,343.2 458.8,343.0 475.5,342.9 492.1,342.7 508.8,342.6 525.4,342.4 542.1,342.2 558.8,342.0 575.4,341.8 592.1,341.6 608.7,341.4 625.4,341.2 642.1,341.0 658.7,340.7 675.4,340.5 692.0,340.2 708.7,340.0 725.4,339.7 742.0,339.5 758.7,339.2 775.3,338.9 792.0,338.6" fill="none" stroke="#2F6A47" stroke-width="2" stroke-linejoin="round" stroke-dasharray="7 5"/>
+<polyline points="125.6,401.3 142.3,401.3 158.9,401.3 175.6,401.3 192.2,401.2 208.9,401.2 225.6,401.1 242.2,401.1 258.9,401.0 275.5,401.0 292.2,400.9 308.9,400.8 325.5,400.8 342.2,400.7 358.8,400.6 375.5,400.5 392.2,400.4 408.8,400.3 425.5,400.2 442.1,400.1 458.8,400.0 475.5,399.8 492.1,399.7 508.8,399.6 525.4,399.4 542.1,399.3 558.8,399.1 575.4,399.0 592.1,398.8 608.7,398.6 625.4,398.4 642.1,398.2 658.7,398.0 675.4,397.8 692.0,397.6 708.7,397.4 725.4,397.2 742.0,397.0 758.7,396.7 775.3,396.5 792.0,396.3" fill="none" stroke="#6B4FA0" stroke-width="2" stroke-linejoin="round" stroke-dasharray="7 5"/>
+<line x1="78" x2="100" y1="70" y2="70" stroke="#1D6A86" stroke-width="2.5"/>
+<text x="106" y="74" font-size="12" fill="#1B2126">total (coasting)</text>
+<line x1="230" x2="252" y1="70" y2="70" stroke="#C24A0C" stroke-width="2.5" stroke-dasharray="7 5"/>
+<text x="258" y="74" font-size="12" fill="#1B2126">skin friction</text>
+<line x1="361" x2="383" y1="70" y2="70" stroke="#2F6A47" stroke-width="2.5" stroke-dasharray="7 5"/>
+<text x="389" y="74" font-size="12" fill="#1B2126">base</text>
+<line x1="429" x2="451" y1="70" y2="70" stroke="#6B4FA0" stroke-width="2.5" stroke-dasharray="7 5"/>
+<text x="457" y="74" font-size="12" fill="#1B2126">fin pressure</text>
+<text x="435" y="454" text-anchor="middle" font-size="12" fill="#1B2126">Mach number</text>
+<text x="18" y="250" text-anchor="middle" font-size="12" fill="#1B2126" transform="rotate(-90 18 250)">Drag coefficient (ref. body area)</text>
+</svg>

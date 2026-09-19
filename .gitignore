@@ -1,0 +1,32 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+build/
+.venv/
+venv/
+cad/exports/_work/
+cad/exports/_pipeline_log.txt
+
+# test / tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# temporary / log files
+*.log
+*.tmp
+*.bak
+*~
+
+# local tooling (e.g. a portable OpenSCAD next to the project) and editor/OS files
+_tools/
+openscad-*/
+node_modules/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

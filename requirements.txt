@@ -1,0 +1,6 @@
+# ASTRA-66 has no third-party Python dependencies.
+# Everything uses the Python standard library (math, csv, html, json, os, re, argparse,
+# pathlib, subprocess, shutil, tempfile, unittest).
+# Tested with Python 3.12.10 and 3.14.6. Older versions are untested.
+#
+# `python -m pip install -r requirements.txt` is a safe no-op, kept for tooling.

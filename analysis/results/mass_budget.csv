@@ -1,0 +1,42 @@
+id,item,module,mass_g,cg_station_mm,provenance,note
+NC-101,"Nose tip section (ogive 0-150, spigot)",100 Nose,24.9,106.4,CALCULATED,CAD: NC-101 V=19.62 cm3 x 1.27 x fill 1.0
+NC-102,Nose base + shoulder,100 Nose,64.1,248.1,CALCULATED,CAD: NC-102 V=50.50 cm3 x 1.27 x fill 1.0
+NC-103,Nose bulkhead / ballast mount,100 Nose,12.8,321.0,CALCULATED,CAD: NC-103 V=16.76 cm3 x 1.27 x fill 0.6
+NC-104,Ballast rod M6x86 + 2 nylock + 2 washers,100 Nose,20.9,287.0,CALCULATED,no ballast washers in baseline
+NC-105,"Nose fasteners (6x M3 insert, 6x M3 screw)",100 Nose,8.0,294.0,ASSUMPTION,
+PL-201,Payload tube,200 Payload,50.0,389.0,CALCULATED,CAD: PL-201 V=50.05 cm3 x 1.0 x fill 1.0
+PL-202,GPS / sensor tray + bracket,200 Payload,18.9,402.4,CALCULATED,CAD: PL-202 V=14.86 cm3 x 1.27 x fill 1.0
+PL-203,Camera cradle,200 Payload,11.7,366.2,CALCULATED,CAD: PL-203 V=10.24 cm3 x 1.27 x fill 0.9
+PL-204,Lens cowl,200 Payload,1.7,376.2,CALCULATED,CAD: PL-204 V=2.70 cm3 x 1.07 x fill 0.6
+PL-205/206,Access hatch + doubler frame,200 Payload,2.5,395.0,CALCULATED,CAD: PL-205 V=0.76 cm3 x 1.27 x fill 1.0; PL-206 V=1.19 cm3 x 1.27 x fill 1.0
+EL-GPS,GPS module + patch antenna,200 Payload,20.0,378.0,ASSUMPTION,weigh
+EL-CAM,Mini camera (user-selected),200 Payload,35.0,360.0,USER-SUPPLIED,weigh
+AV-301,Coupler tube,300 Avionics,46.5,529.0,CALCULATED,CAD: AV-301 V=46.54 cm3 x 1.0 x fill 1.0
+AV-302,Switch band,300 Avionics,6.1,529.0,CALCULATED,CAD: AV-302 V=6.06 cm3 x 1.0 x fill 1.0
+AV-303,Forward bulkhead (2-ply laminate) + 2 M4 inserts,300 Avionics,27.9,443.9,CALCULATED,CAD: AV-303 V=35.19 cm3 x 0.68 x fill 1.0 +4.0 g tee-nuts (ASM)
+AV-304,Aft bulkhead (2-ply laminate),300 Avionics,24.3,614.6,CALCULATED,CAD: AV-304 V=35.80 cm3 x 0.68 x fill 1.0
+AV-311,M6 forged eyebolt + nut + washers,300 Avionics,25.0,638.5,ASSUMPTION,weigh
+AV-305,"2x M4x190 A2 rods, nuts, washers",300 Avionics,32.4,534.0,CALCULATED,
+AV-306,Electronics sled,300 Avionics,32.1,527.1,CALCULATED,CAD: AV-306 V=28.12 cm3 x 1.27 x fill 0.9
+EL-AV,"Avionics set: MCU, IMU, baro, SD, radio, buzzer, wiring",300 Avionics,59.0,527.0,ASSUMPTION,sum of module estimates -- weigh
+EL-BAT,1S LiPo battery + strap,300 Avionics,27.0,492.8,ASSUMPTION,weigh (rev B: cage split out)
+AV-308,Battery cage,300 Avionics,11.5,492.8,CALCULATED,CAD: AV-308 V=9.04 cm3 x 1.27 x fill 1.0
+AV-312,Rod spacers (2 fwd + 2 aft),300 Avionics,1.4,546.3,CALCULATED,CAD: AV-312 V=1.07 cm3 x 1.27 x fill 1.0
+AV-309/310,"Gasket, switch, adhesive allowance",300 Avionics,12.0,529.0,ASSUMPTION,
+BO-401,Booster tube (slotted),400 Booster,120.6,840.4,CALCULATED,CAD: BO-401 V=120.56 cm3 x 1.0 x fill 1.0
+BO-402,Motor mount tube,400 Booster,24.5,1024.0,CALCULATED,CAD: BO-402 V=24.49 cm3 x 1.0 x fill 1.0
+BO-404,Forward centering ring,400 Booster,9.8,897.0,CALCULATED,CAD: BO-404 V=14.38 cm3 x 0.68 x fill 1.0
+BO-403,Fin-can core (ASA),400 Booster,66.5,1067.5,CALCULATED,CAD: BO-403 V=73.12 cm3 x 1.07 x fill 0.85
+BO-405,Aft fin lock ring,400 Booster,7.7,1141.0,CALCULATED,CAD: BO-405 V=11.36 cm3 x 0.68 x fill 1.0
+BO-406,"Fins x4 (3 mm birch ply, finished)",400 Booster,71.9,1077.8,CALCULATED,CAD: BO-406 V=24.05 cm3 x 0.68 x fill 1.0 x finish 1.1 x 4
+BO-407,Motor retainer (commercial),400 Booster,25.0,1154.0,COMMERCIAL SPEC,placeholder
+BO-408/409,2 rail buttons + fwd boss + screws,400 Booster,10.0,1000.0,ASSUMPTION,
+BO-410,Aramid anchor leader + lock-ring screws,400 Booster,14.0,934.0,ASSUMPTION,
+BO-ADH,Epoxy fillets and bonds (booster),400 Booster,20.0,1014.0,ASSUMPTION,
+PL-PNT,"Primer + paint, forward airframe",200 Payload,10.0,330,ASSUMPTION,
+BO-PNT,"Primer + paint, booster",400 Booster,15.0,844.0,ASSUMPTION,
+RC-501,"Parachute (~0.9 m, ripstop)",500 Recovery,55.0,740.5,ASSUMPTION,weigh purchased chute
+RC-502,Flame-resistant chute protector,500 Recovery,20.0,800.5,ASSUMPTION,
+RC-503,Shock cord 4 m,500 Recovery,40.0,720.5,ASSUMPTION,
+RC-504/505,3 quick links + swivel,500 Recovery,15.0,680.5,ASSUMPTION,
+MT-601,"Certified motor (EXTERNAL, placeholder mass)",600 Motor,110.0,1091.5,COMMERCIAL SPEC,replace with certification data
