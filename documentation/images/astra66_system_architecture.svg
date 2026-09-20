@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 830" role="img" aria-label="ASTRA-66 system architecture: CAD to analysis, simulation, avionics software, replay and validation, with the boundary to physical hardware validation" style="background:#ffffff;font-family:'IBM Plex Sans','Segoe UI',system-ui,sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5A646B"/>
+    </marker>
+    <style>
+      .b{fill:#FFFFFF;stroke:#1D6A86;stroke-width:1.4}
+      .fut{fill:#F7F7F5;stroke:#8A939A;stroke-width:1.4;stroke-dasharray:7 5}
+      .note{fill:#FFF6E0;stroke:#C98A00;stroke-width:1.2}
+      .h{font-size:14px;font-weight:700;fill:#1B2126}
+      .t{font-size:12px;fill:#1B2126}
+      .m{font-size:11px;fill:#5A646B}
+      .g{font-size:12px;fill:#5A646B}
+      .ok{font-size:11px;font-weight:700;fill:#2F6A47}
+      .ln{stroke:#5A646B;stroke-width:1.6;fill:none}
+    </style>
+  </defs>
+  <text x="30" y="34" class="h" style="font-size:18px">ASTRA-66 system architecture</text>
+  <text x="30" y="54" class="m">Draft student engineering project. NOT FLIGHT CERTIFIED. Propulsion is an external, commercially certified component (placeholder data only).</text>
+
+  <rect x="120" y="76" width="600" height="60" rx="8" class="b"/>
+  <text x="136" y="99" class="h">CAD</text>
+  <text x="136" y="118" class="t">Parametric OpenSCAD model → meshes, STL / DXF exports, 32 drawing sheets</text>
+  <text x="136" y="131" class="m">cad/ · validated: 147 PASS · 12 accepted WARN · 0 FAIL · 0 interferences</text>
+  <path d="M420,136 V168" class="ln" marker-end="url(#a)"/>
+
+  <rect x="120" y="170" width="600" height="60" rx="8" class="b"/>
+  <text x="136" y="193" class="h">Engineering analysis</text>
+  <text x="136" y="212" class="t">Mass budget, CG, Barrowman CP, static margin, loads, recovery sizing</text>
+  <text x="136" y="225" class="m">analysis/analysis.py — one source of truth; every value carries a provenance tag</text>
+  <path d="M420,230 V262" class="ln" marker-end="url(#a)"/>
+
+  <rect x="120" y="264" width="600" height="60" rx="8" class="b"/>
+  <text x="136" y="287" class="h">Flight simulation</text>
+  <text x="136" y="306" class="t">1-DOF trajectory, ISA atmosphere, drag build-up, stability and sensitivity</text>
+  <text x="136" y="319" class="m">simulation/ — 13/13 numerical verification checks against closed-form solutions</text>
+  <path d="M420,324 V356" class="ln" marker-end="url(#a)"/>
+
+  <rect x="120" y="358" width="600" height="60" rx="8" class="b"/>
+  <text x="136" y="381" class="h">Avionics software</text>
+  <text x="136" y="400" class="t">Sensors → validation → Kalman estimator → flight state → logger + telemetry</text>
+  <text x="136" y="413" class="m">avionics/ — hardware-independent interfaces; no actuator or energetic output</text>
+  <path d="M420,418 V450" class="ln" marker-end="url(#a)"/>
+
+  <rect x="120" y="452" width="600" height="60" rx="8" class="b"/>
+  <text x="136" y="475" class="h">Sensor / data replay</text>
+  <text x="136" y="494" class="t">Synthetic sensor dataset → the same flight-computer pipeline → estimates, events</text>
+  <text x="136" y="507" class="m">simulation/avionics_replay.py — SYNTHETIC data; BENCH and FLIGHT modes defined, unused</text>
+  <path d="M420,512 V544" class="ln" marker-end="url(#a)"/>
+
+  <rect x="120" y="546" width="600" height="64" rx="8" class="b"/>
+  <text x="136" y="569" class="h">Automated validation</text>
+  <text x="136" y="588" class="t">One command, 7 steps: build · CAD · simulation · replay · CAD-fit/mass · 74 + 81 tests</text>
+  <text x="136" y="601" class="m">run_validation.py + GitHub Actions (Python 3.12 and 3.14) · checksum manifest</text>
+  <text x="600" y="601" class="ok">ALL PASS</text>
+
+  <path d="M420,610 V656" class="ln" marker-end="url(#a)" stroke-dasharray="7 5"/>
+  <line x1="30" y1="634" x2="950" y2="634" stroke="#B3261E" stroke-width="2" stroke-dasharray="10 6"/>
+  <rect x="150" y="620" width="540" height="1" fill="none"/>
+  <text x="30" y="626" class="t" fill="#2F6A47" font-weight="700">▲ SOFTWARE / SIMULATION VALIDATION — performed, reproducible, in CI</text>
+  <text x="30" y="652" class="t" fill="#B3261E" font-weight="700">▼ PHYSICAL HARDWARE VALIDATION — NOT YET PERFORMED (no hardware exists)</text>
+
+  <rect x="120" y="666" width="600" height="60" rx="8" class="fut"/>
+  <text x="136" y="689" class="h" fill="#5A646B">Future: hardware integration</text>
+  <text x="136" y="708" class="g">Mentor-approved component selection → measure and weigh → update CAD envelopes and masses</text>
+  <text x="136" y="721" class="m">Planned in documentation/HARDWARE_SELECTION_CHECKLIST.md and MASS_MEASUREMENT_PROCEDURE.md</text>
+  <path d="M420,726 V756" class="ln" marker-end="url(#a)" stroke-dasharray="7 5"/>
+
+  <rect x="120" y="758" width="600" height="60" rx="8" class="fut"/>
+  <text x="136" y="781" class="h" fill="#5A646B">Future: experimental data</text>
+  <text x="136" y="800" class="g">Bench records (BENCH mode) through the same pipeline → compare with the simulation</text>
+  <text x="136" y="813" class="m">Then supervised testing only under a qualified mentor and range approval</text>
+
+  <rect x="740" y="76" width="215" height="112" rx="8" class="note"/>
+  <text x="754" y="98" class="t" font-weight="700">Propulsion</text>
+  <text x="754" y="117" class="m">External, commercially certified</text>
+  <text x="754" y="131" class="m">component. Never designed here.</text>
+  <text x="754" y="150" class="m">Current thrust data are</text>
+  <text x="754" y="164" class="m">PLACEHOLDER: every trajectory</text>
+  <text x="754" y="178" class="m">number is provisional.</text>
+
+  <rect x="740" y="358" width="215" height="112" rx="8" class="note"/>
+  <text x="754" y="380" class="t" font-weight="700">Safety boundary</text>
+  <text x="754" y="399" class="m">Sense, log, transmit only.</text>
+  <text x="754" y="413" class="m">No igniter, pyrotechnic,</text>
+  <text x="754" y="427" class="m">energetic or deployment</text>
+  <text x="754" y="441" class="m">output exists, and none may</text>
+  <text x="754" y="455" class="m">be added (guarded by a test).</text>
+
+  <rect x="740" y="546" width="215" height="64" rx="8" class="note"/>
+  <text x="754" y="568" class="t" font-weight="700">Value classes</text>
+  <text x="754" y="586" class="m">Verified by software test ·</text>
+  <text x="754" y="600" class="m">assumed · placeholder · unverified</text>
+</svg>

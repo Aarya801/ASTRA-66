@@ -9,6 +9,7 @@ import importlib.util
 import json
 import math
 import os
+import re
 import shutil
 import struct
 import sys
@@ -463,7 +464,11 @@ class BenchDataTemplate(unittest.TestCase):
 class Phase6Documents(unittest.TestCase):
     DOCS = ("documentation/HARDWARE_INTEGRATION_STATUS.md", "documentation/HARDWARE_SELECTION_CHECKLIST.md",
             "documentation/CAD_AVIONICS_INTEGRATION.md", "documentation/AVIONICS_BENCH_TEST_PLAN.md",
-            "documentation/MASS_MEASUREMENT_PROCEDURE.md", "avionics/bench_data/README.md")
+            "documentation/MASS_MEASUREMENT_PROCEDURE.md", "avionics/bench_data/README.md",
+            "documentation/PROJECT_OVERVIEW.md", "documentation/ENGINEERING_METHOD.md", "documentation/VALIDATION.md",
+            "documentation/HARDWARE_INTEGRATION.md", "documentation/TEST_PLAN.md", "documentation/REPRODUCIBILITY.md",
+            "documentation/ROADMAP.md", "documentation/images/README.md", "documentation/RELEASE_READINESS.md",
+            "README.md")
 
     def test_documents_exist_and_carry_the_disclaimer(self):
         for rel in self.DOCS:
@@ -471,11 +476,24 @@ class Phase6Documents(unittest.TestCase):
                 text = (ROOT / rel).read_text(encoding="utf-8")
                 self.assertRegex(text.lower(), r"not flight certified", rel)
 
+    # Claims that must never stand unqualified. A sentence may use them only when it denies them ("nothing has been
+    # validated") or limits them to software / CAD / numerics ("validated in software, not on hardware").
+    CLAIMS = ("we measured", "component selected:", "flight proven", "flight tested", "has been validated",
+              "was validated", "hardware is validated")
+    NEGATIONS = ("not ", "no ", "never", "nothing", "none", "without", "has not", "cannot", "unverified")
+    QUALIFIERS = ("software", "synthetic", "cad model", "numeric", "simulation", "in simulation", "on the bench plan")
+
     def test_no_invented_measurements_or_part_numbers_claimed_as_selected(self):
         for rel in self.DOCS:
             text = (ROOT / rel).read_text(encoding="utf-8").lower()
-            for claim in ("we measured", "component selected:", "flight proven", "flight tested", "has been validated"):
-                self.assertNotIn(claim, text, f"{rel}: {claim}")
+            # Headings are section labels, not claims: their section body carries the caveat. Drop them first, then
+            # split the prose into sentences (paragraph breaks end a sentence too).
+            body = "\n".join(ln for ln in text.splitlines() if not ln.lstrip().startswith("#"))
+            for sentence in re.split(r"(?<=[.!?:|])\s+|\n\s*\n", body):
+                for claim in self.CLAIMS:
+                    if claim in sentence:
+                        ok = any(n in sentence for n in self.NEGATIONS) or any(q in sentence for q in self.QUALIFIERS)
+                        self.assertTrue(ok, f"{rel}: unqualified claim {claim!r} in: {sentence.strip()[:160]}")
 
     def test_readiness_categories_and_bench_tests_are_documented(self):
         status = (ROOT / "documentation" / "HARDWARE_INTEGRATION_STATUS.md").read_text(encoding="utf-8")

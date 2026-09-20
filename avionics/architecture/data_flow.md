@@ -1,6 +1,7 @@
 # ASTRA-66 avionics: data flow
 
-All data described here are **SIMULATED** until hardware exists. Schema: `avionics/data/schema/flight_data_schema.json`.
+All data described here are **synthetic** until hardware exists; ASTRA-66 is NOT flight certified. Schema:
+`avionics/data/schema/flight_data_schema.json`.
 
 ## 1. End-to-end path
 

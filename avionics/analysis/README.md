@@ -2,6 +2,8 @@
 
 Post-flight analysis of a flight-data log that follows `avionics/data/schema/flight_data_schema.json`.
 
+> All datasets in this repository are synthetic; no flight or bench data exist. ASTRA-66 is NOT flight certified.
+
 ```bash
 python avionics/analysis/flight_data_analysis.py avionics/data/example/example_flight_simulated.csv
 python avionics/analysis/flight_data_analysis.py LOG.csv --out some/folder

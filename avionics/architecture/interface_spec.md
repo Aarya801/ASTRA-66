@@ -3,7 +3,8 @@
 > Draft. No avionics component has been selected: every hardware item below is **COMPONENT TO BE SELECTED**. Ranges
 > and rates are **requirements** (class C assumptions), not manufacturer specifications. Where a requirement is derived
 > from the simulation it uses the PLACEHOLDER propulsion input and must be re-derived with the certified motor's data.
-> The candidate classes repeat `avionics/electronics.csv`; their datasheets have not been checked.
+> The candidate classes repeat `avionics/electronics.csv`; their datasheets have not been checked. Nothing here has
+> been built or tested, and ASTRA-66 is NOT flight certified.
 
 ## 1. Sensor interfaces
 

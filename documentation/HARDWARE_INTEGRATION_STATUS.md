@@ -85,7 +85,7 @@ Categories used below:
 
 | Item | Status | Evidence / next step |
 |---|---|---|
-| 40 project regression tests (package, CAD data, simulation, documentation) | PASS | `python -m unittest discover -s tests` |
+| 40 project regression tests (package, CAD data, simulation, documentation) | PASS | part of the 74 run by `python -m unittest discover -s tests` |
 | 34 avionics integration tests | PASS | `tests/test_avionics.py` |
 | 81 avionics software tests | PASS | `python -m unittest discover -s avionics/tests -t .` |
 | Safety-boundary guard (no actuation identifiers, no hardware-I/O imports) | PASS | `avionics/tests/test_architecture.py` |
