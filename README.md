@@ -58,11 +58,14 @@ simulation/flight_simulation.py ──► stability, sensitivity, verification, 
 simulation/motor_config.json + simulation/motors/*.eng  (external motor data, currently PLACEHOLDER)
 ```
 
-`python run_validation.py` runs four steps and writes `documentation/ENGINEERING_STATUS.md`:
+`python run_validation.py` runs seven steps and writes `documentation/ENGINEERING_STATUS.md`:
 1. The package build.
 2. A CAD currency check: the committed CAD validation must match every current `.scad` source and parameter.
 3. The simulation pipeline.
-4. The regression tests.
+4. The avionics sensor replay of the synthetic sample dataset.
+5. The avionics CAD-fit and mass-properties check.
+6. The regression tests (including `tests/test_avionics.py`).
+7. The avionics software tests (hardware-free, SIMULATED data).
 
 ## Data classes: verified, calculated, assumed, placeholder
 
@@ -139,6 +142,40 @@ These verify the **software**. They do not validate the rocket's real flight beh
 Planning cost ranges, excluding motors, tools and shipping: **low-cost build USD 232–437**, **recommended build USD 292–636**.
 These are assumptions; check local prices.
 
+## Avionics and flight-data system (Phase 4)
+
+Software architecture and simulation for sensing, data logging, telemetry, ground-station display and post-flight
+analysis. **No avionics hardware has been selected, built or tested** (every sensor is COMPONENT TO BE SELECTED), all
+avionics data are **SIMULATED**, and the avionics are **not flight certified**. They have no output that can drive an
+igniter, pyrotechnic, energetic or deployment device; the flight state is a data label only.
+
+| Layer | Location |
+|---|---|
+| Sensor layer (interfaces, requirements, simulated sensors) | `avionics/firmware/sensor_interfaces/` |
+| Flight-data processing (Kalman filter, state classifier) | `avionics/firmware/flight_state/` |
+| Data logger (schema validation, CSV / JSON-lines, CRC-16) | `avionics/firmware/logging/` |
+| Telemetry (41-byte packet, simulated link, hardware interface) | `avionics/firmware/telemetry/` |
+| Ground station (receiver, dashboard prototype) | `avionics/ground_station/` |
+| Post-flight analysis (plots, statistics) | `avionics/analysis/flight_data_analysis.py` |
+| Schema and SIMULATED example flight | `avionics/data/` |
+
+Design: `documentation/AVIONICS_DESIGN.md`; architecture, data flow and interfaces: `avionics/architecture/`.
+Phase 5 integration: audit and block diagram `documentation/AVIONICS_ARCHITECTURE.md`, hardware classes
+`avionics/HARDWARE_MAPPING.md`, formats `avionics/DATA_FORMAT.md`, CAD fit and mass properties
+`documentation/CAD_AVIONICS_INTEGRATION.md`, status `documentation/PHASE_5_STATUS.md`.
+Phase 6 hardware-integration readiness: `documentation/HARDWARE_INTEGRATION_STATUS.md` (what is verified, assumed,
+unverified, needs hardware or needs qualified review), `documentation/HARDWARE_SELECTION_CHECKLIST.md`,
+`documentation/AVIONICS_BENCH_TEST_PLAN.md`, `documentation/MASS_MEASUREMENT_PROCEDURE.md` and the bench-record
+template in `avionics/bench_data/`. Data-source modes SYNTHETIC / BENCH / FLIGHT are defined in
+`avionics/firmware/data_source.py`; FLIGHT is disabled because no flight data exist.
+
+```bash
+python -m avionics.firmware.simulate_flight
+python avionics/analysis/flight_data_analysis.py avionics/data/example/example_flight_simulated.csv
+python avionics/ground_station/server.py --simulate
+python simulation/avionics_replay.py          # replay the synthetic sensor dataset simulation/data/sample_flight.csv
+```
+
 ## Manufacturing considerations
 
 - **Printing:** PETG and ASA on an FDM printer with at least a 220 × 220 × 250 mm build volume.
@@ -161,6 +198,7 @@ These are assumptions; check local prices.
 - **Printability:** judged by a 45° overhang rule only; not yet checked in a slicer.
 - **Placeholder sizes:** camera, battery, switch, insert, tee-nut, rail-button, eyebolt and retainer sizes, the rail length and the launch site are placeholders.
 - **Reports:** generated reports carry their run date; the numbers are deterministic.
+- **Avionics:** software and simulation only; no component selected; state thresholds and filter tuning are assumptions checked against simulated data only.
 
 ## Placeholder propulsion data
 
@@ -215,7 +253,8 @@ ASTRA-66/
 │   ├── cadtools/      mesh analysis + drawing helpers
 │   └── build_cad.py, cad_parts.py, astra66_params.scad, astra66.scad
 ├── simulation/        flight simulation, stability, sensitivity, verification, configs, results/, plots/
-├── avionics/          electronics.csv + diagrams/
+├── avionics/          electronics.csv + diagrams/ (generated); Phase 4: architecture/, firmware/, data/,
+│                      ground_station/, analysis/, tests/ (flight-data software, SIMULATED data only)
 ├── bom/               bom.csv, fasteners.csv, materials.csv
 ├── documentation/     engineering package HTML, validation reports, engineering status, drawings/, generator/, baseline/
 ├── images/            OpenSCAD renders
@@ -248,7 +287,13 @@ Expected ending: `OVERALL: PASS` (exit code 0) with:
 - engineering package build: PASS;
 - CAD integration: PASS;
 - flight simulation (`verification 13/13 passed`): PASS;
-- regression tests (40 tests): PASS.
+- avionics sensor replay and CAD-fit / mass-properties check: PASS (the check reports 4 WARN and 8 UNVERIFIED items,
+  none FAIL; see `documentation/CAD_AVIONICS_INTEGRATION.md`);
+- regression tests (74 tests): PASS;
+- avionics software tests (81 tests): PASS.
+
+No hardware has been selected, built, weighed or tested: `documentation/HARDWARE_INTEGRATION_STATUS.md` lists what is
+verified by software and what still needs a bench or a qualified review.
 
 Optional full CAD regeneration uses OpenSCAD 2021.01 from openscad.org, which is not bundled:
 
@@ -257,7 +302,8 @@ python run_validation.py --with-cad --openscad "C:/path/to/openscad.com"
 ```
 
 Other commands: `python build.py` (package only), `python simulation/flight_simulation.py` (simulation only),
-`python -m unittest discover -s tests -v` (tests only), `python hosting/make_standalone.py` (standalone page).
+`python -m unittest discover -s tests -v` (tests only), `python -m unittest discover -s avionics/tests -t .` (avionics
+tests only), `python hosting/make_standalone.py` (standalone page).
 
 ## Future improvements
 
@@ -267,7 +313,8 @@ Other commands: `python build.py` (package only), `python simulation/flight_simu
 - **Structures:** FEA of the fin can and bulkheads; tensile coupon tests of printed parts and bonds.
 - **Printability:** check in a slicer for supports, bridging and first-layer area.
 - **Flight model:** a wind / weathercocking-capable model once measured data exist.
-- **Avionics:** firmware for the data-only avionics, with a Kalman-filtered state estimate.
+- **Avionics hardware:** select components with a mentor, port the Phase 4 software to the microcontroller, bench-test
+  sensors, logging and telemetry, and compare with the simulation (`documentation/AVIONICS_DESIGN.md` §12).
 
 ## License
 

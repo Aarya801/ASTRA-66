@@ -1,0 +1,161 @@
+{
+  "summary": {
+    "notice": "SOFTWARE TEST DATA ONLY: replay of a sensor-level dataset through the avionics software. Not flight data.",
+    "input": "simulation/data/sample_flight.csv",
+    "data_source": "SYNTHETIC",
+    "data_source_mode": "SYNTHETIC",
+    "data_source_label": "SYNTHETIC DATA (not flight data)",
+    "rows_used": 2162,
+    "rows_skipped": {
+      "bad_timestamp": 0,
+      "duplicate": 0,
+      "non_monotonic": 0,
+      "off_grid": 0
+    },
+    "unknown_columns": [],
+    "base_rate_hz": 50.0,
+    "sensor_rates_hz": {
+      "imu": 50,
+      "baro": 50,
+      "gnss": 1,
+      "temperature": 1,
+      "battery": 1,
+      "separation": 50
+    },
+    "flight_events": {
+      "LIFTOFF": 5.02,
+      "BURNOUT": 6.52,
+      "APOGEE": 10.56,
+      "LANDING": 37.02
+    },
+    "max_estimated_altitude": {
+      "altitude_m": 135.54,
+      "time_s": 10.14
+    },
+    "invalid_samples": {
+      "baro": 1,
+      "battery": 1,
+      "imu": 1
+    },
+    "logger_counts": {
+      "frames_in": 2162,
+      "written": 2162,
+      "rejected": 0,
+      "values_rejected": 3,
+      "timestamp_gaps": 0
+    },
+    "logger_issue_counts": {
+      "barometric_pressure:out_of_range": 1,
+      "battery_voltage:out_of_range": 1,
+      "imu_accel_z:non_finite": 1
+    },
+    "telemetry": {
+      "link": "SIMULATED TELEMETRY",
+      "sent": 217,
+      "decoded": 217,
+      "rejected": 0,
+      "lost": 0,
+      "duplicates": 0,
+      "errors": {},
+      "packet_success_rate": 1.0,
+      "packet_loss_percent": 0.0,
+      "last_packet_time_s": 43.2,
+      "last_rx_time_s": 43.2
+    }
+  },
+  "timeline": [
+    {
+      "time_s": 0.0,
+      "event": "IMU_OK",
+      "kind": "sensor_health"
+    },
+    {
+      "time_s": 0.0,
+      "event": "BARO_OK",
+      "kind": "sensor_health"
+    },
+    {
+      "time_s": 0.0,
+      "event": "GNSS_OK",
+      "kind": "sensor_health"
+    },
+    {
+      "time_s": 0.0,
+      "event": "TEMP_OK",
+      "kind": "sensor_health"
+    },
+    {
+      "time_s": 0.0,
+      "event": "BATTERY_OK",
+      "kind": "sensor_health"
+    },
+    {
+      "time_s": 0.0,
+      "event": "GNSS_NO_FIX",
+      "kind": "gnss"
+    },
+    {
+      "time_s": 2.0,
+      "event": "IMU_INVALID_SAMPLE",
+      "kind": "validation"
+    },
+    {
+      "time_s": 2.0,
+      "event": "GNSS_FIX",
+      "kind": "gnss"
+    },
+    {
+      "time_s": 5.02,
+      "event": "LIFTOFF",
+      "kind": "flight_state",
+      "detected_by": "accelerometer"
+    },
+    {
+      "time_s": 6.52,
+      "event": "BURNOUT",
+      "kind": "flight_state"
+    },
+    {
+      "time_s": 8.02,
+      "event": "GNSS_STALE",
+      "kind": "sensor_health"
+    },
+    {
+      "time_s": 9.0,
+      "event": "GNSS_OK",
+      "kind": "sensor_health"
+    },
+    {
+      "time_s": 10.56,
+      "event": "APOGEE",
+      "kind": "flight_state",
+      "apogee_time_s": 10.14,
+      "apogee_altitude_m": 135.54
+    },
+    {
+      "time_s": 11.0,
+      "event": "BARO_INVALID_SAMPLE",
+      "kind": "validation"
+    },
+    {
+      "time_s": 22.02,
+      "event": "TEMP_STALE",
+      "kind": "sensor_health"
+    },
+    {
+      "time_s": 25.0,
+      "event": "TEMP_OK",
+      "kind": "sensor_health"
+    },
+    {
+      "time_s": 30.0,
+      "event": "BATTERY_INVALID_SAMPLE",
+      "kind": "validation"
+    },
+    {
+      "time_s": 37.02,
+      "event": "LANDING",
+      "kind": "flight_state"
+    }
+  ]
+}

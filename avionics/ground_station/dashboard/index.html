@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASTRA-66 Ground Station (prototype)</title>
+<style>
+:root {
+  --bg: #f4f5f2; --panel: #ffffff; --ink: #1b2126; --muted: #5a646b; --line: #dde2de;
+  --accent: #1d6a86; --accent2: #c24a0c; --ok: #2f6a47; --warn-bg: #fff3d6; --warn-ink: #7a4b00; --warn-line: #e9c46a; --on-accent: #ffffff;
+  --ok-bg: #e6f2ea; --bad: #b3261e; --bad-bg: #fdecea;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111518; --panel: #1a1f23; --ink: #e6ebee; --muted: #9aa6ad; --line: #2c343a;
+    --accent: #5fb3d3; --accent2: #f08a4b; --ok: #6cc08b; --warn-bg: #3a2e12; --warn-ink: #f3d38b; --warn-line: #7a5c1c; --on-accent: #0b1a20;
+    --ok-bg: #1c3326; --bad: #f2998f; --bad-bg: #3a1d1a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111518; --panel: #1a1f23; --ink: #e6ebee; --muted: #9aa6ad; --line: #2c343a;
+  --accent: #5fb3d3; --accent2: #f08a4b; --ok: #6cc08b; --warn-bg: #3a2e12; --warn-ink: #f3d38b; --warn-line: #7a5c1c; --on-accent: #0b1a20;
+  --ok-bg: #1c3326; --bad: #f2998f; --bad-bg: #3a1d1a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+header, main, footer { max-width: 1280px; margin: 0 auto; padding: 0 16px; }
+header { padding-top: 16px; }
+h1 { font-size: 20px; margin: 0 0 4px; letter-spacing: .01em; }
+.sub { color: var(--muted); margin: 0 0 12px; }
+.banner { border: 1px solid var(--warn-line); background: var(--warn-bg); color: var(--warn-ink); border-radius: 8px; padding: 10px 14px; font-weight: 600; margin-bottom: 12px; }
+.banner small { display: block; font-weight: 400; }
+.states { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-bottom: 12px; }
+.states div { text-align: center; padding: 8px 4px; border-radius: 6px; background: var(--panel); border: 1px solid var(--line); color: var(--muted); font-weight: 600; font-size: 12px; letter-spacing: .04em; }
+.states div.done { color: var(--ink); }
+.states div.now { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-bottom: 12px; }
+.tile { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; min-width: 0; }
+.tile .k { color: var(--muted); font-size: 12px; }
+.tile .v { font-size: 24px; font-weight: 650; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tile .u { font-size: 13px; color: var(--muted); font-weight: 400; margin-left: 2px; }
+.tile .d { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 8px; }
+.chart { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px 6px; min-width: 0; }
+.chart h2 { font-size: 13px; margin: 0 0 4px; font-weight: 600; }
+.chart canvas { width: 100%; height: 170px; display: block; }
+footer { color: var(--muted); font-size: 12px; padding-top: 12px; padding-bottom: 20px; }
+footer b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.err { color: var(--accent2); }
+.status { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px; margin-bottom: 12px; }
+.status .tile .v { font-size: 17px; }
+.chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.chip { font-size: 11px; font-weight: 650; letter-spacing: .04em; padding: 2px 7px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.chip.ok { background: var(--ok-bg); border-color: var(--ok); color: var(--ok); }
+.chip.bad { background: var(--bad-bg); border-color: var(--bad); color: var(--bad); }
+.good { color: var(--ok); } .warn { color: var(--warn-ink); } .bad { color: var(--bad); }
+</style>
+</head>
+<body>
+<header>
+  <h1>ASTRA-66 ground station <span style="font-weight:400;color:var(--muted)">(prototype)</span></h1>
+  <p class="sub" id="source">Connecting…</p>
+  <div class="banner" id="banner">SIMULATED TELEMETRY: not flight data
+    <small id="notice">Prototype ground station. Not validated for real-time flight use.</small></div>
+  <div class="states" id="states"></div>
+  <div class="status">
+    <div class="tile"><div class="k">Sensor health</div><div class="chips" id="health"></div><div class="d">OK = valid sample within 3 sample periods</div></div>
+    <div class="tile"><div class="k">GPS status</div><div class="v" id="gpsstat">–</div><div class="d" id="gpsstat2">–</div></div>
+    <div class="tile"><div class="k">Battery status</div><div class="v" id="battstat">–</div><div class="d">1S planning thresholds (assumption)</div></div>
+    <div class="tile"><div class="k">Packets</div><div class="v" id="pkts">–</div><div class="d" id="pktloss">loss –</div></div>
+    <div class="tile"><div class="k">Latest telemetry</div><div class="v" id="lastt">–</div><div class="d" id="lastage">–</div></div>
+  </div>
+</header>
+<main>
+  <div class="tiles">
+    <div class="tile"><div class="k">Altitude (above pad)</div><div class="v" id="alt">–</div><div class="d" id="altmax">max –</div></div>
+    <div class="tile"><div class="k">Vertical velocity</div><div class="v" id="vz">–</div><div class="d">estimator output</div></div>
+    <div class="tile"><div class="k">Acceleration (axial)</div><div class="v" id="acc">–</div><div class="d" id="accmag">|a| –</div></div>
+    <div class="tile"><div class="k">Temperature</div><div class="v" id="temp">–</div><div class="d">avionics bay</div></div>
+    <div class="tile"><div class="k">Battery</div><div class="v" id="batt">–</div><div class="d" id="battmin">min –</div></div>
+    <div class="tile"><div class="k">GPS position</div><div class="v" id="gps" style="font-size:15px;line-height:1.35;white-space:normal">–</div><div class="d" id="gpsfix">no fix</div></div>
+  </div>
+  <div class="charts">
+    <div class="chart"><h2>Altitude (m)</h2><canvas id="c_alt"></canvas></div>
+    <div class="chart"><h2>Vertical velocity (m/s)</h2><canvas id="c_vz"></canvas></div>
+    <div class="chart"><h2>Acceleration, axial specific force (m/s²)</h2><canvas id="c_acc"></canvas></div>
+    <div class="chart"><h2>Temperature (°C)</h2><canvas id="c_temp"></canvas></div>
+    <div class="chart"><h2>Battery voltage (V)</h2><canvas id="c_batt"></canvas></div>
+    <div class="chart"><h2>GPS track (m from first fix; east →, north ↑)</h2><canvas id="c_gps"></canvas></div>
+  </div>
+</main>
+<footer id="stats">Link statistics: –</footer>
+<script>
+"use strict";
+const STATES = ["PRELAUNCH", "ASCENT", "COAST", "DESCENT", "LANDED"];
+const $ = (id) => document.getElementById(id);
+let frames = [], after = -1, runId = null, maxAlt = null, minBatt = null, lastNewWall = null;
+const HEALTH = [["imu_ok", "IMU"], ["baro_ok", "BARO"], ["gnss_ok", "GNSS"], ["temp_ok", "TEMP"], ["battery_ok", "BATT"]];
+const BATT_LOW_V = 3.6, BATT_CRIT_V = 3.4;   // 1S LiPo planning thresholds: ASSUMPTIONS, not from a datasheet
+
+$("states").innerHTML = STATES.map((s) => `<div data-s="${s}">${s}</div>`).join("");
+
+function fmt(v, d) { return v === null || v === undefined ? "–" : Number(v).toFixed(d); }
+function css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+function niceStep(span) {
+  const raw = span / 4, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  return [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => span / s <= 4.5);
+}
+
+function draw(id, xs, ys, opts = {}) {
+  const cv = $(id), dpr = window.devicePixelRatio || 1;
+  const w = cv.clientWidth, h = cv.clientHeight;
+  if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+  const g = cv.getContext("2d");
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  g.clearRect(0, 0, w, h);
+  const pts = xs.map((x, i) => [x, ys[i]]).filter((p) => p[1] !== null && p[1] !== undefined && p[0] !== null);
+  g.font = "11px system-ui, sans-serif";
+  g.fillStyle = css("--muted");
+  if (pts.length < 2) { g.fillText("waiting for data…", 8, h / 2); return; }
+  let x0 = Math.min(...pts.map((p) => p[0])), x1 = Math.max(...pts.map((p) => p[0]));
+  let y0 = Math.min(...pts.map((p) => p[1])), y1 = Math.max(...pts.map((p) => p[1]));
+  if (opts.square) { const c = Math.max(x1 - x0, y1 - y0, 10) / 2, mx = (x0 + x1) / 2, my = (y0 + y1) / 2; x0 = mx - c; x1 = mx + c; y0 = my - c; y1 = my + c; }
+  if (y1 - y0 < 1e-6) { y0 -= 1; y1 += 1; }
+  const pad = (y1 - y0) * 0.08; y0 -= pad; y1 += pad;
+  if (x1 - x0 < 1e-6) x1 = x0 + 1;
+  const L = 44, R = 8, T = 6, B = 18;
+  const X = (v) => L + (v - x0) / (x1 - x0) * (w - L - R);
+  const Y = (v) => T + (1 - (v - y0) / (y1 - y0)) * (h - T - B);
+  g.strokeStyle = css("--line"); g.lineWidth = 1;
+  const st = niceStep(y1 - y0);
+  for (let v = Math.ceil(y0 / st) * st; v <= y1; v += st) {
+    g.beginPath(); g.moveTo(L, Y(v)); g.lineTo(w - R, Y(v)); g.stroke();
+    g.fillText(Math.abs(st) < 1 ? v.toFixed(2) : v.toFixed(0), 2, Y(v) + 4);
+  }
+  const sx = niceStep(x1 - x0);
+  for (let v = Math.ceil(x0 / sx) * sx; v <= x1; v += sx) g.fillText(sx < 1 ? v.toFixed(1) : v.toFixed(0), X(v) - 8, h - 4);
+  g.strokeStyle = opts.color || css("--accent"); g.lineWidth = 2; g.lineJoin = "round";
+  g.beginPath(); pts.forEach((p, i) => (i ? g.lineTo(X(p[0]), Y(p[1])) : g.moveTo(X(p[0]), Y(p[1])))); g.stroke();
+  if (opts.markEnds) {
+    g.fillStyle = css("--ink"); const a = pts[0], b = pts[pts.length - 1];
+    g.beginPath(); g.arc(X(a[0]), Y(a[1]), 3.5, 0, 7); g.fill();
+    g.fillStyle = opts.color || css("--accent"); g.beginPath(); g.arc(X(b[0]), Y(b[1]), 4.5, 0, 7); g.fill();
+  }
+}
+
+function render(meta) {
+  const last = frames.length ? frames[frames.length - 1] : null;
+  const sim = meta.simulated !== false;
+  $("banner").firstChild.nodeValue = sim ? "SIMULATED TELEMETRY: not flight data " : "RECORDED TELEMETRY (hardware flag set) ";
+  $("notice").textContent = meta.notice;
+  $("source").textContent = `Source: ${meta.source} · replay ${fmt(meta.elapsed_s, 1)} / ${fmt(meta.duration_s, 1)} s${meta.complete ? " · complete" : ""}`;
+  const k = last ? STATES.indexOf(last.flight_state) : -1;
+  document.querySelectorAll("#states div").forEach((el, i) => { el.className = i === k ? "now" : i < k ? "done" : ""; });
+  if (last) {
+    $("alt").innerHTML = `${fmt(last.altitude_m, 1)}<span class="u">m</span>`;
+    $("altmax").textContent = `max ${fmt(maxAlt, 1)} m`;
+    $("vz").innerHTML = `${fmt(last.vertical_velocity_mps, 1)}<span class="u">m/s</span>`;
+    $("acc").innerHTML = `${fmt(last.accel_axial_mps2, 1)}<span class="u">m/s²</span>`;
+    $("accmag").textContent = `|a| ${fmt(last.accel_magnitude_mps2, 1)} m/s² (${last.accel_magnitude_mps2 == null ? "–" : (last.accel_magnitude_mps2 / 9.80665).toFixed(2)} g)`;
+    $("temp").innerHTML = `${fmt(last.temperature_c, 1)}<span class="u">°C</span>`;
+    $("batt").innerHTML = `${fmt(last.battery_voltage_v, 2)}<span class="u">V</span>`;
+    $("battmin").textContent = `min ${fmt(minBatt, 2)} V`;
+    const fix = last.latitude_deg !== null;
+    $("gps").textContent = fix ? `${last.latitude_deg.toFixed(6)}°, ${last.longitude_deg.toFixed(6)}°` : "–";
+    $("gpsfix").textContent = `${fix ? "fix " + last.gps_fix + "D" : "no fix"} · ${last.gps_satellites ?? "–"} sats · GPS alt ${fmt(last.gps_altitude_m, 0)} m`;
+  }
+  // ---- status panel
+  $("health").innerHTML = HEALTH.map(([k, lab]) => {
+    const v = last ? last[k] : null;
+    const cls = v === true ? "ok" : v === false ? "bad" : "";
+    return `<span class="chip ${cls}" title="${v === null || v === undefined ? "unknown" : v ? "OK" : "STALE / invalid"}">${lab} ${v === true ? "OK" : v === false ? "STALE" : "?"}</span>`;
+  }).join("");
+  if (last) {
+    const fix = last.gps_fix;
+    const gs = fix >= 3 ? ["3D FIX", "good"] : fix === 2 ? ["2D FIX", "warn"] : ["NO FIX", "bad"];
+    $("gpsstat").innerHTML = `<span class="${gs[1]}">${gs[0]}</span>${last.gnss_ok === false ? ' <span class="bad">(stale)</span>' : ""}`;
+    $("gpsstat2").textContent = `${last.gps_satellites ?? "–"} satellites`;
+    const bv = last.battery_voltage_v;
+    const bs = bv === null ? ["NO DATA", "bad"] : bv < BATT_CRIT_V ? ["CRITICAL", "bad"] : bv < BATT_LOW_V ? ["LOW", "warn"] : ["OK", "good"];
+    $("battstat").innerHTML = `<span class="${bs[1]}">${bs[0]}</span> ${fmt(bv, 2)} V${last.battery_ok === false ? ' <span class="bad">(stale)</span>' : ""}`;
+    $("lastt").textContent = `T+${fmt(last.time_s, 1)} s`;
+  }
+  const st = meta.stats;
+  $("pkts").textContent = `${st.decoded} received`;
+  $("pktloss").textContent = `loss ${st.packet_loss_percent === null ? "–" : st.packet_loss_percent.toFixed(1) + " %"} · ${st.lost} missing · ${st.rejected} rejected`;
+  $("lastage").textContent = lastNewWall === null ? "no packet yet" : `flight-computer clock · last packet ${((Date.now() - lastNewWall) / 1000).toFixed(1)} s ago`;
+  const t = frames.map((f) => f.time_s);
+  draw("c_alt", t, frames.map((f) => f.altitude_m));
+  draw("c_vz", t, frames.map((f) => f.vertical_velocity_mps));
+  draw("c_acc", t, frames.map((f) => f.accel_axial_mps2), { color: css("--accent2") });
+  draw("c_temp", t, frames.map((f) => f.temperature_c), { color: css("--ok") });
+  draw("c_batt", t, frames.map((f) => f.battery_voltage_v), { color: css("--ok") });
+  const fixes = frames.filter((f) => f.latitude_deg !== null && f.longitude_deg !== null);
+  if (fixes.length) {
+    const la0 = fixes[0].latitude_deg, lo0 = fixes[0].longitude_deg, R = 6371000, rad = Math.PI / 180;
+    draw("c_gps", fixes.map((f) => (f.longitude_deg - lo0) * rad * R * Math.cos(la0 * rad)),
+         fixes.map((f) => (f.latitude_deg - la0) * rad * R), { square: true, markEnds: true });
+  } else draw("c_gps", [], []);
+  const s = meta.stats;
+  $("stats").innerHTML = `Link statistics (${meta.link}): decoded <b>${s.decoded}</b> · missing sequence numbers <b>${s.lost}</b> (dropped or rejected) · rejected CRC/format <b>${s.rejected}</b>` +
+    ` · success <b>${s.packet_success_rate === null ? "–" : (100 * s.packet_success_rate).toFixed(1) + " %"}</b>. ${meta.notice}`;
+}
+
+async function poll() {
+  try {
+    const r = await fetch(`/api/telemetry?after=${after}`, { cache: "no-store" });
+    const meta = await r.json();
+    if (meta.run_id !== runId) { frames = []; after = -1; maxAlt = null; minBatt = null; lastNewWall = null; runId = meta.run_id; }
+    if (meta.frames.length) lastNewWall = Date.now();
+    for (const f of meta.frames) {
+      frames.push(f); after = f.index;
+      if (f.altitude_m !== null) maxAlt = maxAlt === null ? f.altitude_m : Math.max(maxAlt, f.altitude_m);
+      if (f.battery_voltage_v !== null) minBatt = minBatt === null ? f.battery_voltage_v : Math.min(minBatt, f.battery_voltage_v);
+    }
+    render(meta);
+  } catch (e) {
+    $("source").innerHTML = `<span class="err">No connection to the ground-station server (${e.message}).</span>`;
+  }
+  setTimeout(poll, 250);
+}
+poll();   // charts are redrawn on every poll, so they also follow window resizes
+</script>
+</body>
+</html>

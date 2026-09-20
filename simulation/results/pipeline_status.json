@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-19T21:18:28",
+  "date": "2026-09-20T11:17:20",
   "overall": "PASS",
   "steps": [
     {
@@ -23,21 +23,53 @@
     {
       "step": "Flight simulation, stability, sensitivity, reports",
       "ok": true,
-      "seconds": 6.0,
+      "seconds": 16.8,
       "tail": [
         "apogee 328.2 m (PLACEHOLDER TEST INPUT)  v_max 80.3 m/s  a_max 7.4 g  rail exit 11.7 m/s  SM rail 2.67 cal  descent 5.09 m/s",
         "verification 13/13 passed; files written: 22"
       ]
     },
     {
+      "step": "Avionics sensor replay (synthetic sample)",
+      "ok": true,
+      "seconds": 0.4,
+      "tail": [
+        "SYNTHETIC sensor replay of simulation/data/sample_flight.csv: 2162 rows; events {'LIFTOFF': 5.02, 'BURNOUT': 6.52, 'APOGEE': 10.56, 'LANDING': 37.02}; invalid samples {'baro': 1, 'battery': 1, 'imu': 1}; telemetry 217 packets",
+        "SYNTHETIC DATA (not flight data)"
+      ]
+    },
+    {
+      "step": "Avionics CAD fit and mass-properties check",
+      "ok": true,
+      "seconds": 0.2,
+      "tail": [
+        "CAD/avionics integration: 11 PASS, 4 WARN, 8 UNVERIFIED, 0 FAIL",
+        "  wrote documentation\\CAD_AVIONICS_INTEGRATION.md",
+        "  wrote avionics\\integration\\cad_avionics_checks.json",
+        "  wrote avionics\\integration\\avionics_mass_properties.csv"
+      ]
+    },
+    {
       "step": "Regression tests",
       "ok": true,
-      "seconds": 2.3,
+      "seconds": 7.0,
       "tail": [
         "ResourceWarning: Enable tracemalloc to get the object allocation traceback",
         "......",
         "----------------------------------------------------------------------",
-        "Ran 40 tests in 2.067s",
+        "Ran 74 tests in 6.625s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "step": "Avionics software tests (hardware-free)",
+      "ok": true,
+      "seconds": 10.1,
+      "tail": [
+        ".................................................................................",
+        "----------------------------------------------------------------------",
+        "Ran 81 tests in 9.742s",
         "",
         "OK"
       ]

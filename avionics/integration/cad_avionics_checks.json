@@ -1,0 +1,282 @@
+{
+  "summary": {
+    "PASS": 11,
+    "WARN": 4,
+    "UNVERIFIED": 8,
+    "FAIL": 0
+  },
+  "checks": [
+    {
+      "area": "Electronics sled envelope",
+      "check": "Sled stack (sled, cage, spacers, switch, module envelopes) vs coupler bore",
+      "status": "PASS",
+      "evidence": "30.10 / 30.50 mm (CAD validation, PLACEHOLDER envelopes)"
+    },
+    {
+      "area": "Electronics sled envelope",
+      "check": "Module / battery / GPS / switch envelopes vs structure (interference)",
+      "status": "PASS",
+      "evidence": "no interference in the CAD validation"
+    },
+    {
+      "area": "Electronics sled envelope",
+      "check": "Envelope completeness",
+      "status": "WARN",
+      "evidence": "EL_modules() models MCU, IMU, barometer, microSD, LoRa only. Buzzer, status LED, regulator, temperature sensor, battery divider, connectors and wiring (all in the EL-AV mass or the interface list) have no envelope"
+    },
+    {
+      "area": "Electronics sled envelope",
+      "check": "Real module dimensions vs placeholder envelopes",
+      "status": "UNVERIFIED",
+      "evidence": "no component selected; measure the selected boards (with headers and connectors) and update COTS_envelopes.scad"
+    },
+    {
+      "area": "Sensor mounting",
+      "check": "Mounting bosses on sled / GPS tray / switch tower",
+      "status": "PASS",
+      "evidence": "10 / 6 / 1 M2.5 bosses (CAD validation); hole patterns of real boards unverified"
+    },
+    {
+      "area": "Sensor mounting",
+      "check": "IMU position relative to the roll axis",
+      "status": "WARN",
+      "evidence": "IMU envelope centre 20.5 mm off the axis (x -17.0, y 11.5 mm, beside the switch tower); the interface specification asks for near-axis mounting. Roll would add a centripetal reading of up to 6.3 m/s² at the 1000 deg/s gyro requirement. Roll rate is not simulated (1-DOF): decide the IMU position when the board is selected"
+    },
+    {
+      "area": "Sensor mounting",
+      "check": "Barometer at the static-port station",
+      "status": "PASS",
+      "evidence": "barometer envelope STA 522.5–535.5 mm; 4 × ⌀2 mm static ports at STA 529.0 mm (switch band)"
+    },
+    {
+      "area": "Sensor mounting",
+      "check": "Avionics-bay sealing and static-port sizing",
+      "status": "UNVERIFIED",
+      "evidence": "gasket AV-309 and port size need a leak / pressure-lag bench test once a barometer has been selected"
+    },
+    {
+      "area": "Sensor mounting",
+      "check": "GPS module under the service hatch",
+      "status": "PASS",
+      "evidence": "GPS z 360-395, opening 381-409 (CAD validation)"
+    },
+    {
+      "area": "Battery space",
+      "check": "Battery envelope in the AV-308 cage",
+      "status": "PASS",
+      "evidence": "BAT_W 28.0 <= 28.8 mm; cage vs battery envelope clear (CAD validation)"
+    },
+    {
+      "area": "Battery space",
+      "check": "Real cell size, strap retention, charging access",
+      "status": "UNVERIFIED",
+      "evidence": "placeholder cell 55 × 28 × 9 mm; retention needs a shake / drop check"
+    },
+    {
+      "area": "Cable routing",
+      "check": "Harness pass-through AV-303 (I-08) and strain relief",
+      "status": "PASS",
+      "evidence": "⌀8 mm hole 14 mm off axis in AV-303; zip-tie slots on AV-306 (CAD sources)"
+    },
+    {
+      "area": "Cable routing",
+      "check": "Connector passage through ⌀8 mm, wire count, bend radius, lengths",
+      "status": "UNVERIFIED",
+      "evidence": "no wiring is modelled; check with the selected connectors (keyed, per interface I-08)"
+    },
+    {
+      "area": "Antenna / radio clearance",
+      "check": "Radio envelope to GPS envelope separation",
+      "status": "UNVERIFIED",
+      "evidence": "173 mm axially (radio STA 568–596, GPS STA 360–395), bulkhead AV-303 between them. RF interference needs a bench test"
+    },
+    {
+      "area": "Antenna / radio clearance",
+      "check": "Metal near the radio antenna",
+      "status": "WARN",
+      "evidence": "M4 steel rods AV-305 (STA 436–628) run alongside the radio envelope; no antenna is modelled. Route the antenna away from the rods and battery; verify by range test (T-14)"
+    },
+    {
+      "area": "Antenna / radio clearance",
+      "check": "RF transparency of the airframe",
+      "status": "UNVERIFIED",
+      "evidence": "kraft / phenolic body tube assumed radio-transparent (no carbon fibre in the design); not measured"
+    },
+    {
+      "area": "Maintenance access",
+      "check": "Power switch reachable through the switch band",
+      "status": "PASS",
+      "evidence": "30.10 < 30.50 mm (CAD validation)"
+    },
+    {
+      "area": "Maintenance access",
+      "check": "Sled removal for SD card and battery service",
+      "status": "WARN",
+      "evidence": "30.10 < 30.50 (coupler bore): radial margin 0.40 mm on PLACEHOLDER envelopes (CAD feasibility check). Real boards, wires and connectors must keep this margin"
+    },
+    {
+      "area": "Maintenance access",
+      "check": "SD-card and battery-connector access without disassembly",
+      "status": "UNVERIFIED",
+      "evidence": "both sit inside the coupler; card-slot orientation and connector reach are not modelled"
+    },
+    {
+      "area": "Mass properties",
+      "check": "CG analysis regenerated from analysis/results/mass_budget.csv",
+      "status": "PASS",
+      "evidence": "recomputed M0 1210.7 g / CG STA 696.4 mm vs analysis 1210.7 g / 696.4 mm (budget masses are rounded to 0.1 g)"
+    },
+    {
+      "area": "Mass properties",
+      "check": "Avionics / payload subtotal and its station",
+      "status": "PASS",
+      "evidence": "262.7 g at STA 472.4 mm (21.7 % of liftoff mass), forward of the liftoff CG (STA 696.4 mm)"
+    },
+    {
+      "area": "Mass properties",
+      "check": "Liftoff static margin with assumed avionics masses +/-25% (illustrative band)",
+      "status": "PASS",
+      "evidence": "153.0 g assumed at STA 463.4 mm -> SM 2.52–2.74 cal (nominal 2.63; target 1.5–3.0). Includes the PLACEHOLDER motor mass"
+    },
+    {
+      "area": "Mass properties",
+      "check": "Avionics, GPS, battery, camera and switch masses",
+      "status": "UNVERIFIED",
+      "evidence": "EL-GPS, EL-CAM, EL-AV, EL-BAT, AV-309/310 are estimates or placeholders: weigh the selected parts and update analysis/analysis.py through the normal pipeline"
+    }
+  ],
+  "mass_rows": [
+    {
+      "component": "PL-202 GPS / sensor tray + bracket",
+      "mass_g": 18.9,
+      "source": "CALCULATED (CAD: PL-202 V=14.86 cm3 x 1.27 x fill 1.0)",
+      "location": "STA 402.4 mm, 200 Payload",
+      "confidence": "MEDIUM: CAD volume x assumed density",
+      "station_mm": 402.4,
+      "cg_shift_if_removed_mm": 4.66,
+      "cg_shift_per_10g_mm": -2.41,
+      "sm_change_per_10g_cal": 0.036
+    },
+    {
+      "component": "PL-203 Camera cradle",
+      "mass_g": 11.7,
+      "source": "CALCULATED (CAD: PL-203 V=10.24 cm3 x 1.27 x fill 0.9)",
+      "location": "STA 366.2 mm, 200 Payload",
+      "confidence": "MEDIUM: CAD volume x assumed density",
+      "station_mm": 366.2,
+      "cg_shift_if_removed_mm": 3.22,
+      "cg_shift_per_10g_mm": -2.71,
+      "sm_change_per_10g_cal": 0.041
+    },
+    {
+      "component": "PL-204 Lens cowl",
+      "mass_g": 1.7,
+      "source": "CALCULATED (CAD: PL-204 V=2.70 cm3 x 1.07 x fill 0.6)",
+      "location": "STA 376.2 mm, 200 Payload",
+      "confidence": "MEDIUM: CAD volume x assumed density",
+      "station_mm": 376.2,
+      "cg_shift_if_removed_mm": 0.45,
+      "cg_shift_per_10g_mm": -2.62,
+      "sm_change_per_10g_cal": 0.04
+    },
+    {
+      "component": "EL-GPS GPS module + patch antenna",
+      "mass_g": 20.0,
+      "source": "ASSUMPTION (weigh)",
+      "location": "STA 378.0 mm, 200 Payload",
+      "confidence": "LOW: estimate, weigh",
+      "station_mm": 378.0,
+      "cg_shift_if_removed_mm": 5.35,
+      "cg_shift_per_10g_mm": -2.61,
+      "sm_change_per_10g_cal": 0.04
+    },
+    {
+      "component": "EL-CAM Mini camera (user-selected)",
+      "mass_g": 35.0,
+      "source": "USER-SUPPLIED (weigh)",
+      "location": "STA 360.0 mm, 200 Payload",
+      "confidence": "LOW: placeholder, weigh",
+      "station_mm": 360.0,
+      "cg_shift_if_removed_mm": 10.02,
+      "cg_shift_per_10g_mm": -2.76,
+      "sm_change_per_10g_cal": 0.042
+    },
+    {
+      "component": "AV-305 2x M4x190 A2 rods, nuts, washers",
+      "mass_g": 32.4,
+      "source": "CALCULATED",
+      "location": "STA 534.0 mm, 300 Avionics",
+      "confidence": "MEDIUM: calculated",
+      "station_mm": 534.0,
+      "cg_shift_if_removed_mm": 4.47,
+      "cg_shift_per_10g_mm": -1.33,
+      "sm_change_per_10g_cal": 0.02
+    },
+    {
+      "component": "AV-306 Electronics sled",
+      "mass_g": 32.1,
+      "source": "CALCULATED (CAD: AV-306 V=28.12 cm3 x 1.27 x fill 0.9)",
+      "location": "STA 527.1 mm, 300 Avionics",
+      "confidence": "MEDIUM: CAD volume x assumed density",
+      "station_mm": 527.1,
+      "cg_shift_if_removed_mm": 4.61,
+      "cg_shift_per_10g_mm": -1.39,
+      "sm_change_per_10g_cal": 0.021
+    },
+    {
+      "component": "EL-AV Avionics set: MCU, IMU, baro, SD, radio, buzzer, wiring",
+      "mass_g": 59.0,
+      "source": "ASSUMPTION (sum of module estimates -- weigh)",
+      "location": "STA 527.0 mm, 300 Avionics",
+      "confidence": "LOW: estimate, weigh",
+      "station_mm": 527.0,
+      "cg_shift_if_removed_mm": 8.68,
+      "cg_shift_per_10g_mm": -1.39,
+      "sm_change_per_10g_cal": 0.021
+    },
+    {
+      "component": "EL-BAT 1S LiPo battery + strap",
+      "mass_g": 27.0,
+      "source": "ASSUMPTION (weigh (rev B: cage split out))",
+      "location": "STA 492.8 mm, 300 Avionics",
+      "confidence": "LOW: estimate, weigh",
+      "station_mm": 492.8,
+      "cg_shift_if_removed_mm": 4.64,
+      "cg_shift_per_10g_mm": -1.67,
+      "sm_change_per_10g_cal": 0.025
+    },
+    {
+      "component": "AV-308 Battery cage",
+      "mass_g": 11.5,
+      "source": "CALCULATED (CAD: AV-308 V=9.04 cm3 x 1.27 x fill 1.0)",
+      "location": "STA 492.8 mm, 300 Avionics",
+      "confidence": "MEDIUM: CAD volume x assumed density",
+      "station_mm": 492.8,
+      "cg_shift_if_removed_mm": 1.95,
+      "cg_shift_per_10g_mm": -1.67,
+      "sm_change_per_10g_cal": 0.025
+    },
+    {
+      "component": "AV-312 Rod spacers (2 fwd + 2 aft)",
+      "mass_g": 1.4,
+      "source": "CALCULATED (CAD: AV-312 V=1.07 cm3 x 1.27 x fill 1.0)",
+      "location": "STA 546.3 mm, 300 Avionics",
+      "confidence": "MEDIUM: CAD volume x assumed density",
+      "station_mm": 546.3,
+      "cg_shift_if_removed_mm": 0.17,
+      "cg_shift_per_10g_mm": -1.23,
+      "sm_change_per_10g_cal": 0.019
+    },
+    {
+      "component": "AV-309/310 Gasket, switch, adhesive allowance",
+      "mass_g": 12.0,
+      "source": "ASSUMPTION",
+      "location": "STA 529.0 mm, 300 Avionics",
+      "confidence": "LOW: estimate, weigh",
+      "station_mm": 529.0,
+      "cg_shift_if_removed_mm": 1.68,
+      "cg_shift_per_10g_mm": -1.37,
+      "sm_change_per_10g_cal": 0.021
+    }
+  ]
+}

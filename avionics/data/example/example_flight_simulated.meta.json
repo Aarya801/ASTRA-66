@@ -1,0 +1,50 @@
+{
+  "schema": "astra66-flight-data",
+  "schema_version": "1.1.0",
+  "data_source": "SIMULATED",
+  "data_source_mode": "SYNTHETIC",
+  "counts": {
+    "frames_in": 4547,
+    "written": 4547,
+    "rejected": 0,
+    "values_rejected": 0,
+    "timestamp_gaps": 0
+  },
+  "issue_counts": {},
+  "title": "ASTRA-66 SIMULATED flight-data example: NOT FLIGHT DATA",
+  "generator": "python -m avionics.firmware.simulate_flight",
+  "truth_profile": "replay of simulation/results/trajectory_baseline.csv (PLACEHOLDER propulsion input)",
+  "truth_events_s": {
+    "liftoff": 10.0,
+    "apogee": 18.515,
+    "landing": 82.915
+  },
+  "seed": 0,
+  "log_rate_hz": 50.0,
+  "telemetry_rate_hz": 5.0,
+  "telemetry_link": {
+    "kind": "SIMULATED TELEMETRY",
+    "loss_prob": 0.02,
+    "bit_error_prob": 0.01
+  },
+  "notes": [
+    "All sensor values are synthetic (seeded noise on a truth profile). Noise, drift, battery discharge and parachute swing are illustrative assumptions, not properties of any component.",
+    "The truth trajectory uses the PLACEHOLDER propulsion input: not representative of any real motor.",
+    "GNSS positions are relative to a fictitious origin (0 deg, 0 deg) with a synthetic horizontal drift; the 1-DOF simulation has no horizontal motion."
+  ],
+  "detected_events_s": {
+    "LIFTOFF": 10.02,
+    "BURNOUT": 11.47,
+    "APOGEE": 18.95,
+    "LANDING": 82.74
+  },
+  "detected_apogee": {
+    "time_s": 18.52,
+    "estimated_altitude_m": 328.27
+  },
+  "telemetry_counts": {
+    "sent": 455,
+    "lost": 7,
+    "corrupted": 6
+  }
+}

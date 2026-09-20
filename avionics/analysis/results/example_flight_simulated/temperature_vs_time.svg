@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" role="img" aria-label="Temperature vs time" style="background:#FFFFFF;font-family:'IBM Plex Sans','Segoe UI',system-ui,sans-serif">
+<rect width="820" height="470" fill="#FFFFFF"/>
+<text x="78" y="28" font-size="17" font-weight="600" fill="#1B2126">Temperature vs time</text>
+<text x="78" y="48" font-size="12" fill="#5A646B">SYNTHETIC DATA (not flight data)</text>
+<line x1="78" x2="792" y1="408.0" y2="408.0" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="412.0" text-anchor="end" font-size="11" fill="#5A646B">18</text>
+<line x1="78" x2="792" y1="354.8" y2="354.8" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="358.8" text-anchor="end" font-size="11" fill="#5A646B">19</text>
+<line x1="78" x2="792" y1="301.6" y2="301.6" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="305.6" text-anchor="end" font-size="11" fill="#5A646B">20</text>
+<line x1="78" x2="792" y1="248.4" y2="248.4" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="252.4" text-anchor="end" font-size="11" fill="#5A646B">21</text>
+<line x1="78" x2="792" y1="195.2" y2="195.2" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="199.2" text-anchor="end" font-size="11" fill="#5A646B">22</text>
+<line x1="78" x2="792" y1="142.0" y2="142.0" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="146.0" text-anchor="end" font-size="11" fill="#5A646B">23</text>
+<line x1="78" x2="792" y1="88.7" y2="88.7" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="92.7" text-anchor="end" font-size="11" fill="#5A646B">24</text>
+<line x1="78.0" x2="78.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="78.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">0</text>
+<line x1="220.8" x2="220.8" y1="408" y2="413" stroke="#5A646B"/>
+<text x="220.8" y="427" text-anchor="middle" font-size="11" fill="#5A646B">20</text>
+<line x1="363.6" x2="363.6" y1="408" y2="413" stroke="#5A646B"/>
+<text x="363.6" y="427" text-anchor="middle" font-size="11" fill="#5A646B">40</text>
+<line x1="506.4" x2="506.4" y1="408" y2="413" stroke="#5A646B"/>
+<text x="506.4" y="427" text-anchor="middle" font-size="11" fill="#5A646B">60</text>
+<line x1="649.2" x2="649.2" y1="408" y2="413" stroke="#5A646B"/>
+<text x="649.2" y="427" text-anchor="middle" font-size="11" fill="#5A646B">80</text>
+<line x1="792.0" x2="792.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="792.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">100</text>
+<line x1="78" x2="792" y1="408" y2="408" stroke="#5A646B" stroke-width="1"/>
+<line x1="149.6" x2="149.6" y1="74" y2="408" stroke="#5A646B" stroke-dasharray="4 4"/>
+<text x="153.6" y="400" font-size="11" fill="#5A646B">liftoff</text>
+<line x1="159.9" x2="159.9" y1="74" y2="408" stroke="#5A646B" stroke-dasharray="4 4"/>
+<text x="163.9" y="400" font-size="11" fill="#5A646B"></text>
+<line x1="210.5" x2="210.5" y1="74" y2="408" stroke="#5A646B" stroke-dasharray="4 4"/>
+<text x="214.5" y="400" font-size="11" fill="#5A646B">apogee</text>
+<line x1="668.8" x2="668.8" y1="74" y2="408" stroke="#5A646B" stroke-dasharray="4 4"/>
+<text x="672.8" y="400" font-size="11" fill="#5A646B">landing</text>
+<polyline points="78.0,90.3 85.1,98.3 92.3,94.6 99.4,101.5 106.6,104.7 113.7,104.2 120.8,113.2 128.0,117.5 135.1,121.2 142.3,127.1 149.4,126.5 156.5,134.5 163.7,134.0 170.8,133.4 178.0,143.6 185.1,146.2 192.2,149.9 199.4,160.0 206.5,159.0 213.7,162.7 220.8,170.7 227.9,175.5 235.1,180.3 242.2,185.6 249.4,188.2 256.5,185.1 263.6,192.0 270.8,192.0 277.9,201.6 285.1,204.7 292.2,209.5 299.3,212.7 306.5,214.3 313.6,221.8 320.8,221.8 327.9,225.5 335.0,232.4 342.2,236.1 349.3,233.5 356.5,238.3 363.6,245.7 370.7,247.8 377.9,255.3 385.0,252.6 392.2,255.8 399.3,264.9 406.4,261.1 413.6,264.9 420.7,268.1 427.9,271.8 435.0,271.3 442.1,277.6 449.3,279.8 456.4,282.4 463.6,284.0 470.7,287.7 477.8,293.6 485.0,297.9 492.1,300.5 499.3,299.5 506.4,305.8 513.5,303.7 520.7,305.3 527.8,308.5 535.0,312.2 542.1,311.7 549.2,315.9 556.4,320.2 563.5,318.1 570.7,319.1 577.8,328.2 584.9,329.3 592.1,332.4 599.2,339.9 606.4,335.6 613.5,336.2 620.6,342.6 627.8,342.6 634.9,343.1 642.1,343.6 649.2,345.2 656.3,344.7 663.5,352.7 670.6,351.6 677.8,357.5 684.9,352.7 692.0,360.1 699.2,352.7 706.3,361.2 713.5,362.8 720.6,360.6" fill="none" stroke="#1D6A86" stroke-width="2" stroke-linejoin="round"/>
+<text x="435" y="454" text-anchor="middle" font-size="12" fill="#1B2126">Time since logger start (s)</text>
+<text x="18" y="241" text-anchor="middle" font-size="12" fill="#1B2126" transform="rotate(-90 18 241)">Temperature (°C)</text>
+</svg>

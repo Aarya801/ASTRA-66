@@ -1,0 +1,72 @@
+{
+  "title": "ASTRA-66 sample_flight.csv: SYNTHETIC SOFTWARE TEST DATASET, NOT FLIGHT DATA",
+  "generator": "python simulation/avionics_replay.py --make-sample",
+  "truth_profile": "synthetic analytic test profile (boost / coast / 5 m/s descent; numbers chosen for software testing only)",
+  "truth_events_s": {
+    "liftoff": 5.0,
+    "burnout": 6.5,
+    "apogee": 10.134,
+    "landing": 37.225
+  },
+  "truth_apogee_m": 135.45,
+  "grid_hz": 50.0,
+  "sensor_rates_hz": {
+    "imu": 50,
+    "baro": 50,
+    "separation": 50,
+    "gnss": 1,
+    "temperature": 1,
+    "battery": 1
+  },
+  "seeds": {
+    "imu": 111,
+    "baro": 112,
+    "gnss": 113,
+    "temperature": 114,
+    "battery": 115,
+    "separation": 116
+  },
+  "scripted_faults": [
+    {
+      "time_s": 2.0,
+      "sensor": "imu",
+      "field": "imu_accel_z",
+      "value": "nan",
+      "purpose": "non-finite value on the pad"
+    },
+    {
+      "window_s": [
+        6.0,
+        9.0
+      ],
+      "sensor": "gnss",
+      "purpose": "GNSS messages lost during boost and coast (loss of lock)"
+    },
+    {
+      "time_s": 11.0,
+      "sensor": "baro",
+      "field": "barometric_pressure",
+      "value": "250000.0",
+      "purpose": "physically impossible pressure (above the 120 000 Pa plausibility limit)"
+    },
+    {
+      "window_s": [
+        20.0,
+        25.0
+      ],
+      "sensor": "temperature",
+      "purpose": "temperature sensor silent (stale)"
+    },
+    {
+      "time_s": 30.0,
+      "sensor": "battery",
+      "field": "battery_voltage",
+      "value": "9.900",
+      "purpose": "impossible 1S battery voltage (above the 5.5 V plausibility limit)"
+    }
+  ],
+  "notes": [
+    "Sensor values come from the Phase 4 simulated sensors (seeded noise). Noise, drift, discharge and parachute swing are illustrative assumptions, not properties of any component.",
+    "GNSS positions are relative to a fictitious origin (0 deg, 0 deg) with synthetic drift."
+  ]
+}

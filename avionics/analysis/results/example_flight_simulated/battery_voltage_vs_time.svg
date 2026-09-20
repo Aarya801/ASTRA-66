@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" role="img" aria-label="Battery voltage vs time" style="background:#FFFFFF;font-family:'IBM Plex Sans','Segoe UI',system-ui,sans-serif">
+<rect width="820" height="470" fill="#FFFFFF"/>
+<text x="78" y="28" font-size="17" font-weight="600" fill="#1B2126">Battery voltage vs time</text>
+<text x="78" y="48" font-size="12" fill="#5A646B">SYNTHETIC DATA (not flight data)</text>
+<line x1="78" x2="792" y1="408.0" y2="408.0" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="412.0" text-anchor="end" font-size="11" fill="#5A646B">4.02</text>
+<line x1="78" x2="792" y1="329.9" y2="329.9" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="333.9" text-anchor="end" font-size="11" fill="#5A646B">4.04</text>
+<line x1="78" x2="792" y1="251.7" y2="251.7" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="255.7" text-anchor="end" font-size="11" fill="#5A646B">4.06</text>
+<line x1="78" x2="792" y1="173.6" y2="173.6" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="177.6" text-anchor="end" font-size="11" fill="#5A646B">4.08</text>
+<line x1="78" x2="792" y1="95.5" y2="95.5" stroke="#DDE2DE" stroke-width="1"/>
+<text x="70" y="99.5" text-anchor="end" font-size="11" fill="#5A646B">4.1</text>
+<line x1="78.0" x2="78.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="78.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">0</text>
+<line x1="220.8" x2="220.8" y1="408" y2="413" stroke="#5A646B"/>
+<text x="220.8" y="427" text-anchor="middle" font-size="11" fill="#5A646B">20</text>
+<line x1="363.6" x2="363.6" y1="408" y2="413" stroke="#5A646B"/>
+<text x="363.6" y="427" text-anchor="middle" font-size="11" fill="#5A646B">40</text>
+<line x1="506.4" x2="506.4" y1="408" y2="413" stroke="#5A646B"/>
+<text x="506.4" y="427" text-anchor="middle" font-size="11" fill="#5A646B">60</text>
+<line x1="649.2" x2="649.2" y1="408" y2="413" stroke="#5A646B"/>
+<text x="649.2" y="427" text-anchor="middle" font-size="11" fill="#5A646B">80</text>
+<line x1="792.0" x2="792.0" y1="408" y2="413" stroke="#5A646B"/>
+<text x="792.0" y="427" text-anchor="middle" font-size="11" fill="#5A646B">100</text>
+<line x1="78" x2="792" y1="408" y2="408" stroke="#5A646B" stroke-width="1"/>
+<line x1="149.6" x2="149.6" y1="74" y2="408" stroke="#5A646B" stroke-dasharray="4 4"/>
+<text x="153.6" y="400" font-size="11" fill="#5A646B">liftoff</text>
+<line x1="159.9" x2="159.9" y1="74" y2="408" stroke="#5A646B" stroke-dasharray="4 4"/>
+<text x="163.9" y="400" font-size="11" fill="#5A646B"></text>
+<line x1="210.5" x2="210.5" y1="74" y2="408" stroke="#5A646B" stroke-dasharray="4 4"/>
+<text x="214.5" y="400" font-size="11" fill="#5A646B">apogee</text>
+<line x1="668.8" x2="668.8" y1="74" y2="408" stroke="#5A646B" stroke-dasharray="4 4"/>
+<text x="672.8" y="400" font-size="11" fill="#5A646B">landing</text>
+<polyline points="78.0,91.6 85.1,99.4 92.3,95.5 99.4,95.5 106.6,107.2 113.7,111.1 120.8,118.9 128.0,122.8 135.1,111.1 142.3,122.8 149.4,142.4 156.5,107.2 163.7,134.5 170.8,122.8 178.0,134.5 185.1,118.9 192.2,138.5 199.4,154.1 206.5,150.2 213.7,146.3 220.8,165.8 227.9,161.9 235.1,189.2 242.2,161.9 249.4,154.1 256.5,161.9 263.6,189.2 270.8,165.8 277.9,169.7 285.1,193.1 292.2,201.0 299.3,185.3 306.5,185.3 313.6,197.1 320.8,185.3 327.9,212.7 335.0,181.4 342.2,177.5 349.3,185.3 356.5,228.3 363.6,224.4 370.7,236.1 377.9,251.7 385.0,228.3 392.2,228.3 399.3,232.2 406.4,208.8 413.6,232.2 420.7,236.1 427.9,263.5 435.0,267.4 442.1,243.9 449.3,251.7 456.4,243.9 463.6,267.4 470.7,263.5 477.8,279.1 485.0,247.8 492.1,279.1 499.3,271.3 506.4,286.9 513.5,279.1 520.7,271.3 527.8,283.0 535.0,294.7 542.1,306.4 549.2,286.9 556.4,290.8 563.5,322.1 570.7,298.6 577.8,306.4 584.9,322.1 592.1,322.1 599.2,310.3 606.4,294.7 613.5,353.3 620.6,329.9 627.8,329.9 634.9,357.2 642.1,341.6 649.2,341.6 656.3,349.4 663.5,329.9 670.6,384.6 677.8,372.8 684.9,357.2 692.0,372.8 699.2,372.8 706.3,372.8 713.5,361.1 720.6,341.6" fill="none" stroke="#1D6A86" stroke-width="2" stroke-linejoin="round"/>
+<text x="435" y="454" text-anchor="middle" font-size="12" fill="#1B2126">Time since logger start (s)</text>
+<text x="18" y="241" text-anchor="middle" font-size="12" fill="#1B2126" transform="rotate(-90 18 241)">Battery voltage (V)</text>
+</svg>

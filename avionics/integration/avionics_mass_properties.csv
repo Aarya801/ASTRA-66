@@ -1,0 +1,13 @@
+component,mass_g,source,location,confidence,cg_shift_if_removed_mm,cg_shift_per_10g_mm,sm_change_per_10g_cal
+PL-202 GPS / sensor tray + bracket,18.9,CALCULATED (CAD: PL-202 V=14.86 cm3 x 1.27 x fill 1.0),"STA 402.4 mm, 200 Payload",MEDIUM: CAD volume x assumed density,4.66,-2.41,0.036
+PL-203 Camera cradle,11.7,CALCULATED (CAD: PL-203 V=10.24 cm3 x 1.27 x fill 0.9),"STA 366.2 mm, 200 Payload",MEDIUM: CAD volume x assumed density,3.22,-2.71,0.041
+PL-204 Lens cowl,1.7,CALCULATED (CAD: PL-204 V=2.70 cm3 x 1.07 x fill 0.6),"STA 376.2 mm, 200 Payload",MEDIUM: CAD volume x assumed density,0.45,-2.62,0.04
+EL-GPS GPS module + patch antenna,20.0,ASSUMPTION (weigh),"STA 378.0 mm, 200 Payload","LOW: estimate, weigh",5.35,-2.61,0.04
+EL-CAM Mini camera (user-selected),35.0,USER-SUPPLIED (weigh),"STA 360.0 mm, 200 Payload","LOW: placeholder, weigh",10.02,-2.76,0.042
+"AV-305 2x M4x190 A2 rods, nuts, washers",32.4,CALCULATED,"STA 534.0 mm, 300 Avionics",MEDIUM: calculated,4.47,-1.33,0.02
+AV-306 Electronics sled,32.1,CALCULATED (CAD: AV-306 V=28.12 cm3 x 1.27 x fill 0.9),"STA 527.1 mm, 300 Avionics",MEDIUM: CAD volume x assumed density,4.61,-1.39,0.021
+"EL-AV Avionics set: MCU, IMU, baro, SD, radio, buzzer, wiring",59.0,ASSUMPTION (sum of module estimates -- weigh),"STA 527.0 mm, 300 Avionics","LOW: estimate, weigh",8.68,-1.39,0.021
+EL-BAT 1S LiPo battery + strap,27.0,ASSUMPTION (weigh (rev B: cage split out)),"STA 492.8 mm, 300 Avionics","LOW: estimate, weigh",4.64,-1.67,0.025
+AV-308 Battery cage,11.5,CALCULATED (CAD: AV-308 V=9.04 cm3 x 1.27 x fill 1.0),"STA 492.8 mm, 300 Avionics",MEDIUM: CAD volume x assumed density,1.95,-1.67,0.025
+AV-312 Rod spacers (2 fwd + 2 aft),1.4,CALCULATED (CAD: AV-312 V=1.07 cm3 x 1.27 x fill 1.0),"STA 546.3 mm, 300 Avionics",MEDIUM: CAD volume x assumed density,0.17,-1.23,0.019
+"AV-309/310 Gasket, switch, adhesive allowance",12.0,ASSUMPTION,"STA 529.0 mm, 300 Avionics","LOW: estimate, weigh",1.68,-1.37,0.021

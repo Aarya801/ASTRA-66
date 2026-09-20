@@ -1,0 +1,123 @@
+{
+  "data_source": [
+    "SIMULATED"
+  ],
+  "data_source_modes": [
+    "SYNTHETIC"
+  ],
+  "simulated": true,
+  "rows": 4547,
+  "time_span_s": [
+    0.0,
+    90.92
+  ],
+  "data_quality": {
+    "rows_total": 4547,
+    "rows_ok": 4547,
+    "dropped": {
+      "malformed": 0,
+      "crc_mismatch": 0,
+      "rejected": 0,
+      "non_monotonic": 0,
+      "duplicate": 0
+    },
+    "value_issues": {},
+    "timestamp_gaps": 0,
+    "header_missing": [],
+    "header_unknown": [],
+    "crc_checked": true,
+    "data_sources": [
+      "SIMULATED"
+    ]
+  },
+  "flight_states_source": "logged flight_state column",
+  "state_transitions_s": {
+    "PRELAUNCH": 0.0,
+    "ASCENT": 10.08,
+    "COAST": 11.52,
+    "DESCENT": 18.96,
+    "LANDED": 85.74
+  },
+  "apogee": {
+    "altitude_m": 328.26,
+    "time_s": 18.56,
+    "raw_max_altitude_m": 328.7,
+    "basis": "barometric altitude above pad, 0.3 s moving average"
+  },
+  "max_vertical_velocity": {
+    "mps": 79.22,
+    "time_s": 11.5,
+    "basis": "derivative of smoothed barometric altitude"
+  },
+  "descent_rate_mps": 5.12,
+  "onboard_max_vertical_velocity": {
+    "mps": 80.13,
+    "time_s": 11.44,
+    "basis": "logged estimator output"
+  },
+  "max_axial_specific_force": {
+    "mps2": 82.81,
+    "g": 8.44,
+    "time_s": 10.08
+  },
+  "max_acceleration_magnitude": {
+    "mps2": 82.82,
+    "g": 8.44,
+    "time_s": 10.08
+  },
+  "event_times_s": {
+    "liftoff": 10.03,
+    "burnout": 11.47,
+    "apogee": 18.56,
+    "landing": 82.74
+  },
+  "event_times_basis": "state label time minus the classifier's confirmation time (liftoff, burnout, landing); apogee = time of maximum smoothed barometric altitude",
+  "timing_s": {
+    "burn_duration": 1.44,
+    "time_to_apogee": 8.53,
+    "flight_duration": 72.71,
+    "descent_duration": 64.18
+  },
+  "temperature_c": {
+    "min": 18.85,
+    "max": 23.97,
+    "mean": 21.02,
+    "start": 23.97,
+    "end": 18.89
+  },
+  "battery_voltage_v": {
+    "min": 4.026,
+    "max": 4.101,
+    "mean": 4.065,
+    "start": 4.101,
+    "end": 4.037,
+    "drop": 0.075
+  },
+  "gnss": {
+    "fixes": 89,
+    "first_fix": {
+      "time_s": 2.0,
+      "lat": -2.03e-05,
+      "lon": -8.8e-06
+    },
+    "last_fix": {
+      "time_s": 90.0,
+      "lat": 0.0006507,
+      "lon": 0.0012878
+    },
+    "last_fix_distance_from_first_m": 162.3,
+    "max_distance_from_first_m": 165.7,
+    "track_length_m": 307.1
+  },
+  "log_file": "example_flight_simulated.csv",
+  "outputs": [
+    "altitude_vs_time.svg",
+    "velocity_vs_time.svg",
+    "acceleration_vs_time.svg",
+    "temperature_vs_time.svg",
+    "battery_voltage_vs_time.svg",
+    "gps_track.svg",
+    "flight_summary.json",
+    "flight_report.md"
+  ]
+}

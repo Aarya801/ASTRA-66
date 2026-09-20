@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-label="ASTRA-66 avionics and flight-data system block diagram" style="background:#ffffff;font-family:'IBM Plex Sans','Segoe UI',system-ui,sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5A646B"/>
+    </marker>
+    <style>
+      .box{fill:#FFFFFF;stroke:#1B2126;stroke-width:1.2}
+      .fc{fill:#F4F7F9;stroke:#1D6A86;stroke-width:1.6}
+      .blk{fill:#FFFFFF;stroke:#1D6A86;stroke-width:1.2}
+      .note{fill:#FFF6E0;stroke:#C98A00;stroke-width:1.2}
+      .safe{fill:#FDECEA;stroke:#B3261E;stroke-width:1.4;stroke-dasharray:6 4}
+      .h{font-size:13px;font-weight:700;fill:#1B2126}
+      .t{font-size:11.5px;fill:#1B2126}
+      .m{font-size:10.5px;fill:#5A646B}
+      .tbs{font-size:10px;fill:#8A5A00;font-style:italic}
+      .lyr{font-size:11px;font-weight:700;fill:#1D6A86;letter-spacing:.06em}
+      .ln{stroke:#5A646B;stroke-width:1.4;fill:none}
+    </style>
+  </defs>
+  <text x="20" y="30" class="h" style="font-size:17px">ASTRA-66 avionics and flight-data system: block diagram</text>
+  <text x="20" y="50" class="m">Draft, NOT flight certified. Sensing, logging, telemetry and analysis only; no output can drive an igniter, pyrotechnic, energetic or deployment device.</text>
+
+  <!-- SENSOR LAYER -->
+  <text x="20" y="85" class="lyr">1  SENSOR LAYER</text>
+  <g>
+    <rect x="20" y="95" width="230" height="56" rx="6" class="box"/>
+    <text x="30" y="114" class="t" font-weight="700">IMU (accel + gyro)</text><text x="30" y="129" class="m">specific force, rate · I²C/SPI · 100 Hz</text><text x="30" y="143" class="tbs">COMPONENT TO BE SELECTED</text>
+    <rect x="20" y="161" width="230" height="56" rx="6" class="box"/>
+    <text x="30" y="180" class="t" font-weight="700">Barometric pressure</text><text x="30" y="195" class="m">static pressure · I²C/SPI · 50 Hz</text><text x="30" y="209" class="tbs">COMPONENT TO BE SELECTED</text>
+    <rect x="20" y="227" width="230" height="56" rx="6" class="box"/>
+    <text x="30" y="246" class="t" font-weight="700">GPS / GNSS</text><text x="30" y="261" class="m">position, fix · UART · ≥ 1 Hz</text><text x="30" y="275" class="tbs">COMPONENT TO BE SELECTED</text>
+    <rect x="20" y="293" width="230" height="56" rx="6" class="box"/>
+    <text x="30" y="312" class="t" font-weight="700">Temperature</text><text x="30" y="327" class="m">bay air · I²C · 1 Hz</text><text x="30" y="341" class="tbs">COMPONENT TO BE SELECTED</text>
+    <rect x="20" y="359" width="230" height="56" rx="6" class="box"/>
+    <text x="30" y="378" class="t" font-weight="700">Battery monitor</text><text x="30" y="393" class="m">voltage · ADC + divider · 1 Hz</text><text x="30" y="407" class="tbs">COMPONENT TO BE SELECTED</text>
+    <rect x="20" y="425" width="230" height="56" rx="6" class="box"/>
+    <text x="30" y="444" class="t" font-weight="700">Separation breakwire</text><text x="30" y="459" class="m">continuity · GPIO input only · 50 Hz</text><text x="30" y="473" class="tbs">COMPONENT TO BE SELECTED</text>
+  </g>
+  <g class="ln" marker-end="url(#arr)">
+    <path d="M250,123 H288"/><path d="M250,189 H288"/><path d="M250,255 H288"/>
+    <path d="M250,321 H288"/><path d="M250,387 H288"/><path d="M250,453 H270 V410 H288"/>
+  </g>
+
+  <!-- FLIGHT COMPUTER -->
+  <rect x="290" y="75" width="420" height="350" rx="10" class="fc"/>
+  <text x="305" y="96" class="h">FLIGHT COMPUTER</text><text x="440" y="96" class="tbs">MCU: COMPONENT TO BE SELECTED</text>
+  <rect x="310" y="108" width="380" height="58" rx="6" class="blk"/>
+  <text x="322" y="127" class="t" font-weight="700">Acquisition and timestamping</text>
+  <text x="322" y="143" class="m">fixed-rate scheduler · wrap-safe µs clock · freshness tracking</text>
+  <text x="322" y="157" class="m">hardware-independent Sensor interface (simulated sensors today)</text>
+  <path d="M500,166 V190" class="ln" marker-end="url(#arr)"/>
+  <rect x="310" y="192" width="380" height="80" rx="6" class="blk"/>
+  <text x="322" y="211" class="lyr">2  FLIGHT-DATA PROCESSING</text>
+  <text x="322" y="228" class="t">Kalman filter: altitude and vertical velocity</text>
+  <text x="322" y="244" class="t">State: PRELAUNCH → ASCENT → COAST → DESCENT → LANDED</text>
+  <text x="322" y="261" class="m">barometer only after apogee · the state is a data label and drives nothing</text>
+  <path d="M400,272 V298" class="ln" marker-end="url(#arr)"/><path d="M600,272 V298" class="ln" marker-end="url(#arr)"/>
+  <rect x="310" y="300" width="180" height="110" rx="6" class="blk"/>
+  <text x="322" y="319" class="lyr">3  DATA LOGGER</text>
+  <text x="322" y="337" class="t">schema validation</text><text x="322" y="352" class="t">quality flags per value</text>
+  <text x="322" y="367" class="t">CSV / JSON-lines</text><text x="322" y="382" class="t">CRC-16 per row</text>
+  <text x="322" y="399" class="m">50 Hz example · ≥ 100 Hz target</text>
+  <rect x="510" y="300" width="180" height="110" rx="6" class="blk"/>
+  <text x="522" y="319" class="lyr">4  TELEMETRY</text>
+  <text x="522" y="337" class="t">41-byte packet, v2</text><text x="522" y="352" class="t">seq no. + CRC-16</text>
+  <text x="522" y="367" class="t">SIMULATED + health flags</text><text x="522" y="382" class="t">summaries at 2–5 Hz</text>
+  <text x="522" y="399" class="m">radio-independent interface</text>
+
+  <!-- storage and analysis -->
+  <path d="M400,410 V468" class="ln" marker-end="url(#arr)"/>
+  <rect x="310" y="470" width="180" height="50" rx="6" class="box"/>
+  <text x="322" y="490" class="t" font-weight="700">microSD card (SPI)</text><text x="322" y="507" class="tbs">COMPONENT TO BE SELECTED</text>
+  <path d="M400,520 V558" class="ln" marker-end="url(#arr)"/><text x="408" y="543" class="m">copied after recovery</text>
+  <rect x="310" y="560" width="400" height="56" rx="6" class="blk"/>
+  <text x="322" y="580" class="lyr">6  POST-FLIGHT ANALYSIS</text>
+  <text x="322" y="597" class="t">flight_data_analysis.py: tolerant reader, plots, statistics</text>
+  <text x="322" y="611" class="m">altitude, velocity, acceleration, temperature, battery, GPS track</text>
+
+  <!-- radio and ground station -->
+  <path d="M690,355 H748" class="ln" marker-end="url(#arr)"/>
+  <rect x="750" y="315" width="230" height="84" rx="6" class="box"/>
+  <text x="762" y="334" class="t" font-weight="700">Radio link</text>
+  <text x="762" y="349" class="tbs">COMPONENT TO BE SELECTED</text>
+  <text x="762" y="364" class="m">legal band and power only</text>
+  <text x="762" y="379" class="m">today: SIMULATED software link</text>
+  <text x="762" y="393" class="m">(seeded loss and bit errors)</text>
+  <path d="M865,399 V438" class="ln" marker-end="url(#arr)"/>
+  <rect x="750" y="440" width="230" height="104" rx="6" class="blk"/>
+  <text x="762" y="459" class="lyr">5  GROUND STATION</text>
+  <text x="762" y="477" class="t">receiver: decode, CRC, loss stats</text>
+  <text x="762" y="492" class="t">dashboard: altitude, velocity,</text>
+  <text x="762" y="507" class="t">acceleration, temperature, GPS,</text>
+  <text x="762" y="522" class="t">battery, flight state</text>
+  <text x="762" y="537" class="m">prototype: not real-time validated</text>
+  <path d="M750,560 H732 V588 H712" class="ln" marker-end="url(#arr)"/><text x="722" y="556" class="m" text-anchor="end">telemetry log</text>
+
+  <!-- notes -->
+  <rect x="750" y="95" width="230" height="190" rx="6" class="note"/>
+  <text x="762" y="115" class="t" font-weight="700">Data-source label</text>
+  <text x="762" y="134" class="t">Every log row, telemetry packet,</text>
+  <text x="762" y="149" class="t">plot and report is marked</text>
+  <text x="762" y="164" class="t">SIMULATED or HARDWARE.</text>
+  <text x="762" y="186" class="t">Only SIMULATED data exist:</text>
+  <text x="762" y="201" class="t">no hardware has been selected,</text>
+  <text x="762" y="216" class="t">built or tested.</text>
+  <text x="762" y="238" class="m">Physical interfaces (sled, GPS tray,</text>
+  <text x="762" y="252" class="m">static ports, I-08 harness, battery)</text>
+  <text x="762" y="266" class="m">are in interface_spec.md.</text>
+  <rect x="20" y="500" width="250" height="116" rx="6" class="safe"/>
+  <text x="32" y="520" class="t" font-weight="700" fill="#B3261E">NO ACTUATION OUTPUTS</text>
+  <text x="32" y="539" class="t">No igniter, pyrotechnic, energetic or</text>
+  <text x="32" y="554" class="t">deployment interface exists or may be</text>
+  <text x="32" y="569" class="t">added. Recovery uses the certified</text>
+  <text x="32" y="584" class="t">motor's own ejection, prepared by a</text>
+  <text x="32" y="599" class="t">mentor. Propulsion is external.</text>
+</svg>

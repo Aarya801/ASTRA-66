@@ -1,0 +1,349 @@
+{
+  "schema": "astra66-flight-data",
+  "version": "1.1.0",
+  "status": "DRAFT: not yet exercised with real hardware",
+  "description": "One row per logged frame of the ASTRA-66 flight computer. Field order below is the CSV column order. Empty CSV cell / JSON null = no fresh sample in this frame or value rejected by validation.",
+  "data_sources": {
+    "SYNTHETIC": "Computer-generated (simulated sensors or a truth profile). Not flight data and not a prediction.",
+    "BENCH": "Recorded from real hardware on the bench (electronics only; the vehicle is not flying).",
+    "FLIGHT": "Recorded in flight. Disabled in software: no real flight record exists and nothing has flown.",
+    "SIMULATED": "Legacy label of the Phase 4 datasets; same meaning as SYNTHETIC.",
+    "HARDWARE": "Legacy label reserved in Phase 4 for real sensors; treated as BENCH."
+  },
+  "conventions": {
+    "time": "timestamp = seconds since the flight computer's clock start, from a microsecond counter (unwrapped if 32-bit).",
+    "body_frame": "+z along the rocket axis toward the nose; x and y radial, right-handed. The sensor-to-body mapping is set when the IMU and its mounting are selected.",
+    "specific_force": "Accelerometers measure specific force (acceleration minus gravity): about +9.81 m/s² on +z when standing on the pad.",
+    "altitude": "altitude = barometric altitude above the pad reference pressure (ISA formula). gps_altitude = GNSS altitude above mean sea level.",
+    "freshness": "Slow sensors (GNSS, temperature, battery) are written only in frames where a new sample arrived; other frames leave them empty.",
+    "valid_range": "Plausibility limits used by validation. They are NOT sensor specifications. Values outside are rejected (set empty) and flagged in quality_flags."
+  },
+  "sampling": {
+    "log_rate_hz_example": 50,
+    "log_rate_hz_target": 100,
+    "note": "The committed example is logged at 50 Hz to keep the repository small; the hardware target is >= 100 Hz IMU to SD (engineering package §8)."
+  },
+  "quality_flag_bits": {
+    "0": "IMU acceleration value rejected",
+    "1": "IMU angular-rate value rejected",
+    "2": "barometric value rejected",
+    "3": "temperature value rejected",
+    "4": "GNSS value rejected",
+    "5": "battery value rejected",
+    "6": "timestamp anomaly (gap larger than 3 nominal periods before this frame)"
+  },
+  "fields": [
+    {
+      "name": "seq",
+      "type": "int",
+      "unit": "count",
+      "required": true,
+      "valid_range": [
+        0,
+        4294967295
+      ],
+      "rate_hz": "log rate",
+      "source": "flight computer",
+      "description": "Frame counter, +1 per logged frame (gaps reveal lost frames)."
+    },
+    {
+      "name": "timestamp",
+      "type": "float",
+      "unit": "s",
+      "decimals": 6,
+      "required": true,
+      "valid_range": [
+        0,
+        1000000
+      ],
+      "rate_hz": "log rate",
+      "source": "flight computer clock",
+      "description": "Frame time since clock start."
+    },
+    {
+      "name": "data_source",
+      "type": "enum",
+      "values": [
+        "SYNTHETIC",
+        "BENCH",
+        "FLIGHT",
+        "SIMULATED",
+        "HARDWARE"
+      ],
+      "unit": "-",
+      "required": true,
+      "rate_hz": "log rate",
+      "source": "flight computer",
+      "description": "Where the data came from (avionics/firmware/data_source.py). SYNTHETIC / BENCH / FLIGHT; SIMULATED and HARDWARE are the legacy Phase 4 labels for SYNTHETIC and BENCH. Synthetic or bench data must never be presented as flight data."
+    },
+    {
+      "name": "flight_state",
+      "type": "enum",
+      "values": [
+        "PRELAUNCH",
+        "ASCENT",
+        "COAST",
+        "DESCENT",
+        "LANDED"
+      ],
+      "unit": "-",
+      "required": false,
+      "rate_hz": "log rate",
+      "source": "flight_state classifier",
+      "description": "Data-processing label only. Not connected to any actuator."
+    },
+    {
+      "name": "imu_accel_x",
+      "type": "float",
+      "unit": "m/s²",
+      "decimals": 3,
+      "valid_range": [
+        -400,
+        400
+      ],
+      "rate_hz": 100,
+      "source": "imu",
+      "quality_bit": 0,
+      "description": "Specific force, body x."
+    },
+    {
+      "name": "imu_accel_y",
+      "type": "float",
+      "unit": "m/s²",
+      "decimals": 3,
+      "valid_range": [
+        -400,
+        400
+      ],
+      "rate_hz": 100,
+      "source": "imu",
+      "quality_bit": 0,
+      "description": "Specific force, body y."
+    },
+    {
+      "name": "imu_accel_z",
+      "type": "float",
+      "unit": "m/s²",
+      "decimals": 3,
+      "valid_range": [
+        -400,
+        400
+      ],
+      "rate_hz": 100,
+      "source": "imu",
+      "quality_bit": 0,
+      "description": "Specific force, body z (axial, toward the nose)."
+    },
+    {
+      "name": "gyro_x",
+      "type": "float",
+      "unit": "deg/s",
+      "decimals": 3,
+      "valid_range": [
+        -5000,
+        5000
+      ],
+      "rate_hz": 100,
+      "source": "imu",
+      "quality_bit": 1,
+      "description": "Angular rate about body x."
+    },
+    {
+      "name": "gyro_y",
+      "type": "float",
+      "unit": "deg/s",
+      "decimals": 3,
+      "valid_range": [
+        -5000,
+        5000
+      ],
+      "rate_hz": 100,
+      "source": "imu",
+      "quality_bit": 1,
+      "description": "Angular rate about body y."
+    },
+    {
+      "name": "gyro_z",
+      "type": "float",
+      "unit": "deg/s",
+      "decimals": 3,
+      "valid_range": [
+        -5000,
+        5000
+      ],
+      "rate_hz": 100,
+      "source": "imu",
+      "quality_bit": 1,
+      "description": "Angular rate about body z (roll)."
+    },
+    {
+      "name": "barometric_pressure",
+      "type": "float",
+      "unit": "Pa",
+      "decimals": 1,
+      "valid_range": [
+        10000,
+        120000
+      ],
+      "rate_hz": 50,
+      "source": "baro",
+      "quality_bit": 2,
+      "description": "Static pressure."
+    },
+    {
+      "name": "altitude",
+      "type": "float",
+      "unit": "m",
+      "decimals": 2,
+      "valid_range": [
+        -200,
+        10000
+      ],
+      "rate_hz": 50,
+      "source": "baro (derived on board)",
+      "quality_bit": 2,
+      "description": "Barometric altitude above the pad reference (ISA)."
+    },
+    {
+      "name": "vertical_velocity",
+      "type": "float",
+      "unit": "m/s",
+      "decimals": 2,
+      "valid_range": [
+        -500,
+        500
+      ],
+      "rate_hz": "log rate",
+      "source": "flight_state estimator",
+      "description": "Estimated vertical velocity (Kalman filter: accelerometer + barometer; barometer only after apogee)."
+    },
+    {
+      "name": "temperature",
+      "type": "float",
+      "unit": "°C",
+      "decimals": 2,
+      "valid_range": [
+        -60,
+        125
+      ],
+      "rate_hz": 1,
+      "source": "temperature",
+      "quality_bit": 3,
+      "description": "Avionics-bay temperature."
+    },
+    {
+      "name": "latitude",
+      "type": "float",
+      "unit": "deg",
+      "decimals": 7,
+      "valid_range": [
+        -90,
+        90
+      ],
+      "rate_hz": 1,
+      "source": "gnss",
+      "quality_bit": 4,
+      "description": "WGS84 latitude (empty without a fix)."
+    },
+    {
+      "name": "longitude",
+      "type": "float",
+      "unit": "deg",
+      "decimals": 7,
+      "valid_range": [
+        -180,
+        180
+      ],
+      "rate_hz": 1,
+      "source": "gnss",
+      "quality_bit": 4,
+      "description": "WGS84 longitude (empty without a fix)."
+    },
+    {
+      "name": "gps_altitude",
+      "type": "float",
+      "unit": "m",
+      "decimals": 1,
+      "valid_range": [
+        -500,
+        20000
+      ],
+      "rate_hz": 1,
+      "source": "gnss",
+      "quality_bit": 4,
+      "description": "GNSS altitude above mean sea level."
+    },
+    {
+      "name": "gps_fix",
+      "type": "int",
+      "unit": "-",
+      "valid_range": [
+        0,
+        3
+      ],
+      "rate_hz": 1,
+      "source": "gnss",
+      "quality_bit": 4,
+      "description": "0 = no fix, 2 = 2D, 3 = 3D."
+    },
+    {
+      "name": "gps_satellites",
+      "type": "int",
+      "unit": "count",
+      "valid_range": [
+        0,
+        64
+      ],
+      "rate_hz": 1,
+      "source": "gnss",
+      "quality_bit": 4,
+      "description": "Satellites used in the solution."
+    },
+    {
+      "name": "battery_voltage",
+      "type": "float",
+      "unit": "V",
+      "decimals": 3,
+      "valid_range": [
+        0,
+        5.5
+      ],
+      "rate_hz": 1,
+      "source": "battery",
+      "quality_bit": 5,
+      "description": "Battery terminal voltage (1S LiPo)."
+    },
+    {
+      "name": "separation_detected",
+      "type": "int",
+      "unit": "0/1",
+      "valid_range": [
+        0,
+        1
+      ],
+      "rate_hz": 50,
+      "source": "separation",
+      "description": "Breakwire across I-03 open (logging only)."
+    },
+    {
+      "name": "quality_flags",
+      "type": "int",
+      "unit": "bitmask",
+      "valid_range": [
+        0,
+        65535
+      ],
+      "rate_hz": "log rate",
+      "source": "logger",
+      "description": "See quality_flag_bits."
+    },
+    {
+      "name": "crc16",
+      "type": "hex16",
+      "unit": "-",
+      "rate_hz": "log rate",
+      "source": "logger",
+      "description": "CRC-16/CCITT-FALSE of the preceding CSV fields of this row (as written, comma-joined). Detects corrupted rows."
+    }
+  ]
+}

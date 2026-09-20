@@ -10,7 +10,10 @@ Steps
                                  current parameters (params SHA-256) and has 0 FAIL
   3. flight simulation           simulation/flight_simulation.py: trajectory, stability, sensitivity, verification,
                                  plots, reports, documentation/SIMULATION_VALIDATION.md
-  4. regression tests            python -m unittest discover -s tests
+  4. avionics integration        simulation/avionics_replay.py (sensor replay of the synthetic sample) and
+                                 avionics/integration/cad_mass_integration.py --check (CAD fit, mass properties)
+  5. regression tests            python -m unittest discover -s tests
+  6. avionics software tests     python -m unittest discover -s avionics/tests -t .   (hardware-free, SIMULATED data)
 Writes simulation/results/pipeline_status.json and exits non-zero if any step fails.
 Propulsion is never designed here: the motor is external data (simulation/motor_config.json).
 """
@@ -69,11 +72,16 @@ def main():
         steps.append(run(cmd, "CAD render + validation (cad/build_cad.py)"))
     steps.append(cad_current())
     steps.append(run([py, os.path.join("simulation", "flight_simulation.py")], "Flight simulation, stability, sensitivity, reports"))
+    steps.append(run([py, os.path.join("simulation", "avionics_replay.py")], "Avionics sensor replay (synthetic sample)"))
+    steps.append(run([py, os.path.join("avionics", "integration", "cad_mass_integration.py"), "--check"],
+                     "Avionics CAD fit and mass-properties check"))
     try:   # preliminary status so the documentation tests can check it; rewritten with the test result below
         write_engineering_status(dict(date=datetime.datetime.now().isoformat(timespec="seconds"), overall="IN PROGRESS", steps=steps))
     except Exception as exc:
         steps.append(dict(step="Engineering status (preliminary)", ok=False, seconds=0.0, tail=[str(exc)]))
     steps.append(run([py, "-m", "unittest", "discover", "-s", "tests"], "Regression tests"))
+    steps.append(run([py, "-m", "unittest", "discover", "-s", os.path.join("avionics", "tests"), "-t", "."],
+                     "Avionics software tests (hardware-free)"))
     ok = all(s["ok"] for s in steps)
     status = dict(date=datetime.datetime.now().isoformat(timespec="seconds"), overall="PASS" if ok else "FAIL", steps=steps)
     os.makedirs(os.path.join(ROOT, "simulation", "results"), exist_ok=True)
@@ -113,6 +121,10 @@ def write_engineering_status(status):
     cad_ok = steps.get("CAD integration (committed validation is current)", {}).get("ok", False)
     sim_ok = steps.get("Flight simulation, stability, sensitivity, reports", {}).get("ok", False) and all(c["ok"] for c in ver)
     tests_ok = steps.get("Regression tests", {}).get("ok", False)
+    av_ok = steps.get("Avionics software tests (hardware-free)", {}).get("ok", False)
+    replay_ok = steps.get("Avionics sensor replay (synthetic sample)", {}).get("ok", False)
+    cadm = steps.get("Avionics CAD fit and mass-properties check", {})
+    cadm_line = next((t for t in cadm.get("tail", []) if "PASS" in t), "not run")
     sens_ok = os.path.exists(os.path.join(ROOT, "simulation", "results", "sensitivity_report.md"))
     P = lambda b: "PASS" if b else "FAIL"  # noqa: E731
     ph_note = " (placeholder motor)" if ph else ""
@@ -132,6 +144,10 @@ def write_engineering_status(status):
          f"| Sensitivity analysis | {P(sens_ok and sim_ok)} | 8 non-propulsion parameters; `simulation/results/sensitivity_report.md` |",
          f"| Reproducibility | {P(tests_ok)} | one command, standard library only; regression tests re-derive committed outputs |",
          f"| Documentation | {P(tests_ok)} | file references and disclaimers checked by `tests/test_docs.py` |",
+         f"| Avionics software | {P(av_ok)} | sensing, logging, telemetry, ground station, analysis; hardware-free tests on SIMULATED data only; "
+         "no component selected; `documentation/AVIONICS_DESIGN.md` |",
+         f"| Avionics integration | {P(replay_ok and cadm.get('ok', False))} | sensor replay of the synthetic sample; CAD fit and mass check: "
+         f"{cadm_line.split(': ', 1)[-1]} (`documentation/CAD_AVIONICS_INTEGRATION.md`); `documentation/PHASE_5_STATUS.md` |",
          "",
          "## 2. Value classes\n",
          "### VERIFIED FROM CAD (measured on the rendered OpenSCAD meshes)",
@@ -169,6 +185,10 @@ def write_engineering_status(status):
          "9. **Printability** was judged by a 45° overhang rule only; not yet checked in a slicer.",
          "10. **Tooling:** OpenSCAD is an external tool, not bundled. CAD regeneration needs it (`--with-cad`); the default run checks the committed CAD instead.",
          "11. **Dates:** generated reports carry the run date, so outputs are deterministic except for those date fields.",
+         "12. **Avionics:** software architecture and simulation only. No avionics component is selected, built or tested; all avionics "
+         "data are SIMULATED; state thresholds are assumptions (`documentation/AVIONICS_DESIGN.md`).",
+         "13. **Avionics integration:** the CAD holds PLACEHOLDER electronics envelopes only; fit, wiring, antenna and access items "
+         "need physical measurement, and all avionics masses are estimates (`documentation/CAD_AVIONICS_INTEGRATION.md`).",
          "",
          "## 4. Mentor / institution review required before any launch\n",
          "- Selection of a legally obtainable certified motor and its published data. Motor preparation and handling are done by a certified person only.",
@@ -177,8 +197,58 @@ def write_engineering_status(status):
          "- Retainer installation, recovery hardware ratings and proof loads, and fin/rail alignment inspection.",
          "- Complete flight-readiness review (package §18) and range safety officer approval on the day.",
          ""]
+    L += readiness_sections(steps)
     with open(os.path.join(ROOT, "documentation", "ENGINEERING_STATUS.md"), "w", encoding="utf-8") as fh:
         fh.write("\n".join(L) + "\n")
+
+
+def readiness_sections(steps):
+    """Hardware-integration readiness: what software shows, what needs a bench, what needs qualified review.
+    The bench list is taken from the generated CAD/avionics check file, so it cannot drift from the checks."""
+    try:
+        with open(os.path.join(ROOT, "avionics", "integration", "cad_avionics_checks.json"), encoding="utf-8") as fh:
+            checks = json.load(fh)
+    except OSError:
+        checks = dict(summary={}, checks=[])
+    unverified = [c for c in checks["checks"] if c["status"] == "UNVERIFIED"]
+    warn = [c for c in checks["checks"] if c["status"] == "WARN"]
+    tests = {k: steps.get(k, {}) for k in ("Regression tests", "Avionics software tests (hardware-free)")}
+    n_ok = sum(1 for t in tests.values() if t.get("ok"))
+    L = ["", "## 5. Hardware-integration readiness (Phase 6)\n",
+         "> **NOT FLIGHT CERTIFIED.** Nothing here has flown; no avionics hardware has been selected, built, weighed or "
+         "tested; propulsion is an external, commercially certified component represented by PLACEHOLDER data. "
+         "Full audit: `documentation/HARDWARE_INTEGRATION_STATUS.md`.\n",
+         "### VERIFIED BY SOFTWARE\n",
+         f"- Automated test suites passing: {n_ok}/2 (project regression tests and avionics software tests); the "
+         "simulation's 13 numerical verification checks; the CAD validation committed with the model.",
+         "- Covered: schema validation and rejection of impossible values, timestamp handling (wrap, duplicates, gaps), "
+         "state estimation and flight-state classification against synthetic truth, data logging with CRC-16, telemetry "
+         "packet encode/decode and corruption rejection, link statistics, sensor replay, and the post-flight analysis.",
+         "- Data-source modes SYNTHETIC / BENCH / FLIGHT exist in software (`avionics/firmware/data_source.py`); FLIGHT "
+         "is disabled because no flight record exists.",
+         "- These results are obtained on synthetic data. They are evidence about the software only, never about "
+         "hardware, flight behaviour or safety.\n",
+         "### REQUIRES PHYSICAL BENCH VALIDATION\n",
+         f"- {len(unverified)} items cannot be checked from the CAD or the analysis and need measurement "
+         "(`documentation/CAD_AVIONICS_INTEGRATION.md`):"]
+    L += [f"  - {c['check']} ({c['area']})" for c in unverified]
+    if warn:
+        L.append(f"- {len(warn)} integration warnings to resolve with real parts: "
+                 + "; ".join(c["check"] for c in warn) + ".")
+    L += ["- Every avionics mass is an estimate: weigh the parts and the assembled vehicle, and measure the CG "
+          "(`documentation/MASS_MEASUREMENT_PROCEDURE.md`).",
+          "- Sensor behaviour, loop timing, SD write latency, power endurance, radio range and packet loss: bench tests "
+          "B-01…B-14 in `documentation/AVIONICS_BENCH_TEST_PLAN.md`, with components chosen using "
+          "`documentation/HARDWARE_SELECTION_CHECKLIST.md`.\n",
+          "### REQUIRES QUALIFIED ROCKETRY REVIEW\n",
+          "- Selection of a legally obtainable certified motor and replacement of the PLACEHOLDER motor data; static "
+          "margin and rail-exit speed re-checked with that motor and a measured CG.",
+          "- Telemetry radio: band, power and frequency coordination legal where the rocket is flown.",
+          "- LiPo battery handling, charging and transport under the range's rules; pad power-up procedure.",
+          "- Recovery (the certified motor's own ejection, prepared by a mentor), proof loads and hardware ratings.",
+          "- Complete flight-readiness review and range safety officer approval on the day. Until then ASTRA-66 is a "
+          "draft student design and is **NOT FLIGHT CERTIFIED**.", ""]
+    return L
 
 
 if __name__ == "__main__":
