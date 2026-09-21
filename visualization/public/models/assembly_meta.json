@@ -1,0 +1,26 @@
+{
+ "triangles": 120164,
+ "min": [
+  -93.0,
+  -93.0,
+  0.0
+ ],
+ "max": [
+  93.0,
+  93.0,
+  1154.0
+ ],
+ "size": [
+  186.0,
+  186.0,
+  1154.0
+ ],
+ "long_axis": "z",
+ "tip_at": "min",
+ "units": "mm",
+ "sampled_vertices": 120165,
+ "file": "models/astra66_assembly_flight_parts.stl",
+ "source": "cad/exports/assembly/astra66_assembly_flight_parts.stl",
+ "sha256": "353712ce16a516b9b12b9cddd08ab063a2fdd7dcdd6f1e4f8fe115e3c45bc082",
+ "note": "Exact mesh exported from the ASTRA-66 OpenSCAD assembly (flight parts). Copied unchanged; not simplified."
+}

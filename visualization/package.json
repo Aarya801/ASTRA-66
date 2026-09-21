@@ -1,0 +1,26 @@
+{
+  "name": "astra66-visualizer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ASTRA-66 digital flight visualization - a 3D website for the existing ASTRA-66 engineering model and its 1-DOF flight simulation. NOT FLIGHT CERTIFIED.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "data": "python ../visualization/tools/export_flight_data.py",
+    "data:cad": "python ../visualization/tools/export_flight_data.py --with-cad-mesh",
+    "cad-mesh": "node scripts/copy-cad-mesh.mjs",
+    "dev": "npm run cad-mesh && vite",
+    "prebuild": "node scripts/copy-cad-mesh.mjs",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "three": "^0.186.0"
+  },
+  "devDependencies": {
+    "vite": "^8.3.0"
+  }
+}

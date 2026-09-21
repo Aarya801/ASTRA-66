@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASTRA-66 — Digital Flight Visualization</title>
+<meta name="description" content="Interactive 3D visualization of the ASTRA-66 student rocket engineering project: parametric CAD, 1-DOF flight simulation, avionics software and automated validation. Digital model only — NOT FLIGHT CERTIFIED.">
+<meta name="theme-color" content="#0d1218">
+<meta property="og:title" content="ASTRA-66 — Digital Flight Visualization">
+<meta property="og:description" content="Watch the ASTRA-66 engineering model fly in 3D. Simulated trajectory, live telemetry and the project's own validation data. NOT FLIGHT CERTIFIED.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#128640;</text></svg>">
+<link rel="stylesheet" href="./src/styles.css">
+</head>
+<body>
+
+<!-- ==================================================================== site navigation -->
+<header class="site-nav" id="site-nav">
+  <a class="brand" href="#top">
+    <span class="mark">ASTRA-66</span>
+    <span class="sub">DIGITAL FLIGHT VISUALIZATION</span>
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="#simulator">Simulator</a>
+    <a href="#flight-data">Flight data</a>
+    <a href="#system">Engineering</a>
+    <a href="#validation">Validation</a>
+    <a href="#about">About</a>
+  </nav>
+  <div class="nav-right">
+    <span class="nfc" title="Nothing in ASTRA-66 has been built, powered, bench tested or flown.">NOT FLIGHT CERTIFIED</span>
+    <a class="gh" href="https://github.com/Aarya801/ASTRA-66" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+      VIEW ON GITHUB
+    </a>
+  </div>
+</header>
+
+<!-- ==================================================================== hero -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <p class="kicker">STUDENT AEROSPACE ENGINEERING PROJECT · 66&nbsp;mm CLASS AIRFRAME</p>
+    <h1>Watch the <span>ASTRA-66</span> engineering model fly.</h1>
+    <p class="lede">
+      A browser visualization of a real, reproducible engineering project: parametric CAD, mass and stability
+      analysis, a 1-DOF flight simulation, avionics software and automated validation. Everything on this page is
+      read from the project repository — the trajectory is <b>simulated</b>, the sensor data are
+      <b>synthetic</b>, and nothing has ever been built or flown.
+    </p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#simulator" id="btn-hero-run">▶ Run the simulation</a>
+      <a class="btn" href="#about">What is ASTRA-66?</a>
+      <a class="btn" href="https://github.com/Aarya801/ASTRA-66" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a>
+    </div>
+    <div class="hero-stats" id="hero-stats"></div>
+  </div>
+</section>
+
+<!-- ==================================================================== simulator -->
+<section class="stage" id="simulator">
+  <div class="stage-head">
+    <h2>3D flight simulation</h2>
+    <p>Driven by <code>simulation/results/trajectory_baseline.csv</code> — the project's own 1-DOF output. The
+      viewer animates that data; it does not simulate anything itself.</p>
+  </div>
+
+  <div class="app">
+    <div class="app-bar">
+      <span class="chip" id="chip-source">DATA SOURCE: —</span>
+      <span class="chip" id="chip-model">MODEL: —</span>
+      <button class="ghost" id="btn-sidebar" title="Show / hide the engineering panels">PANELS</button>
+    </div>
+
+    <div class="layout">
+      <!-- -------------------------------------------------- engineering sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <section class="panel" data-open="true">
+          <h2>SIMULATION BASIS <span class="caret">▾</span></h2>
+          <div class="body" id="panel-basis"></div>
+        </section>
+        <section class="panel">
+          <h2>ENGINEERING DATA <span class="caret">▾</span></h2>
+          <div class="body" id="panel-engineering"></div>
+        </section>
+        <section class="panel">
+          <h2>COMPONENTS <span class="caret">▾</span></h2>
+          <div class="body" id="panel-components"></div>
+        </section>
+        <section class="panel">
+          <h2>CURRENT MODEL LIMITATIONS <span class="caret">▾</span></h2>
+          <div class="body" id="panel-limits"></div>
+        </section>
+        <section class="panel">
+          <h2>DIGITAL / SOFTWARE VALIDATION <span class="caret">▾</span></h2>
+          <div class="body" id="panel-validation"></div>
+        </section>
+        <section class="panel">
+          <h2>DATA PROVENANCE <span class="caret">▾</span></h2>
+          <div class="body" id="panel-sources"></div>
+        </section>
+      </aside>
+
+      <!-- -------------------------------------------------- 3D viewport -->
+      <div class="viewport" id="viewport">
+        <canvas id="scene"></canvas>
+        <div class="labels" id="labels"></div>
+
+        <div class="hud" id="hud">
+          <div class="hud-head"><b>ASTRA-66</b><span id="hud-mode">1-DOF FLIGHT SIMULATION</span></div>
+          <div class="hud-rows" id="hud-rows"></div>
+          <div class="hud-phase"><span class="k">PHASE</span><span class="phase" id="hud-phase">—</span></div>
+          <div class="hud-foot" id="hud-foot">SIMULATED DATA · DIGITAL MODEL</div>
+        </div>
+
+        <div class="viewctl">
+          <div class="grp" role="group" aria-label="Camera">
+            <span class="lbl">CAMERA</span>
+            <button data-cam="free" class="on">FREE</button>
+            <button data-cam="chase">CHASE</button>
+            <button data-cam="ground">GROUND</button>
+            <button data-cam="side">SIDE</button>
+            <button data-cam="top">TOP</button>
+          </div>
+          <div class="grp" role="group" aria-label="Display">
+            <span class="lbl">DISPLAY</span>
+            <button data-toggle="inspect">INSPECT ROCKET</button>
+            <button data-toggle="labels">LABELS</button>
+            <button data-toggle="cgcp" class="on">CG / CP</button>
+            <button data-toggle="internals">INTERNALS</button>
+            <button data-toggle="trajectory" class="on">TRAJECTORY</button>
+            <button data-toggle="grid" class="on">GRID</button>
+            <button data-toggle="cad" id="btn-cad" hidden>CAD MESH</button>
+          </div>
+          <div class="grp">
+            <span class="lbl">VISUAL SCALE</span>
+            <select id="sel-scale" title="Enlarges the 1.14 m vehicle so it stays visible against a 328 m trajectory. Does not affect any data.">
+              <option value="1">×1 (true size)</option>
+              <option value="10">×10</option>
+              <option value="25" selected>×25</option>
+              <option value="50">×50</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="inspector" id="inspector" hidden>
+          <div class="ins-head"><span id="ins-title">COMPONENT</span><button id="ins-close" aria-label="Close">✕</button></div>
+          <div class="ins-body" id="ins-body"></div>
+        </div>
+
+        <div class="summary" id="summary" hidden>
+          <div class="sum-head"><span>SIMULATION SUMMARY</span><button id="sum-close" aria-label="Close">✕</button></div>
+          <div class="sum-body" id="sum-body"></div>
+        </div>
+
+        <div class="loading" id="loading"><div class="spin"></div><span>Loading ASTRA-66 engineering data…</span></div>
+      </div>
+    </div>
+
+    <!-- -------------------------------------------------- transport -->
+    <div class="transport">
+      <div class="tl-row">
+        <input type="range" id="timeline" min="0" max="1000" value="0" step="1" aria-label="Flight timeline">
+        <div class="tl-marks" id="tl-marks"></div>
+      </div>
+      <div class="ctl-row">
+        <div class="grp">
+          <button id="btn-play" class="primary">▶ PLAY</button>
+          <button id="btn-pause">❚❚ PAUSE</button>
+          <button id="btn-reset">⟲ RESET</button>
+          <button id="btn-restart">↻ RESTART</button>
+        </div>
+        <div class="grp">
+          <span class="lbl">SPEED</span>
+          <button data-speed="0.25">0.25×</button>
+          <button data-speed="0.5">0.5×</button>
+          <button data-speed="1" class="on">1×</button>
+          <button data-speed="2">2×</button>
+          <button data-speed="5">5×</button>
+          <button data-speed="10">10×</button>
+        </div>
+        <div class="grp">
+          <span class="lbl">DATA SOURCE</span>
+          <select id="sel-source"></select>
+        </div>
+        <div class="grp time">
+          <span id="t-now">T + 0.000 s</span><span class="muted" id="t-end">/ —</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="stage-foot">
+    Keyboard: <kbd>Space</kbd> play/pause · <kbd>R</kbd> reset · <kbd>I</kbd> inspect. Drag to orbit in FREE and
+    INSPECT modes. The visual scale enlarges the 1.144&nbsp;m vehicle so it stays visible against a 328&nbsp;m
+    trajectory — it changes no data.
+  </p>
+</section>
+
+<!-- ==================================================================== flight data -->
+<section class="content" id="flight-data">
+  <h2>Flight data</h2>
+  <p class="sec-lede">Results of the project's own 1-DOF simulation, with <b>placeholder</b> propulsion data.
+    These are illustrative software outputs, not predictions of a real flight.</p>
+  <div id="site-flight"></div>
+</section>
+
+<!-- ==================================================================== engineering system -->
+<section class="content" id="system">
+  <h2>The engineering system</h2>
+  <p class="sec-lede">Six subsystems, each summarised from the repository. Every figure carries the provenance
+    class the project assigned to it.</p>
+  <div class="cards" id="site-system"></div>
+</section>
+
+<!-- ==================================================================== validation -->
+<section class="content" id="validation">
+  <h2>Validation</h2>
+  <p class="sec-lede">What has actually been checked — and what that does and does not prove.</p>
+  <div id="site-validation"></div>
+</section>
+
+<!-- ==================================================================== limitations -->
+<section class="content warn-section" id="limitations">
+  <h2>Important limitations</h2>
+  <div id="site-limits"></div>
+</section>
+
+<!-- ==================================================================== about -->
+<section class="content" id="about">
+  <h2>What is ASTRA-66?</h2>
+  <div class="about-grid">
+    <div>
+      <p>ASTRA-66 is a first-year student aerospace engineering project: a modular 66&nbsp;mm-class,
+        1144&nbsp;mm model rocket airframe designed as a complete, reproducible engineering package rather than
+        as a build. It combines:</p>
+      <ul class="ticks">
+        <li><b>Parametric CAD</b> — 25 parts and a master assembly generated from one parameter file, validated by
+          measuring the rendered mesh.</li>
+        <li><b>Engineering analysis</b> — mass budget, centre of gravity, Barrowman centre of pressure, static
+          margin, structural load cases and recovery sizing, each value carrying a provenance tag.</li>
+        <li><b>Flight simulation</b> — a 1-DOF vertical model with an ISA atmosphere and a component drag
+          build-up, checked against independent references.</li>
+        <li><b>Avionics software</b> — hardware-independent sensor interfaces, state estimation, flight-state
+          classification, schema-validated logging and a CRC-checked telemetry packet. No actuation of any kind.</li>
+        <li><b>Telemetry and data handling</b> — a ground-station receiver and dashboard, post-flight analysis and
+          a synthetic sensor replay that runs through the real flight-computer code.</li>
+        <li><b>Automated validation</b> — one command regenerates and re-checks the whole chain in continuous
+          integration on two Python versions.</li>
+        <li><b>Documentation</b> — 20 engineering documents including a full limitations register.</li>
+        <li><b>3D visualization</b> — this site.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>How this website gets its data</h3>
+      <pre class="arch">ASTRA-66 repository        (source of truth)
+        │
+        ▼
+tools/export_flight_data.py    read-only adapter
+        │   copies values, never computes new ones
+        ▼
+public/data/*.json             common data format
+        │
+        ▼
+src/data.js  →  FlightSource
+        │
+        ▼
+three.js scene + engineering UI</pre>
+      <p class="small">The adapter reads 17 repository files and records a SHA-256 of each one; the list is in the
+        <b>DATA PROVENANCE</b> panel of the simulator. If a value is not in the repository, the interface shows
+        <b>NOT AVAILABLE</b> rather than inventing one.</p>
+      <h3>Safety boundary</h3>
+      <p class="small">ASTRA-66 covers airframe structure, aerodynamics, recovery sizing, simulation and
+        flight-data software only. It contains no propulsion, propellant, igniter or pyrotechnic design;
+        propulsion appears only as an external, commercially certified component envelope. Any physical activity
+        would require a qualified mentor, a recognised rocketry organisation and compliance with local law.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================================== footer -->
+<footer class="site-foot">
+  <div class="foot-grid">
+    <div>
+      <div class="brand foot-brand"><span class="mark">ASTRA-66</span></div>
+      <p class="small">Digital flight visualization of a student engineering project.<br>
+        <b>NOT FLIGHT CERTIFIED.</b> Nothing has been built, powered, bench tested or flown.</p>
+    </div>
+    <div>
+      <h4>Repository</h4>
+      <ul class="links">
+        <li><a href="https://github.com/Aarya801/ASTRA-66" target="_blank" rel="noopener noreferrer">GitHub repository ↗</a></li>
+        <li><a href="https://github.com/Aarya801/ASTRA-66/tree/main/documentation" target="_blank" rel="noopener noreferrer">Engineering documentation ↗</a></li>
+        <li><a href="https://github.com/Aarya801/ASTRA-66/actions" target="_blank" rel="noopener noreferrer">Continuous integration ↗</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>This visualizer</h4>
+      <ul class="links">
+        <li><a href="https://github.com/Aarya801/ASTRA-66/blob/main/visualization/3D_SIMULATOR_README.md" target="_blank" rel="noopener noreferrer">Simulator documentation ↗</a></li>
+        <li><a href="https://github.com/Aarya801/ASTRA-66/blob/main/documentation/RELEASE_READINESS.md" target="_blank" rel="noopener noreferrer">Release readiness ↗</a></li>
+        <li><a href="#limitations">Model limitations</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="foot-note" id="foot-note">Built with three.js and Vite. Data exported from the ASTRA-66 repository.</p>
+</footer>
+
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Generated / installed - everything here is reproducible from the repository.
+node_modules/
+dist/
+
+# The CAD assembly mesh is copied in at build time by scripts/copy-cad-mesh.mjs from
+# cad/exports/assembly/, so the 5.9 MB file is not duplicated in git.
+public/models/*.stl
+
+# Test artefacts
+tests/screenshots/
