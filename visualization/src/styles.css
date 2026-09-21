@@ -43,7 +43,7 @@ code { font-family: var(--mono); font-size: .92em; background: #16212c; padding:
   background: rgba(13, 19, 26, .92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
 }
 .brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: inherit; }
-.brand .mark { font-weight: 800; letter-spacing: 3px; font-size: 17px; color: #fff; }
+.brand .mark { font-weight: 800; letter-spacing: 3px; font-size: 17px; color: #fff; white-space: nowrap; }
 .brand .sub { font-size: 9.5px; letter-spacing: 2.2px; color: var(--ink3); white-space: nowrap; }
 .nav-links { display: flex; gap: 4px; margin-left: auto; }
 .nav-links a {
@@ -378,6 +378,8 @@ pre.arch {
 }
 @media (max-width: 560px) {
   body { font-size: 13px; }
+  .site-nav { gap: 10px; padding: 0 12px; }
+  .brand .mark { font-size: 15px; letter-spacing: 2px; }
   .nfc { font-size: 9px; padding: 3px 6px; letter-spacing: .8px; }
   .gh { font-size: 0; gap: 0; padding: 6px 8px; }
   .gh svg { width: 16px; height: 16px; }

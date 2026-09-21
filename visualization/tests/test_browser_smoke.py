@@ -169,7 +169,8 @@ class BrowserSmoke(unittest.TestCase):
             document.getElementById('btn-reset').click();
             const t0 = a.t;
             document.getElementById('btn-play').click();
-            await wait(450);
+            // wait for the animation loop to actually advance (headless frames can be slow)
+            for (let i = 0; i < 40 && a.t <= t0; i++) await wait(50);
             const playing = a.playing, t1 = a.t;
             document.getElementById('btn-pause').click();
             await wait(200);
@@ -456,11 +457,12 @@ class BrowserSmoke(unittest.TestCase):
         state = json.loads(self.js("""(async () => {
             const a = ASTRA66;
             // scroll right down to the footer, well past the stage
+            document.documentElement.style.scrollBehavior = 'auto';
             window.scrollTo(0, document.documentElement.scrollHeight);
-            await new Promise(r => setTimeout(r, 500));
+            for (let i = 0; i < 40 && !a.offscreen; i++) await new Promise(r => setTimeout(r, 50));
             const away = a.offscreen;
             document.getElementById('simulator').scrollIntoView();
-            await new Promise(r => setTimeout(r, 500));
+            for (let i = 0; i < 40 && a.offscreen; i++) await new Promise(r => setTimeout(r, 50));
             return JSON.stringify({ away, back: a.offscreen });
         })()"""))
         self.assertTrue(state["away"], "rendering should pause when the stage is scrolled away")

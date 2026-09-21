@@ -198,15 +198,44 @@ class Browser:
         res = self.ws.call("Page.captureScreenshot", {"format": "png"})
         Path(path).write_bytes(base64.b64decode(res["data"]))
 
-    def distinct_colours(self, sample_step: int = 6) -> int:
-        """Decode a screenshot and count distinct colours - 1 means a blank frame."""
-        res = self.ws.call("Page.captureScreenshot", {"format": "png"})
+    def distinct_colours(self, sample_step: int = 3) -> int:
+        """Decode a screenshot and count distinct colours - 1 means a blank frame.
+
+        The capture is scaled down first: the PNG decoder below is pure Python, and a
+        quarter-size image is as good for "is anything on screen?" while being much faster.
+        """
+        metrics = self.ws.evaluate("JSON.stringify([innerWidth, innerHeight])")
+        w, h = json.loads(metrics)
+        res = self.ws.call("Page.captureScreenshot", {
+            "format": "png",
+            "clip": {"x": 0, "y": 0, "width": w, "height": h, "scale": 0.25},
+        })
         return png_distinct_colours(base64.b64decode(res["data"]), sample_step)
 
     def close(self):
+        """Stop Chrome and its renderer children.
+
+        terminate() alone leaves the child processes running on Windows, and they accumulate
+        across repeated test runs until everything crawls.
+        """
+        if not self.proc:
+            return
         try:
-            if self.proc:
-                self.proc.terminate()
+            self.proc.terminate()
+            self.proc.wait(timeout=5)
+        except Exception:
+            pass
+        if self.proc.poll() is None or os.name == "nt":
+            try:
+                if os.name == "nt":
+                    subprocess.run(["taskkill", "/T", "/F", "/PID", str(self.proc.pid)],
+                                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=15)
+                else:
+                    self.proc.kill()
+            except Exception:
+                pass
+        try:
+            shutil.rmtree(self.profile, ignore_errors=True)
         except Exception:
             pass
 
