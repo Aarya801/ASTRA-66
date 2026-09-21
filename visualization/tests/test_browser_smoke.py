@@ -438,6 +438,18 @@ class BrowserSmoke(unittest.TestCase):
 
     def test_24_mobile_layout_still_renders_the_simulation(self):
         self.browser.set_viewport(390, 844, True)
+        drawer = json.loads(self.js("""JSON.stringify({
+            display: getComputedStyle(document.getElementById('sidebar')).display,
+            opens: (() => {
+                document.getElementById('btn-sidebar').click();
+                const d = getComputedStyle(document.getElementById('sidebar')).display;
+                document.getElementById('btn-sidebar').click();
+                return d;
+            })(),
+        })"""))
+        self.assertEqual(drawer["display"], "none",
+                         "the panels must not cover the 3D view on a phone")
+        self.assertNotEqual(drawer["opens"], "none", "the PANELS button must open the drawer")
         self.js("""(async () => {
             document.getElementById('simulator').scrollIntoView();
             await new Promise(r => setTimeout(r, 400));

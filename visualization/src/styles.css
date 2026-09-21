@@ -357,17 +357,20 @@ pre.arch {
 /* ==================================================================== responsive */
 @media (max-width: 1150px) {
   .nav-links { display: none; }
+  /* The panels become an overlay drawer, closed by default, so the 3D view owns the space.
+     The PANELS button adds .open. */
   .sidebar {
     position: absolute; z-index: 6; top: 0; bottom: 0; left: 0; width: min(300px, 86%); flex-basis: auto;
-    box-shadow: 8px 0 24px rgba(0,0,0,.55);
+    box-shadow: 8px 0 24px rgba(0,0,0,.55); display: none;
   }
+  .sidebar.open { display: block; }
   .about-grid { grid-template-columns: 1fr; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 860px) {
   .brand .sub { display: none; }
   .app { height: clamp(460px, 68vh, 720px); }
-  .hud { width: 190px; top: 8px; left: 8px; }
+  .hud { width: 214px; top: 8px; left: 8px; }
   .hud-rows .v { font-size: 11px; }
   .viewctl { top: 8px; right: 8px; gap: 6px; }
   .viewctl .grp { max-width: 190px; padding: 5px 6px; }
@@ -376,6 +379,28 @@ pre.arch {
   .hero { padding: 36px 16px 30px; }
   .content, .stage { padding-left: 16px; padding-right: 16px; }
 }
+/* On a phone the overlays would cover the whole canvas, so the telemetry becomes a short
+   full-width strip at the top and the view controls a scrollable rail along the bottom. */
+@media (max-width: 700px) {
+  /* give the canvas as much height as the controls allow */
+  .app { height: clamp(520px, 78vh, 780px); }
+  .transport { padding: 6px 10px 8px; }
+  .tl-row { padding-bottom: 30px; }
+  .ctl-row { gap: 6px 12px; }
+  .hud { left: 6px; right: 6px; width: auto; top: 6px; }
+  .hud-rows { grid-template-columns: repeat(2, minmax(0, 1fr) auto); gap: 2px 10px; }
+  .hud-rows .v { font-size: 11.5px; }
+  .viewctl {
+    top: auto; bottom: 6px; left: 6px; right: 6px; max-width: none;
+    flex-direction: row; align-items: flex-start; gap: 6px;
+    overflow-x: auto; overflow-y: hidden; padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+  .viewctl::-webkit-scrollbar { display: none; }
+  .viewctl .grp { flex-wrap: nowrap; max-width: none; flex: 0 0 auto; }
+  .inspector { bottom: 54px; }
+}
+
 @media (max-width: 560px) {
   body { font-size: 13px; }
   .site-nav { gap: 10px; padding: 0 12px; }
@@ -383,10 +408,10 @@ pre.arch {
   .nfc { font-size: 9px; padding: 3px 6px; letter-spacing: .8px; }
   .gh { font-size: 0; gap: 0; padding: 6px 8px; }
   .gh svg { width: 16px; height: 16px; }
-  .app { height: clamp(420px, 64vh, 620px); }
   .app-bar .chip { display: none; }
   button.ghost { margin-left: 0; }
-  .hud { width: 160px; }
+  .hud { width: auto; }
+  .hud-rows { grid-template-columns: minmax(0, 1fr) auto; }
   .hud-head b { font-size: 11px; letter-spacing: 1.4px; }
   .hud-head span { display: none; }
   .hud-rows { padding: 6px 8px; }

@@ -112,9 +112,6 @@ async function init() {
   }
 
   wireUi();
-  // On a phone or small tablet the panels would cover the 3D view: start collapsed and let
-  // the visitor open them with the PANELS button.
-  if (innerWidth < 1150) $('sidebar').classList.add('hidden');
   fillSourceSelect();
   setSource('sim');
   resize();
@@ -355,7 +352,13 @@ function wireUi() {
     const p = h.parentElement;
     p.dataset.open = p.dataset.open === 'true' ? 'false' : 'true';
   }));
-  $('btn-sidebar').addEventListener('click', () => $('sidebar').classList.toggle('hidden'));
+  // Wide screens: the panels are a column that can be hidden. Narrow screens: they are an
+  // overlay drawer that is closed by default (see the media query in styles.css).
+  $('btn-sidebar').addEventListener('click', () => {
+    const el = $('sidebar');
+    if (innerWidth < 1150) el.classList.toggle('open');
+    else el.classList.toggle('hidden');
+  });
 
   // transport
   $('btn-play').addEventListener('click', () => {
