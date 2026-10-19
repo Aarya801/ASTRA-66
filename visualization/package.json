@@ -13,6 +13,7 @@
     "data:cad": "python ../visualization/tools/export_flight_data.py --with-cad-mesh",
     "cad-mesh": "node scripts/copy-cad-mesh.mjs",
     "dev": "npm run cad-mesh && vite",
+    "test": "node --test tests/data.test.js",
     "prebuild": "node scripts/copy-cad-mesh.mjs",
     "build": "vite build",
     "preview": "vite preview"

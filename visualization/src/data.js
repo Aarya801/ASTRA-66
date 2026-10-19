@@ -21,12 +21,129 @@ export async function loadAll() {
   const grab = async (name) => {
     const res = await fetch(`${DATA}/${name}`, { cache: 'no-cache' });
     if (!res.ok) throw new Error(`cannot load ${name} (${res.status}) - run: python visualization/tools/export_flight_data.py`);
-    return res.json();
+    try {
+      return await res.json();
+    } catch {
+      throw new Error(`${name} is not valid JSON - run: python visualization/tools/export_flight_data.py`);
+    }
   };
   const [vehicle, trajectory, replay, project] = await Promise.all(
     ['vehicle.json', 'trajectory.json', 'replay.json', 'project.json'].map(grab),
   );
-  return { vehicle, trajectory, replay, project };
+  return validateDataBundle({ vehicle, trajectory, replay, project });
+}
+
+const isRecord = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
+const finite = (value) => typeof value === 'number' && Number.isFinite(value);
+
+function requireRecord(value, file, path) {
+  if (!isRecord(value)) throw new Error(`${file} is missing or invalid: expected ${path} to be an object`);
+  return value;
+}
+
+function requireFinite(value, file, path) {
+  if (!finite(value)) throw new Error(`${file} is missing or invalid: expected ${path} to be a finite number`);
+}
+
+/** Fail early with a file-specific message before rendering code consumes exported data. */
+export function validateDataBundle(bundle) {
+  requireRecord(bundle, 'exported data', 'the data bundle');
+  const vehicle = requireRecord(bundle.vehicle, 'vehicle.json', 'vehicle');
+  const geometry = requireRecord(vehicle.geometry, 'vehicle.json', 'geometry');
+  for (const key of ['length_mm', 'body_od_mm', 'body_id_mm', 'coupler_od_mm', 'nose_len_mm', 'nose_split_mm', 'mmt_od_mm', 'rail_length_m']) {
+    requireFinite(geometry[key]?.v, 'vehicle.json', `geometry.${key}.v`);
+  }
+  const stations = requireRecord(geometry.stations_mm, 'vehicle.json', 'geometry.stations_mm');
+  for (const key of ['nc_base', 'pl_end', 'band_end', 'cpl_fwd', 'cpl_aft', 'av_bh_fwd_outer', 'av_bh_aft_outer',
+    'sled_fwd', 'sled_aft', 'mmt_fwd', 'mmt_aft', 'fin_le', 'core_fwd', 'core_aft', 'motor_fwd', 'motor_aft', 'cam', 'hatch']) {
+    requireFinite(stations[key], 'vehicle.json', `geometry.stations_mm.${key}`);
+  }
+  const fin = requireRecord(geometry.fin, 'vehicle.json', 'geometry.fin');
+  for (const key of ['count', 'root_chord_mm', 'tip_chord_mm', 'semi_span_mm', 'sweep_mm', 'thickness_mm', 'le_station_mm']) {
+    requireFinite(fin[key]?.v, 'vehicle.json', `geometry.fin.${key}.v`);
+  }
+  const railButton = requireRecord(geometry.rail_button, 'vehicle.json', 'geometry.rail_button');
+  for (const key of ['angle_deg', 'fwd_station_mm', 'aft_station_mm', 'diameter_mm', 'standoff_mm']) {
+    requireFinite(railButton[key]?.v, 'vehicle.json', `geometry.rail_button.${key}.v`);
+  }
+  requireRecord(vehicle.modules, 'vehicle.json', 'modules');
+  const stability = requireRecord(vehicle.stability, 'vehicle.json', 'stability');
+  for (const key of ['cg_liftoff_mm', 'cp_mm']) requireFinite(stability[key]?.v, 'vehicle.json', `stability.${key}.v`);
+
+  const trajectory = requireRecord(bundle.trajectory, 'trajectory.json', 'trajectory');
+  const columns = trajectory.columns;
+  if (!Array.isArray(columns) || new Set(columns).size !== columns.length) {
+    throw new Error('trajectory.json is missing or invalid: columns must be a unique array');
+  }
+  const columnIndex = Object.fromEntries(columns.map((column, index) => [column, index]));
+  const requiredColumns = ['t_s', 'altitude_m', 'velocity_mps', 'accel_mps2', 'mach', 'q_Pa', 'thrust_N',
+    'drag_N', 'cd', 'mass_kg', 'cg_mm', 'static_margin_cal'];
+  for (const key of requiredColumns) {
+    if (!(key in columnIndex)) throw new Error(`trajectory.json is incompatible: missing ${key} column`);
+  }
+  if (!Array.isArray(trajectory.samples) || trajectory.samples.length < 2) {
+    throw new Error('trajectory.json is missing or invalid: expected at least two samples');
+  }
+  const phases = trajectory.phases;
+  if (!Array.isArray(phases) || !Array.isArray(trajectory.phase_index) || trajectory.phase_index.length !== trajectory.samples.length) {
+    throw new Error('trajectory.json is missing or invalid: phases and phase_index must match the samples');
+  }
+  let previousTime = -Infinity;
+  for (let rowIndex = 0; rowIndex < trajectory.samples.length; rowIndex++) {
+    const row = trajectory.samples[rowIndex];
+    if (!Array.isArray(row) || row.length !== columns.length || row.some((value) => value !== null && !finite(value))) {
+      throw new Error(`trajectory.json is invalid: sample ${rowIndex} must match columns and contain finite values or null`);
+    }
+    const time = row[columnIndex.t_s];
+    if (!finite(time) || time <= previousTime || !finite(row[columnIndex.altitude_m])) {
+      throw new Error(`trajectory.json is invalid: sample ${rowIndex} has invalid or non-increasing time/altitude`);
+    }
+    previousTime = time;
+    const phase = trajectory.phase_index[rowIndex];
+    if (!Number.isInteger(phase) || phase < 0 || phase >= phases.length) {
+      throw new Error(`trajectory.json is invalid: phase_index[${rowIndex}] is out of range`);
+    }
+  }
+  const results = requireRecord(trajectory.results, 'trajectory.json', 'results');
+  for (const key of ['apogee_m', 't_apogee_s', 'v_max_mps', 'mach_max', 'a_max_g', 'q_max_Pa', 'rail_exit_v_mps',
+    't_burnout_s', 'h_burnout_m', 'descent_rate_mps', 't_landing_s', 'mass_liftoff_g', 'sm_liftoff']) {
+    requireFinite(results[key], 'trajectory.json', `results.${key}`);
+  }
+  requireRecord(trajectory.motor_input, 'trajectory.json', 'motor_input');
+  if (!Array.isArray(trajectory.events) || typeof trajectory.disclaimer !== 'string') {
+    throw new Error('trajectory.json is missing or invalid: expected events and disclaimer');
+  }
+
+  const replay = requireRecord(bundle.replay, 'replay.json', 'replay');
+  if (!Array.isArray(replay.samples) || replay.samples.length < 2 || !isRecord(replay.summary)) {
+    throw new Error('replay.json is missing or invalid: expected samples and summary');
+  }
+  previousTime = -Infinity;
+  for (let i = 0; i < replay.samples.length; i++) {
+    const sample = replay.samples[i];
+    if (!isRecord(sample) || !finite(sample.t) || sample.t <= previousTime ||
+        !Array.isArray(sample.health) || sample.health.length === 0 ||
+        !sample.health.every((value) => value === 0 || value === 1 || value === false || value === true)) {
+      throw new Error(`replay.json is invalid: sample ${i} has invalid time or health data`);
+    }
+    previousTime = sample.t;
+  }
+  const replayAltitude = requireRecord(replay.summary.max_estimated_altitude, 'replay.json', 'summary.max_estimated_altitude');
+  requireFinite(replayAltitude.altitude_m, 'replay.json', 'summary.max_estimated_altitude.altitude_m');
+  requireFinite(replayAltitude.time_s, 'replay.json', 'summary.max_estimated_altitude.time_s');
+  requireFinite(replay.summary.rows_used, 'replay.json', 'summary.rows_used');
+  requireRecord(replay.summary.invalid_samples, 'replay.json', 'summary.invalid_samples');
+  requireRecord(replay.summary.telemetry, 'replay.json', 'summary.telemetry');
+
+  const project = requireRecord(bundle.project, 'project.json', 'project');
+  for (const key of ['motor', 'simulation_basis', 'software_validation', 'system']) requireRecord(project[key], 'project.json', key);
+  for (const key of ['limitations', 'sources', 'steps']) {
+    if (!Array.isArray(project[key])) throw new Error(`project.json is missing or invalid: expected ${key} to be an array`);
+  }
+  if (typeof project.pipeline_date !== 'string' || typeof project.pipeline_overall !== 'string') {
+    throw new Error('project.json is missing or invalid: pipeline status fields are absent');
+  }
+  return bundle;
 }
 
 /** Linear interpolation helper shared by the sources (visual interpolation only). */

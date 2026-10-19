@@ -419,7 +419,7 @@ class BrowserSmoke(unittest.TestCase):
                 self.assertIn("noopener", rel)
 
     def test_23_no_horizontal_overflow(self):
-        for w, h, mobile in ((1600, 950, False), (1024, 800, False), (390, 844, True)):
+        for w, h, mobile in ((1600, 950, False), (1024, 800, False), (768, 1024, True), (390, 844, True)):
             self.browser.set_viewport(w, h, mobile)
             self.js("window.scrollTo(0, 0); true")
             over = json.loads(self.js("""JSON.stringify({
@@ -488,6 +488,53 @@ class BrowserSmoke(unittest.TestCase):
         })()""")
         self.browser.screenshot(SHOTS / "site_hero.png")
         self.assertTrue((SHOTS / "site_hero.png").stat().st_size > 10_000)
+
+    def test_27_keyboard_shortcuts_preserve_native_control_activation(self):
+        state = json.loads(self.js("""(() => {
+            ASTRA66.hover = true;
+            ASTRA66.playing = false;
+            const toggle = document.querySelector('[data-toggle="labels"]');
+            toggle.focus();
+            return JSON.stringify({ focused: document.activeElement === toggle, before: ASTRA66.toggles.labels });
+        })()"""))
+        self.assertTrue(state["focused"])
+        self.browser.press_key(" ", "Space", 32)
+        self.assertNotEqual(self.js("ASTRA66.toggles.labels"), state["before"],
+                            "Space should activate the focused display button")
+        self.assertFalse(self.js("ASTRA66.playing"), "Space on a control should not also toggle playback")
+
+    def test_28_engineering_panels_are_keyboard_operable(self):
+        self.js("""(() => document.querySelector('[aria-controls="panel-engineering"]').focus())()""")
+        self.assertEqual(self.js("document.activeElement.getAttribute('aria-expanded')"), "false")
+        self.browser.press_key(" ", "Space", 32)
+        state = json.loads(self.js("""JSON.stringify({
+            expanded: document.activeElement.getAttribute('aria-expanded'),
+            open: document.querySelector('[aria-controls="panel-engineering"]').closest('.panel').dataset.open,
+        })"""))
+        self.assertEqual(state["expanded"], "true")
+        self.assertEqual(state["open"], "true")
+
+    def test_29_invalid_export_shows_safe_retry_state(self):
+        vehicle_file = DIST / "data" / "vehicle.json"
+        original = vehicle_file.read_bytes()
+        vehicle_file.write_text('{"<img src=x onerror=alert(1)>": true}', encoding="utf-8")
+        try:
+            self.browser.goto(self.server.url, settle=0.5)
+            state = json.loads(self.js("""JSON.stringify({
+                alert: document.querySelector('#loading [role="alert"]')?.innerText || '',
+                retry: document.querySelector('#loading .load-retry')?.textContent || '',
+                injected: !!document.querySelector('#loading img'),
+            })"""))
+            self.assertIn("vehicle.json is missing or invalid", state["alert"])
+            self.assertEqual(state["retry"], "TRY AGAIN")
+            self.assertFalse(state["injected"], "invalid data must be rendered as text, never HTML")
+        finally:
+            vehicle_file.write_bytes(original)
+
+    def test_30_repeated_shortcut_keydown_is_ignored(self):
+        self.js("ASTRA66.hover = true; ASTRA66.playing = false; true")
+        self.browser.press_key(" ", "Space", 32, repeat=True)
+        self.assertFalse(self.js("ASTRA66.playing"), "a repeated Space keydown must not toggle playback")
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

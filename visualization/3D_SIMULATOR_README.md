@@ -76,7 +76,8 @@ parameter changes, re-run the ASTRA-66 pipeline, then re-run the adapter.
 
 ```bash
 cd visualization
-npm install
+npm ci
+npm test          # validate exported data contracts and failure handling
 npm run data        # re-export the ASTRA-66 data (Python 3, standard library only)
 npm run dev         # http://localhost:5173
 ```
@@ -91,6 +92,10 @@ Production build and preview:
 npm run build       # -> visualization/dist
 npm run preview
 ```
+
+The GitHub Actions workflow builds the production bundle and runs the data-contract,
+export-integrity and browser smoke tests. If startup data is missing or malformed, the
+viewer identifies the affected export and offers a retry after re-exporting the data.
 
 Optional: overlay the **exact** mesh exported from the OpenSCAD assembly
 (`cad/exports/assembly/astra66_assembly_flight_parts.stl`, 5.9 MB, 120 164 triangles):
@@ -243,7 +248,7 @@ python -m unittest discover -s visualization/tests -v
   `trajectory_baseline.csv`, `validation_results.json` and `pipeline_status.json` exactly;
   every value carries a provenance class; limitations and disclaimers survive the export;
   the adapter is idempotent; nothing outside `visualization/` is modified.
-* `test_browser_smoke.py` (17 tests) — loads the production build in headless Chrome and
+* `test_browser_smoke.py` — loads the production build in headless Chrome and
   checks data loading, HUD values, play/pause/reset/restart, playback speed, the timeline,
   all camera modes, inspect mode and component data, display toggles, trajectory growth, the
   data-source switch (including the `NOT AVAILABLE` path for the acceleration channel the

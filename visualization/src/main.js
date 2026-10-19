@@ -36,10 +36,28 @@ const app = {
 window.ASTRA66 = app;
 
 init().catch((err) => {
-  $('loading').innerHTML = `<div style="max-width:520px;text-align:center;color:#f0c4bc;line-height:1.6">
-     <b>Could not start the visualiser</b><br>${String(err.message || err)}</div>`;
+  showStartupError(err);
   console.error(err);
 });
+
+function showStartupError(err) {
+  const panel = document.createElement('div');
+  panel.className = 'load-error';
+  panel.setAttribute('role', 'alert');
+
+  const title = document.createElement('strong');
+  title.textContent = 'Could not start the visualiser';
+  const detail = document.createElement('p');
+  detail.textContent = err instanceof Error ? err.message : String(err);
+  const retry = document.createElement('button');
+  retry.type = 'button';
+  retry.className = 'load-retry';
+  retry.textContent = 'TRY AGAIN';
+  retry.addEventListener('click', () => window.location.reload());
+
+  panel.append(title, detail, retry);
+  $('loading').replaceChildren(panel);
+}
 
 async function init() {
   const data = await loadAll();
@@ -348,9 +366,11 @@ function applyScale() {
 
 function wireUi() {
   // panels
-  document.querySelectorAll('.panel h2').forEach((h) => h.addEventListener('click', () => {
-    const p = h.parentElement;
-    p.dataset.open = p.dataset.open === 'true' ? 'false' : 'true';
+  document.querySelectorAll('.panel-toggle').forEach((button) => button.addEventListener('click', () => {
+    const panel = button.closest('.panel');
+    const open = panel.dataset.open !== 'true';
+    panel.dataset.open = String(open);
+    button.setAttribute('aria-expanded', String(open));
   }));
   // Wide screens: the panels are a column that can be hidden. Narrow screens: they are an
   // overlay drawer that is closed by default (see the media query in styles.css).
@@ -415,7 +435,10 @@ function wireUi() {
 
   addEventListener('keydown', (e) => {
     if (!app.hover || app.offscreen) return;
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+    if (e.repeat) return;
+    if (e.target instanceof Element && e.target.closest(
+      'button, a, input, select, textarea, summary, [contenteditable="true"], [role="button"]',
+    )) return;
     if (e.code === 'Space') { e.preventDefault(); app.playing = !app.playing; setPlayButtons(); }
     if (e.code === 'KeyR') { setTime(0); app.traj.reset(); }
     if (e.code === 'KeyI') setInspect(!app.inspect);

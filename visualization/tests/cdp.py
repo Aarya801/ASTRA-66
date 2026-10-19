@@ -191,6 +191,13 @@ class Browser:
         self.ws.call("Emulation.setDeviceMetricsOverride", {
             "width": width, "height": height, "deviceScaleFactor": 1, "mobile": mobile})
 
+    def press_key(self, key: str, code: str, virtual_key: int, repeat: bool = False):
+        params = {"key": key, "code": code, "windowsVirtualKeyCode": virtual_key}
+        down = {**params, "type": "keyDown", "repeat": repeat}
+        up = {**params, "type": "keyUp"}
+        self.ws.call("Input.dispatchKeyEvent", down)
+        self.ws.call("Input.dispatchKeyEvent", up)
+
     def clear_viewport(self):
         self.ws.call("Emulation.clearDeviceMetricsOverride")
 
