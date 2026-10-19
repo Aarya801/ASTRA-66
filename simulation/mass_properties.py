@@ -77,7 +77,8 @@ def audit_cached():
 def audit():
     """Current model values with their data class, for the reports."""
     R = A.run()
-    vr = json.load(open(os.path.join(ROOT, "cad", "exports", "validation_results.json"), encoding="utf-8"))
+    with open(os.path.join(ROOT, "cad", "exports", "validation_results.json"), encoding="utf-8") as fh:
+        vr = json.load(fh)
     dims = {d["dimension"]: d for d in vr["dimensions"]}
     its = items()
     by_class = {}

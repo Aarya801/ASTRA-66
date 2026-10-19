@@ -9,7 +9,10 @@ from collections import defaultdict
 
 
 def read_stl(path):
-    data = open(path, "rb").read()
+    # Read the mesh inside a context manager so repeated CAD validation does
+    # not leave one file handle open per STL.
+    with open(path, "rb") as fh:
+        data = fh.read()
     if len(data) < 84:
         return []
     n_bin = struct.unpack("<I", data[80:84])[0]
