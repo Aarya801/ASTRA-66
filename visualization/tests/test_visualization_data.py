@@ -359,10 +359,33 @@ class FrontEndHonesty(unittest.TestCase):
     def test_root_readme_scopes_tooling_claims_to_the_python_core(self):
         readme = (REPO / "README.md").read_text(encoding="utf-8")
         self.assertIn("67 core Python files", readme)
-        self.assertIn("browser visualizer: Node.js 20, Vite, Three.js", readme)
+        self.assertIn("browser visualizer: Node.js 20.19+ or 22.12+", readme)
         self.assertIn("Core Python pipeline uses the standard library only", readme)
         self.assertNotIn("282 tracked files", readme)
         self.assertNotIn("no third-party packages anywhere", readme)
+
+    def test_visualizer_node_requirement_matches_locked_vite_and_docs(self):
+        package = json.loads((VIS / "package.json").read_text(encoding="utf-8"))
+        lock = json.loads((VIS / "package-lock.json").read_text(encoding="utf-8"))
+        vite_engine = lock["packages"]["node_modules/vite"]["engines"]["node"]
+        node_engine = package["engines"]["node"]
+        self.assertEqual(node_engine, vite_engine)
+        for name in ("README.md", "visualization/3D_SIMULATOR_README.md"):
+            text = (REPO / name).read_text(encoding="utf-8")
+            self.assertIn("Node.js 20.19+ or 22.12+", text)
+
+    def test_vercel_build_paths_match_the_visualizer_configuration(self):
+        vercel = json.loads((REPO / "vercel.json").read_text(encoding="utf-8"))
+        package = json.loads((VIS / "package.json").read_text(encoding="utf-8"))
+        vite = (VIS / "vite.config.js").read_text(encoding="utf-8")
+        guide = (VIS / "3D_SIMULATOR_README.md").read_text(encoding="utf-8")
+        self.assertEqual(vercel["installCommand"], "npm --prefix visualization ci")
+        self.assertEqual(vercel["buildCommand"], "npm --prefix visualization run build")
+        self.assertEqual(vercel["outputDirectory"], "visualization/dist")
+        self.assertEqual(package["scripts"]["build"], "vite build")
+        self.assertIn("outDir: 'dist'", vite)
+        self.assertIn("Root Directory** at the repository root", guide)
+        self.assertIn("selecting `visualization/` would hide `vercel.json`", guide)
 
     def test_page_states_not_flight_certified(self):
         self.assertIn("NOT FLIGHT CERTIFIED", self.html)
