@@ -8,8 +8,8 @@
 
 [![ASTRA-66 validation](https://github.com/Aarya801/ASTRA-66/actions/workflows/validation.yml/badge.svg)](https://github.com/Aarya801/ASTRA-66/actions/workflows/validation.yml)
 [![Python](https://img.shields.io/badge/Python-3.12%20%7C%203.14-blue)](documentation/REPRODUCIBILITY.md)
-[![Dependencies](https://img.shields.io/badge/dependencies-standard%20library%20only-success)](requirements.txt)
-[![Tests](https://img.shields.io/badge/tests-155%20passing-success)](documentation/VALIDATION.md)
+[![Python core dependencies](https://img.shields.io/badge/Python%20core%20dependencies-standard%20library%20only-success)](requirements.txt)
+[![Core pipeline tests](https://img.shields.io/badge/core%20pipeline%20tests-155%20passing-success)](documentation/VALIDATION.md)
 [![CAD checks](https://img.shields.io/badge/CAD%20checks-147%20PASS%20%C2%B7%200%20FAIL-success)](documentation/CAD_VALIDATION.md)
 [![Status](https://img.shields.io/badge/status-NOT%20FLIGHT%20CERTIFIED-critical)](#safety-status)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
@@ -48,8 +48,8 @@ and labelling every number as verified, calculated, assumed, placeholder or unkn
 | **Modules** | Nose · payload bay · avionics bay · booster (all separable) |
 | **Avionics** | Sense, log, transmit only — no actuation of any kind |
 | **Propulsion** | External, commercially certified component (placeholder data only) |
-| **Codebase** | 67 Python files (~10 200 lines) · 30 OpenSCAD files (~950 lines) · standard library only |
-| **Artefacts** | 282 tracked files: CAD exports, drawings, plots, datasets, 37 documents |
+| **Codebase** | 67 core Python files (~10 200 lines; standard library only) · 30 OpenSCAD files (~950 lines) · browser visualizer: Node.js 20, Vite, Three.js |
+| **Artefacts** | CAD exports, drawings, plots, datasets, browser visualizer and engineering documents |
 
 📖 **Start here:** [Project overview](documentation/PROJECT_OVERVIEW.md) ·
 [Engineering method](documentation/ENGINEERING_METHOD.md) · [What is validated](documentation/VALIDATION.md) ·
@@ -256,7 +256,7 @@ python run_validation.py
 | 5 | CAD fit and mass properties — 11 PASS · 4 WARN · 8 UNVERIFIED · 0 FAIL | ✅ PASS |
 | 6 | Project regression tests — 74 tests | ✅ PASS |
 | 7 | Avionics software tests — 81 tests | ✅ PASS |
-| | **Overall — 155 tests, 0 failures** | ✅ **PASS** |
+| | **Overall — 155 core pipeline tests, 0 failures** | ✅ **PASS** |
 
 The same command runs in GitHub Actions on **Python 3.12 and 3.14** for every push and pull request, and
 `MANIFEST.sha256` checksums every tracked file.
@@ -289,7 +289,7 @@ ASTRA-66/
 
 | Layer | Tool | Notes |
 |---|---|---|
-| Language | Python 3.12 / 3.14 | **Standard library only** — no third-party packages anywhere |
+| Language | Python 3.12 / 3.14 | Core Python pipeline uses the standard library only; the browser visualizer uses Node.js 20+, Vite and Three.js |
 | CAD | OpenSCAD 2021.01 (CGAL) | Optional: needed only to re-render; exports are committed |
 | Mesh analysis | Own pure-Python tools | STL read/write, volume and centroid, manifold checks, plane slicing, overhang |
 | Numerics | Own implementations | RK4 integrator, ISA atmosphere, Barrowman CP, 2-state Kalman filter |
@@ -386,7 +386,7 @@ with the simulation → certified motor data → supervised testing only with a 
 
 ## Setup and reproducibility
 
-**Requirements:** Python 3.12 or newer. Nothing to install — standard library only.
+**Core pipeline requirements:** Python 3.12 or newer; no third-party Python packages are needed. The browser visualizer has separate Node.js 20+ setup instructions above.
 
 ```bash
 git clone https://github.com/Aarya801/ASTRA-66.git

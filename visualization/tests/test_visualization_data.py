@@ -356,6 +356,14 @@ class FrontEndHonesty(unittest.TestCase):
         self.assertIn("npm run dev", readme)
         self.assertTrue((REPO / "visualization" / "screenshots" / "site_hero.png").is_file())
 
+    def test_root_readme_scopes_tooling_claims_to_the_python_core(self):
+        readme = (REPO / "README.md").read_text(encoding="utf-8")
+        self.assertIn("67 core Python files", readme)
+        self.assertIn("browser visualizer: Node.js 20, Vite, Three.js", readme)
+        self.assertIn("Core Python pipeline uses the standard library only", readme)
+        self.assertNotIn("282 tracked files", readme)
+        self.assertNotIn("no third-party packages anywhere", readme)
+
     def test_page_states_not_flight_certified(self):
         self.assertIn("NOT FLIGHT CERTIFIED", self.html)
 

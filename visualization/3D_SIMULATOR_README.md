@@ -243,7 +243,7 @@ Carried from the project's own status documents and shown in the app:
 python -m unittest discover -s visualization/tests -v
 ```
 
-* `test_visualization_data.py` (32 tests) — the exported data matches `analysis.json`,
+* `test_visualization_data.py` — the exported data matches `analysis.json`,
   `mass_budget.csv`, `astra66_params.scad`, `flight_summary.json`,
   `trajectory_baseline.csv`, `validation_results.json` and `pipeline_status.json` exactly;
   every value carries a provenance class; limitations and disclaimers survive the export;
