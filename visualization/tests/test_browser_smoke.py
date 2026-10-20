@@ -165,33 +165,112 @@ class BrowserSmoke(unittest.TestCase):
 
     def test_07_play_pause_reset_restart(self):
         result = json.loads(self.js("""(async () => {
-            const a = ASTRA66, wait = (ms) => new Promise(r => setTimeout(r, ms));
+            const a = ASTRA66, nextFrame = () => new Promise(requestAnimationFrame);
+            const frameMatchesSource = () => {
+                const expected = a.source.sample(a.t);
+                const hud = document.getElementById('hud-rows').innerText;
+                const hudMatches = a.source.channels.filter(channel => channel.hud).every(channel => {
+                    const value = expected.values[channel.key];
+                    const shown = value === null || value === undefined ? 'NOT AVAILABLE' :
+                        `${value.toFixed(channel.digits)}${channel.unit ? ` ${channel.unit}` : ''}`;
+                    return hud.includes(channel.label) && hud.includes(shown) &&
+                        (!channel.extra || value === null || value === undefined || hud.includes(channel.extra(value)));
+                });
+                return a.frame.t === a.t && a.frame.phase === expected.phase &&
+                    JSON.stringify(a.frame.values) === JSON.stringify(expected.values) &&
+                    hud.includes(`TIME\n${expected.t.toFixed(3)} s`) && hudMatches;
+            };
+            const sourceTimes = a.source.path.map(row => row[0]);
+            const lowerSampleIndex = (t) => {
+                let lo = 0, hi = sourceTimes.length - 1;
+                while (hi - lo > 1) {
+                    const mid = (lo + hi) >> 1;
+                    if (sourceTimes[mid] <= t) lo = mid; else hi = mid;
+                }
+                return t >= sourceTimes.at(-1) ? sourceTimes.length - 1 : lo;
+            };
             document.getElementById('btn-reset').click();
+            await new Promise(requestAnimationFrame);
+            await new Promise(requestAnimationFrame);
             const t0 = a.t;
             document.getElementById('btn-play').click();
-            // wait for the animation loop to actually advance (headless frames can be slow)
-            for (let i = 0; i < 40 && a.t <= t0; i++) await wait(50);
+            const observed = [];
+            for (let i = 0; i < 8; i++) {
+                await nextFrame();
+                observed.push({ t: a.t, matches: frameMatchesSource(), lowerIndex: lowerSampleIndex(a.t) });
+            }
             const playing = a.playing, t1 = a.t;
+            const cycles = [];
+            for (let i = 0; i < 3; i++) {
+                document.getElementById('btn-pause').click();
+                const frozenAt = a.t;
+                for (let frame = 0; frame < 5; frame++) await nextFrame();
+                const frozen = !a.playing && a.t === frozenAt && frameMatchesSource();
+                document.getElementById('btn-play').click();
+                for (let frame = 0; frame < 90 && a.t <= frozenAt; frame++) await nextFrame();
+                cycles.push({ frozenAt, frozen, resumed: a.playing && a.t > frozenAt && frameMatchesSource(), t: a.t });
+            }
             document.getElementById('btn-pause').click();
-            await wait(200);
-            const t2 = a.t, paused = !a.playing;
-            await wait(200);
-            const t3 = a.t;
             document.getElementById('btn-reset').click();
-            const t4 = a.t;
-            document.getElementById('btn-restart').click();
-            await wait(200);
-            const restarted = a.playing;
+            await new Promise(requestAnimationFrame);
+            await new Promise(requestAnimationFrame);
+            const reset = { t: a.t, playing: a.playing, matches: frameMatchesSource(),
+                sourceTime: a.source.sample(0).t, hud: document.getElementById('hud-rows').innerText };
+            const timeline = document.getElementById('timeline');
+            const replayCheckpoints = async () => {
+                const frames = [];
+                for (const value of ['0', '123', '500', '1000']) {
+                    timeline.value = value;
+                    timeline.dispatchEvent(new Event('input'));
+                    await new Promise(requestAnimationFrame);
+                    await new Promise(requestAnimationFrame);
+                    frames.push({ t: a.t, values: a.frame.values, phase: a.frame.phase,
+                        hud: document.getElementById('hud-rows').innerText,
+                        matches: frameMatchesSource() });
+                }
+                return frames;
+            };
+            const firstReplay = await replayCheckpoints();
+            document.getElementById('btn-reset').click();
+            await new Promise(requestAnimationFrame);
+            await new Promise(requestAnimationFrame);
+            const secondReplay = await replayCheckpoints();
+            const sameReplay = JSON.stringify(firstReplay) === JSON.stringify(secondReplay);
+            document.getElementById('btn-reset').click();
+            await new Promise(requestAnimationFrame);
+            await new Promise(requestAnimationFrame);
+            document.getElementById('btn-play').click();
+            for (let frame = 0; frame < 90 && a.t === 0; frame++) await nextFrame();
+            const replayed = frameMatchesSource() && a.t > 0;
             document.getElementById('btn-pause').click();
-            return JSON.stringify({ t0, t1, t2, t3, t4, playing, paused, restarted });
+            return JSON.stringify({ t0, t1, playing, cycles, observed, reset, firstReplay, secondReplay,
+                sameReplay, replayed });
         })()"""))
         self.assertEqual(result["t0"], 0)
         self.assertTrue(result["playing"])
         self.assertGreater(result["t1"], 0, "time did not advance while playing")
-        self.assertAlmostEqual(result["t2"], result["t3"], places=6, msg="time advanced while paused")
-        self.assertTrue(result["paused"])
-        self.assertEqual(result["t4"], 0, "reset did not return to T+0")
-        self.assertTrue(result["restarted"], "restart did not resume playback")
+        self.assertEqual(len(result["cycles"]), 3)
+        self.assertTrue(all(cycle["frozen"] for cycle in result["cycles"]),
+                        f"playback or telemetry changed while paused: {result['cycles']}")
+        self.assertTrue(all(cycle["resumed"] for cycle in result["cycles"]),
+                        f"resume did not continue source-consistent playback: {result['cycles']}")
+        self.assertEqual([cycle["t"] for cycle in result["cycles"]],
+                         sorted(cycle["t"] for cycle in result["cycles"]),
+                         "repeated resumes must preserve forward playback order")
+        self.assertTrue(all(item["matches"] for item in result["observed"]),
+                        f"playback telemetry diverged from its active source: {result['observed']}")
+        indices = [item["lowerIndex"] for item in result["observed"]]
+        self.assertEqual(indices, sorted(indices), "playback moved backward through source records")
+        self.assertTrue(any(b > a for a, b in zip(indices, indices[1:])),
+                        "playback did not advance to later source records")
+        self.assertEqual(result["reset"]["t"], 0, "reset did not return to T+0")
+        self.assertFalse(result["reset"]["playing"], "reset must leave playback paused")
+        self.assertTrue(result["reset"]["matches"], "reset frame/HUD does not match the initial source record")
+        self.assertEqual(result["reset"]["sourceTime"], 0)
+        self.assertTrue(all(frame["matches"] for frame in result["firstReplay"] + result["secondReplay"]),
+                        "deterministic checkpoints did not match their source telemetry")
+        self.assertTrue(result["sameReplay"], "same timeline checkpoints after reset differed from the fresh run")
+        self.assertTrue(result["replayed"], "playback after reset did not produce source-consistent telemetry")
 
     def test_08_playback_speed(self):
         speeds = json.loads(self.js("""(() => {
@@ -315,19 +394,28 @@ class BrowserSmoke(unittest.TestCase):
         self.assertIn("SYNTHETIC", state["chip"])
 
     def test_15_summary_on_completion(self):
-        text = self.js("""(async () => {
-            const a = ASTRA66;
+        result = json.loads(self.js("""(async () => {
+            const a = ASTRA66, nextFrame = () => new Promise(requestAnimationFrame);
             const sel = document.getElementById('sel-source');
             sel.value = 'sim'; sel.dispatchEvent(new Event('change'));
             const tl = document.getElementById('timeline');
             tl.value = '999'; tl.dispatchEvent(new Event('input'));
             document.getElementById('btn-play').click();
-            for (let i = 0; i < 100 && a.playing; i++) await new Promise(r => setTimeout(r, 50));
-            return document.getElementById('sum-body').innerText;
-        })()""")
-        self.assertIn("328.2 m", text)
-        self.assertIn("PLACEHOLDER", text)
-        self.assertIn("NOT AVAILABLE", text)
+            for (let i = 0; i < 600 && a.playing; i++) await nextFrame();
+            const last = a.source.sample(a.source.duration);
+            return JSON.stringify({ summary: document.getElementById('sum-body').innerText,
+                t: a.t, duration: a.source.duration, playing: a.playing,
+                frameMatchesEnd: a.frame.t === a.source.duration && a.frame.phase === last.phase &&
+                    JSON.stringify(a.frame.values) === JSON.stringify(last.values),
+                timeline: document.getElementById('timeline').value });
+        })()"""))
+        self.assertIn("328.2 m", result["summary"])
+        self.assertIn("PLACEHOLDER", result["summary"])
+        self.assertIn("NOT AVAILABLE", result["summary"])
+        self.assertEqual(result["t"], result["duration"], "playback must clamp to the final data timestamp")
+        self.assertFalse(result["playing"], "playback must stop at end of data")
+        self.assertTrue(result["frameMatchesEnd"], "final displayed telemetry must match the final source record")
+        self.assertEqual(float(result["timeline"]), 1000)
 
     def test_16_final_screenshot(self):
         """Leave the app in a representative state and capture it as visible evidence."""

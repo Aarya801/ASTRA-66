@@ -138,16 +138,45 @@ class TrajectoryMatchesSimulation(unittest.TestCase):
         self.assertAlmostEqual(vel, res["v_max_mps"], delta=0.05)
         self.assertAlmostEqual(acc / 9.80665, res["a_max_g"], delta=0.01)
 
-    def test_samples_are_a_subset_of_the_real_trajectory_rows(self):
-        """Every exported sample must exist in trajectory_baseline.csv - nothing is synthesised."""
+    def test_every_exported_sample_matches_its_authoritative_trajectory_row(self):
+        """Trace each exported visual sample to its source CSV row and compare every field."""
         with (REPO / "simulation" / "results" / "trajectory_baseline.csv").open(encoding="utf-8", newline="") as fh:
-            rows = {round(float(r["t_s"]), 4): r for r in csv.DictReader(fh)}
-        for s in self.t["samples"][::17]:
+            reader = csv.DictReader(fh)
+            rows = list(reader)
+            by_time = {}
+            for index, row in enumerate(rows):
+                by_time.setdefault(round(float(row["t_s"]), 4), []).append((index, row))
+
+        self.assertEqual(self.t["rows_in_source"], len(rows))
+        self.assertEqual(len(self.t["samples"]), len(self.t["phase_index"]))
+        self.assertEqual(len(self.t["samples"]), len(set(round(s[self.col["t_s"]], 4) for s in self.t["samples"])))
+        previous_source_index = -1
+        for sample_index, s in enumerate(self.t["samples"]):
             t = round(s[self.col["t_s"]], 4)
+            self.assertIn(t, by_time, f"exported sample {sample_index} at {t} s has no source row")
             with self.subTest(t=t):
-                self.assertIn(t, rows)
-                self.assertAlmostEqual(s[self.col["altitude_m"]], float(rows[t]["altitude_m"]), places=3)
-                self.assertAlmostEqual(s[self.col["velocity_mps"]], float(rows[t]["velocity_mps"]), places=3)
+                matches = []
+                for candidate_index, candidate in by_time[t]:
+                    values_match = True
+                    for field, column in self.col.items():
+                        raw = candidate[field]
+                        expected = float(raw) if raw.strip() else None
+                        actual = s[column]
+                        if expected is None:
+                            values_match &= actual is None
+                        else:
+                            values_match &= actual is not None and abs(actual - expected) <= 0.000051
+                    if values_match and self.t["phases"][self.t["phase_index"][sample_index]] == candidate["phase"]:
+                        matches.append((candidate_index, candidate))
+
+                self.assertEqual(len(matches), 1,
+                                 f"sample {sample_index} at {t} s must match exactly one source row by all fields")
+                source_index, row = matches[0]
+                self.assertGreater(source_index, previous_source_index,
+                                   "exported records must preserve authoritative source order")
+                previous_source_index = source_index
+                self.assertEqual(s[self.col["t_s"]], t, "export timestamps are rounded to four decimal places")
+                self.assertEqual(self.t["phases"][self.t["phase_index"][sample_index]], row["phase"])
 
     def test_phase_labels_come_from_the_simulation(self):
         with (REPO / "simulation" / "results" / "trajectory_baseline.csv").open(encoding="utf-8", newline="") as fh:
@@ -185,6 +214,65 @@ class ReplayMatchesAvionics(unittest.TestCase):
     def test_health_flags_are_carried(self):
         self.assertEqual(self.r["health_fields"], ["imu", "baro", "gnss", "temp", "battery"])
         self.assertTrue(all(len(s["health"]) == 5 for s in self.r["samples"]))
+
+    def test_every_visual_replay_sample_matches_estimator_and_logger_sources(self):
+        estimates_path = REPO / "simulation" / "results" / "avionics_replay" / "replay_estimates.csv"
+        log_path = REPO / "simulation" / "results" / "avionics_replay" / "replay_log.csv"
+        with estimates_path.open(encoding="utf-8", newline="") as fh:
+            estimates = list(csv.DictReader(fh))
+        with log_path.open(encoding="utf-8", newline="") as fh:
+            logs = list(csv.DictReader(fh))
+        log_by_time = {round(float(row["timestamp"]), 3): row for row in logs}
+
+        carried_fields = {
+            "barometric_pressure": "pressure", "temperature": "temperature",
+            "battery_voltage": "battery", "latitude": "lat", "longitude": "lon",
+            "gps_fix": "gps_fix", "gps_satellites": "gps_sats",
+        }
+        carry = {field: None for field in carried_fields}
+        display_rows = {}
+        last_display_t = -1e9
+        # Match build_replay's ordering: update held logger channels on every estimator tick,
+        # then select the 10 Hz display rows. Updating only displayed rows loses intervening
+        # sensor/log values and would create a false mismatch.
+        for source_index, row in enumerate(estimates):
+            source_t = float(row["timestamp"])
+            log = log_by_time.get(round(source_t, 3))
+            if log:
+                for field in carry:
+                    if log.get(field):
+                        try:
+                            carry[field] = float(log[field])
+                        except ValueError:
+                            carry[field] = None
+            if source_t - last_display_t < 0.1:
+                continue
+            last_display_t = source_t
+            display_rows[round(source_t, 3)] = (source_index, row, carry.copy())
+
+        self.assertEqual([sample["t"] for sample in self.r["samples"]], list(display_rows),
+                         "visual replay export must retain every decimated source timestamp in order")
+        previous_index = -1
+        for sample_index, sample in enumerate(self.r["samples"]):
+            t = sample["t"]
+            with self.subTest(sample=sample_index, t=t):
+                self.assertIn(t, display_rows, f"no decimated estimator source record at {t} s")
+                source_index, row, expected_carry = display_rows[t]
+                self.assertGreater(source_index, previous_index, "replay samples must preserve source record order")
+                previous_index = source_index
+
+                self.assertEqual(sample["t"], round(float(row["timestamp"]), 3))
+                self.assertEqual(sample["state"], row["flight_state"])
+                for key, source_field in (("alt", "est_altitude_m"), ("v", "est_vertical_velocity_mps"),
+                                          ("baro_alt", "baro_altitude_m")):
+                    expected = float(row[source_field]) if row[source_field].strip() else None
+                    self.assertEqual(sample[key], expected, f"{key} at {t} s")
+                self.assertEqual(sample["health"], [int(row[key]) for key in
+                                 ("imu_ok", "baro_ok", "gnss_ok", "temp_ok", "battery_ok")])
+
+                for source_field, exported_field in carried_fields.items():
+                    self.assertEqual(sample[exported_field], expected_carry[source_field],
+                                     f"carried {source_field} at {t} s")
 
 
 class ProjectStatusHonesty(unittest.TestCase):
