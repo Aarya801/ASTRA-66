@@ -48,7 +48,7 @@ and labelling every number as verified, calculated, assumed, placeholder or unkn
 | **Modules** | Nose · payload bay · avionics bay · booster (all separable) |
 | **Avionics** | Sense, log, transmit only — no actuation of any kind |
 | **Propulsion** | External, commercially certified component (placeholder data only) |
-| **Codebase** | 67 core Python files (~10 200 lines; standard library only) · 30 OpenSCAD files (~950 lines) · browser visualizer: Node.js 20, Vite, Three.js |
+| **Codebase** | 67 core Python files (~10 200 lines; standard library only) · 30 OpenSCAD files (~950 lines) · browser visualizer: Node.js 20.19+ or 22.12+, Vite, Three.js |
 | **Artefacts** | CAD exports, drawings, plots, datasets, browser visualizer and engineering documents |
 
 📖 **Start here:** [Project overview](documentation/PROJECT_OVERVIEW.md) ·
@@ -182,7 +182,7 @@ built or flown.
 
 ![ASTRA-66 browser visualizer showing the project summary and 3D simulation controls](visualization/screenshots/site_hero.png)
 
-Run the viewer locally with Node.js 20 or newer:
+Run the viewer locally with Node.js 20.19+ or 22.12+ (the Vite 8 requirement):
 
 ```bash
 cd visualization

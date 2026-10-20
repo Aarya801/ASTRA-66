@@ -74,6 +74,8 @@ parameter changes, re-run the ASTRA-66 pipeline, then re-run the adapter.
 
 ## 3. How to run
 
+Requires Node.js 20.19+ or 22.12+ (Vite 8's supported versions).
+
 ```bash
 cd visualization
 npm ci
@@ -115,8 +117,10 @@ git-ignored; the mesh is copied in automatically by `npm run dev` and `npm run b
 The production build is a plain static site — HTML, one JS bundle, one CSS file, four JSON
 data files and an optional mesh. It needs no server, no API and no environment variables.
 
-`vercel.json` at the repository root configures the whole thing, so importing the repository
-into Vercel needs **no manual settings**:
+`vercel.json` at the repository root supplies the install command, build command, output
+directory and the `Other` framework preset. Keep Vercel's **Root Directory** at the repository
+root (the default, shown as an empty path). The commands and output path are relative to that
+root; selecting `visualization/` would hide `vercel.json` and make those paths incorrect.
 
 ```jsonc
 {
@@ -130,9 +134,11 @@ Deploy steps:
 
 1. Sign in at <https://vercel.com> with the GitHub account that owns the repository.
 2. **Add New → Project → Import** the **Aarya801/ASTRA-66** repository.
-3. Leave every setting at its default (the root `vercel.json` supplies them) and press
-   **Deploy**.
-4. Every later push to `main` redeploys automatically.
+3. Keep **Root Directory** at the repository root. The committed `vercel.json` selects the
+   `Other` framework preset and supplies the install/build/output settings shown above; no
+   environment variables are required.
+4. Start the production deployment only when you are ready to publish. After the repository is
+   connected, pushes to the configured production branch (normally `main`) trigger deployments.
 
 Any other static host works the same way: build with `npm --prefix visualization run build`
 and serve `visualization/dist/`. The build uses `base: './'`, so it is also valid from a
