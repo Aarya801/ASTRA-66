@@ -8,6 +8,7 @@ documented limitations) must survive the export.
 Run:  python -m unittest discover -s visualization/tests -v
 """
 import csv
+import hashlib
 import json
 import re
 import subprocess
@@ -42,6 +43,26 @@ class ExportFreshness(unittest.TestCase):
             with self.subTest(file=name):
                 self.assertEqual((DATA / name).read_bytes(), blob,
                                  f"{name} changed although the repository did not")
+
+    def test_repository_manifest_covers_and_matches_tracked_files(self):
+        manifest_path = REPO / "MANIFEST.sha256"
+        entries = {}
+        lines = manifest_path.read_text(encoding="utf-8").splitlines()
+        for line in lines:
+            digest, path = line[:64], line[66:]
+            self.assertEqual(len(digest), 64, f"invalid manifest digest: {line}")
+            self.assertTrue(path, f"missing path in manifest line: {line}")
+            entries[path] = digest
+        self.assertEqual(len(entries), len(lines), "MANIFEST.sha256 must not contain duplicate paths")
+
+        tracked = subprocess.run(["git", "ls-files", "-z"], cwd=REPO, check=True,
+                                  capture_output=True).stdout.decode().split("\0")
+        expected = {path for path in tracked if path and path != "MANIFEST.sha256"}
+        self.assertEqual(set(entries), expected,
+                         "MANIFEST.sha256 must list every tracked file except itself")
+        for path in sorted(expected):
+            actual = hashlib.sha256((REPO / path).read_bytes()).hexdigest()
+            self.assertEqual(entries[path], actual, f"stale checksum for {path}")
 
     def test_adapter_does_not_write_into_the_project(self):
         """Static check: the adapter may only open repository files for reading."""
@@ -327,6 +348,14 @@ class FrontEndHonesty(unittest.TestCase):
     def setUp(self):
         self.html = (VIS / "index.html").read_text(encoding="utf-8")
 
+    def test_root_readme_documents_visualizer_setup_and_screenshot(self):
+        readme = (REPO / "README.md").read_text(encoding="utf-8")
+        self.assertIn("visualization/screenshots/site_hero.png", readme)
+        self.assertIn("visualization/3D_SIMULATOR_README.md", readme)
+        self.assertIn("npm ci", readme)
+        self.assertIn("npm run dev", readme)
+        self.assertTrue((REPO / "visualization" / "screenshots" / "site_hero.png").is_file())
+
     def test_page_states_not_flight_certified(self):
         self.assertIn("NOT FLIGHT CERTIFIED", self.html)
 
@@ -374,9 +403,10 @@ class EngineeringProjectUntouched(unittest.TestCase):
         if res.returncode != 0:
             self.skipTest("not a git checkout")
         changed = [line[3:].strip().strip('"') for line in res.stdout.splitlines() if line.strip()]
-        # CI wiring is part of the visualization delivery; vercel.json is its deployment
-        # descriptor. Both may change outside the visualization source tree.
-        allowed = ("visualization/", ".claude/", "vercel.json", ".github/workflows/validation.yml")
+        # CI wiring, the root README entry and the regenerated checksum inventory are
+        # intentional parts of this visualization delivery; engineering sources stay untouched.
+        allowed = ("visualization/", ".claude/", "vercel.json", ".github/workflows/validation.yml",
+                   "README.md", "MANIFEST.sha256")
         outside = [c for c in changed if not c.startswith(allowed)]
         self.assertEqual(outside, [], f"files outside visualization/ changed: {outside}")
 
