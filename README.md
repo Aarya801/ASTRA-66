@@ -174,6 +174,28 @@ eight non-propulsion parameters, and **13 numerical verification checks** agains
 
 ---
 
+## Interactive 3D visualization
+
+The browser visualizer displays the committed trajectory and synthetic sensor replay. It presents existing outputs; it
+does not run a second flight model. Trajectory figures depend on placeholder propulsion data, and no hardware has been
+built or flown.
+
+![ASTRA-66 browser visualizer showing the project summary and 3D simulation controls](visualization/screenshots/site_hero.png)
+
+Run the viewer locally with Node.js 20 or newer:
+
+```bash
+cd visualization
+npm ci
+npm run dev
+```
+
+The [visualizer guide](visualization/3D_SIMULATOR_README.md) covers exports, production builds and browser tests. No
+verified production demo URL is recorded in this repository; the Vercel configuration describes how to build the site,
+not a confirmed deployment.
+
+---
+
 ## Avionics software
 
 A **data-only** flight-computer framework in standard-library Python, runnable without any hardware:
@@ -255,6 +277,7 @@ ASTRA-66/
 ├── bom/               bom.csv, fasteners.csv, materials.csv
 ├── tests/             project regression tests
 ├── images/            CAD renders
+├── visualization/    Vite + Three.js browser viewer and telemetry exports
 ├── hosting/ + dist/   standalone engineering-package page
 ├── run_validation.py  the one command
 └── MANIFEST.sha256    checksum of every tracked file
@@ -272,10 +295,10 @@ ASTRA-66/
 | Numerics | Own implementations | RK4 integrator, ISA atmosphere, Barrowman CP, 2-state Kalman filter |
 | Data formats | CSV / JSON / JSON-lines | Deterministic, schema-driven, CRC-16 per row |
 | Drawings and plots | Own SVG generators | No plotting library; drawings built from true mesh sections |
-| Web | Vanilla HTML + JS, `http.server` | Engineering package page; ground-station dashboard |
-| Tests | `unittest` | 155 tests, hardware-free |
-| CI | GitHub Actions | Matrix over two Python versions, artefact upload |
-| Integrity | SHA-256 manifest | Every tracked file checksummed |
+| Web | Vite + Three.js; Python `http.server` | 3D data viewer, engineering package page and ground-station dashboard |
+| Tests | Python `unittest`, Node test runner, CDP browser smoke tests | 155 core pipeline tests; visualization checks run separately |
+| CI | GitHub Actions | Python version matrix plus visualization build, data and browser checks |
+| Integrity | SHA-256 manifest | Every tracked file except the manifest itself is checksummed |
 
 ---
 
