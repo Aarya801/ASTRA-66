@@ -48,7 +48,7 @@ and labelling every number as verified, calculated, assumed, placeholder or unkn
 | **Modules** | Nose · payload bay · avionics bay · booster (all separable) |
 | **Avionics** | Sense, log, transmit only — no actuation of any kind |
 | **Propulsion** | External, commercially certified component (placeholder data only) |
-| **Codebase** | 67 core Python files (~10 200 lines; standard library only) · 30 OpenSCAD files (~950 lines) · browser visualizer: Node.js 20, Vite, Three.js |
+| **Codebase** | 67 core Python files (~10 200 lines; standard library only) · 30 OpenSCAD files (~950 lines) · browser visualizer: Node.js 20.19+ or 22.12+, Vite, Three.js |
 | **Artefacts** | CAD exports, drawings, plots, datasets, browser visualizer and engineering documents |
 
 📖 **Start here:** [Project overview](documentation/PROJECT_OVERVIEW.md) ·
@@ -182,7 +182,9 @@ built or flown.
 
 ![ASTRA-66 browser visualizer showing the project summary and 3D simulation controls](visualization/screenshots/site_hero.png)
 
-Run the viewer locally with Node.js 20 or newer:
+Try the live viewer: **[astra-66.vercel.app](https://astra-66.vercel.app)**. The live page was checked in a browser; its deployment commit is not exposed by the site.
+
+Run the viewer locally with Node.js 20.19+ or 22.12+ (matching Vite 8):
 
 ```bash
 cd visualization
@@ -190,9 +192,8 @@ npm ci
 npm run dev
 ```
 
-The [visualizer guide](visualization/3D_SIMULATOR_README.md) covers exports, production builds and browser tests. No
-verified production demo URL is recorded in this repository; the Vercel configuration describes how to build the site,
-not a confirmed deployment.
+The [visualizer guide](visualization/3D_SIMULATOR_README.md) covers exports, production builds, deployment settings and
+browser tests. The visualization is an educational software display; its trajectory uses placeholder propulsion data.
 
 ---
 
@@ -289,7 +290,7 @@ ASTRA-66/
 
 | Layer | Tool | Notes |
 |---|---|---|
-| Language | Python 3.12 / 3.14 | Core Python pipeline uses the standard library only; the browser visualizer uses Node.js 20+, Vite and Three.js |
+| Language | Python 3.12 / 3.14 | Core Python pipeline uses the standard library only; the browser visualizer uses Node.js 20.19+ or 22.12+, Vite and Three.js |
 | CAD | OpenSCAD 2021.01 (CGAL) | Optional: needed only to re-render; exports are committed |
 | Mesh analysis | Own pure-Python tools | STL read/write, volume and centroid, manifold checks, plane slicing, overhang |
 | Numerics | Own implementations | RK4 integrator, ISA atmosphere, Barrowman CP, 2-state Kalman filter |
@@ -386,7 +387,7 @@ with the simulation → certified motor data → supervised testing only with a 
 
 ## Setup and reproducibility
 
-**Core pipeline requirements:** Python 3.12 or newer; no third-party Python packages are needed. The browser visualizer has separate Node.js 20+ setup instructions above.
+**Core pipeline requirements:** Python 3.12 or newer; no third-party Python packages are needed. The browser visualizer has separate Node.js 20.19+ or 22.12+ setup instructions above.
 
 ```bash
 git clone https://github.com/Aarya801/ASTRA-66.git

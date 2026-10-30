@@ -115,14 +115,15 @@ git-ignored; the mesh is copied in automatically by `npm run dev` and `npm run b
 The production build is a plain static site — HTML, one JS bundle, one CSS file, four JSON
 data files and an optional mesh. It needs no server, no API and no environment variables.
 
-`vercel.json` at the repository root configures the whole thing, so importing the repository
-into Vercel needs **no manual settings**:
+The Vercel project uses `visualization` as its **Root Directory**. Configure that in the
+Vercel project settings when importing the repository. The checked-in `vercel.json` then
+runs these commands from that directory:
 
 ```jsonc
 {
-  "installCommand": "npm --prefix visualization ci",
-  "buildCommand":   "npm --prefix visualization run build",
-  "outputDirectory": "visualization/dist"
+  "installCommand": "npm install",
+  "buildCommand":   "npm run build",
+  "outputDirectory": "dist"
 }
 ```
 
@@ -130,9 +131,10 @@ Deploy steps:
 
 1. Sign in at <https://vercel.com> with the GitHub account that owns the repository.
 2. **Add New → Project → Import** the **Aarya801/ASTRA-66** repository.
-3. Leave every setting at its default (the root `vercel.json` supplies them) and press
-   **Deploy**.
-4. Every later push to `main` redeploys automatically.
+3. Set **Root Directory** to `visualization` and keep the checked-in build and output
+   commands. The Vercel project connected to this repository currently serves
+   <https://astra-66.vercel.app>.
+4. Confirm the production branch in **Project Settings → Git** before expecting a merge to update the live site. Vercel's Git integration also creates preview deployments for pull requests.
 
 Any other static host works the same way: build with `npm --prefix visualization run build`
 and serve `visualization/dist/`. The build uses `base: './'`, so it is also valid from a

@@ -374,11 +374,21 @@ function wireUi() {
   }));
   // Wide screens: the panels are a column that can be hidden. Narrow screens: they are an
   // overlay drawer that is closed by default (see the media query in styles.css).
-  $('btn-sidebar').addEventListener('click', () => {
-    const el = $('sidebar');
-    if (innerWidth < 1150) el.classList.toggle('open');
-    else el.classList.toggle('hidden');
+  const sidebarButton = $('btn-sidebar');
+  const sidebar = $('sidebar');
+  const syncSidebarExpanded = () => {
+    const narrow = matchMedia('(max-width: 1150px)').matches;
+    sidebarButton.setAttribute('aria-expanded', String(narrow
+      ? sidebar.classList.contains('open')
+      : !sidebar.classList.contains('hidden')));
+  };
+  sidebarButton.addEventListener('click', () => {
+    if (matchMedia('(max-width: 1150px)').matches) sidebar.classList.toggle('open');
+    else sidebar.classList.toggle('hidden');
+    syncSidebarExpanded();
   });
+  addEventListener('resize', syncSidebarExpanded);
+  syncSidebarExpanded();
 
   // transport
   $('btn-play').addEventListener('click', () => {
