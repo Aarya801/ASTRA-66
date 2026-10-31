@@ -352,6 +352,7 @@ class FrontEndHonesty(unittest.TestCase):
         readme = (REPO / "README.md").read_text(encoding="utf-8")
         self.assertIn("visualization/screenshots/site_hero.png", readme)
         self.assertIn("visualization/3D_SIMULATOR_README.md", readme)
+        self.assertIn("https://astra-66.vercel.app", readme)
         self.assertIn("npm ci", readme)
         self.assertIn("npm run dev", readme)
         self.assertTrue((REPO / "visualization" / "screenshots" / "site_hero.png").is_file())
@@ -359,7 +360,7 @@ class FrontEndHonesty(unittest.TestCase):
     def test_root_readme_scopes_tooling_claims_to_the_python_core(self):
         readme = (REPO / "README.md").read_text(encoding="utf-8")
         self.assertIn("67 core Python files", readme)
-        self.assertIn("browser visualizer: Node.js 20, Vite, Three.js", readme)
+        self.assertIn("browser visualizer: Node.js 20.19+ or 22.12+, Vite, Three.js", readme)
         self.assertIn("Core Python pipeline uses the standard library only", readme)
         self.assertNotIn("282 tracked files", readme)
         self.assertNotIn("no third-party packages anywhere", readme)

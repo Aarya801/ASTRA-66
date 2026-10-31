@@ -528,16 +528,22 @@ class BrowserSmoke(unittest.TestCase):
         self.browser.set_viewport(390, 844, True)
         drawer = json.loads(self.js("""JSON.stringify({
             display: getComputedStyle(document.getElementById('sidebar')).display,
+            controls: document.getElementById('btn-sidebar').getAttribute('aria-controls'),
+            expanded: document.getElementById('btn-sidebar').getAttribute('aria-expanded'),
             opens: (() => {
                 document.getElementById('btn-sidebar').click();
                 const d = getComputedStyle(document.getElementById('sidebar')).display;
+                const expanded = document.getElementById('btn-sidebar').getAttribute('aria-expanded');
                 document.getElementById('btn-sidebar').click();
-                return d;
+                return { display: d, expanded };
             })(),
         })"""))
         self.assertEqual(drawer["display"], "none",
                          "the panels must not cover the 3D view on a phone")
-        self.assertNotEqual(drawer["opens"], "none", "the PANELS button must open the drawer")
+        self.assertEqual(drawer["controls"], "sidebar")
+        self.assertEqual(drawer["expanded"], "false")
+        self.assertNotEqual(drawer["opens"]["display"], "none", "the PANELS button must open the drawer")
+        self.assertEqual(drawer["opens"]["expanded"], "true")
         self.js("""(async () => {
             document.getElementById('simulator').scrollIntoView();
             await new Promise(r => setTimeout(r, 400));
