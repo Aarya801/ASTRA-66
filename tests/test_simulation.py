@@ -85,7 +85,10 @@ class Reproducibility(unittest.TestCase):
 class InputValidation(unittest.TestCase):
     def test_invalid_simconfig_is_rejected(self):
         import flight_simulation as FS
-        for bad in (dict(mass_scale=0), dict(cd_scale=-1), dict(payload_g=-5), dict(rail_length_m=0.01), dict(temp_offset_K=100), dict(deploy="x")):
+        for bad in (dict(mass_scale=0), dict(cd_scale=-1), dict(payload_g=-5), dict(rail_length_m=0.01),
+                    dict(temp_offset_K=100), dict(deploy="x"), dict(dt_burn=float("nan")),
+                    dict(dt_coast=float("inf")), dict(dt_descent=float("nan")), dict(payload_g=float("nan")),
+                    dict(t_max=float("inf")), dict(t_max=float("nan")), dict(dt_burn=1.0), dict(rail_length_m=21.0)):
             with self.subTest(**bad):
                 with self.assertRaises(ValueError):
                     FS.simulate(FS.SimConfig(**bad))
@@ -94,10 +97,11 @@ class InputValidation(unittest.TestCase):
         import config
         cfg = json.loads((SIM / "sim_config.json").read_text(encoding="utf-8"))
         cfg["integration"]["dt_burn_s"] = 0
-        p = Path(tempfile.mkdtemp()) / "sim_config.json"
-        p.write_text(json.dumps(cfg), encoding="utf-8")
-        with self.assertRaises(ValueError):
-            config.load_sim_config(str(p))
+        with tempfile.TemporaryDirectory() as d:
+            p = Path(d) / "sim_config.json"
+            p.write_text(json.dumps(cfg), encoding="utf-8")
+            with self.assertRaises(ValueError):
+                config.load_sim_config(str(p))
 
 
 class MotorInterfaceGuards(unittest.TestCase):
@@ -105,10 +109,12 @@ class MotorInterfaceGuards(unittest.TestCase):
         cfg = json.loads((SIM / "motor_config.json").read_text(encoding="utf-8"))
         for k, v in changes.items():
             cfg[k] = v
-        d = tempfile.mkdtemp()
-        (Path(d) / "motors").mkdir()
-        (Path(d) / "motors" / "PLACEHOLDER_TEST_INPUT.eng").write_text((SIM / "motors" / "PLACEHOLDER_TEST_INPUT.eng").read_text(encoding="utf-8"), encoding="utf-8")
-        p = Path(d) / "motor_config.json"
+        d = tempfile.TemporaryDirectory()
+        self.addCleanup(d.cleanup)
+        root = Path(d.name)
+        (root / "motors").mkdir()
+        (root / "motors" / "PLACEHOLDER_TEST_INPUT.eng").write_text((SIM / "motors" / "PLACEHOLDER_TEST_INPUT.eng").read_text(encoding="utf-8"), encoding="utf-8")
+        p = root / "motor_config.json"
         p.write_text(json.dumps(cfg), encoding="utf-8")
         return str(p)
 
@@ -122,11 +128,22 @@ class MotorInterfaceGuards(unittest.TestCase):
         with self.assertRaises(ValueError):
             MOT.load_motor(self._cfg(motor_mount=cfg["motor_mount"]))
 
-    def test_mass_mismatch_is_rejected(self):
+    def test_motor_data_and_config_guards(self):
         cfg = json.loads((SIM / "motor_config.json").read_text(encoding="utf-8"))
         cfg["motor"]["loaded_mass_g"] += 20
         with self.assertRaises(ValueError):
             MOT.load_motor(self._cfg(motor=cfg["motor"]))
+        cases = (
+            ("TEST 29 NaN 0 0.055 0.110 Example\n0 0\n0.5 10\n1 0\n", "header.*finite"),
+            ("TEST 29 125 0 0.055 0.110 Example\n0 0\n0.5 NaN\n1 0\n", "finite time and thrust"),
+            ("TEST 29 125 0 0.055 0.110 Example\n0 0\n0.5 -1\n1 0\n", "thrust values must be >= 0"),
+        )
+        for content, message in cases:
+            with self.subTest(message=message), tempfile.TemporaryDirectory() as d:
+                path = Path(d) / "invalid.eng"
+                path.write_text(content, encoding="utf-8")
+                with self.assertRaisesRegex(ValueError, message):
+                    MOT.parse_eng(str(path))
 
 
 if __name__ == "__main__":
