@@ -63,21 +63,35 @@ def validate_config(cfg):
     """Reject physically meaningless settings instead of silently simulating them."""
     guide = (A.X["end"] - A.X["rb_aft"]) / 1000.0
     errs = []
-    if not cfg.rail_length_m > guide:
-        errs.append(f"rail_length_m {cfg.rail_length_m} must exceed the aft-button-to-tail distance {guide:.3f} m")
+    numeric_fields = ("rail_length_m", "site_elevation_m", "temp_offset_K", "cd_scale", "density_scale",
+                      "mass_scale", "payload_g", "cg_shift_mm", "dt_burn", "dt_coast", "dt_descent", "t_max")
+    numeric = {}
+    for name in numeric_fields:
+        value = getattr(cfg, name)
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
+            errs.append(f"{name} must be a finite number")
+        else:
+            numeric[name] = value
+
+    if "rail_length_m" in numeric and not guide < numeric["rail_length_m"] <= 20.0:
+        errs.append(f"rail_length_m {cfg.rail_length_m} must exceed the aft-button-to-tail distance {guide:.3f} m and be <= 20 m")
     for n in ("cd_scale", "density_scale", "mass_scale"):
-        if not getattr(cfg, n) > 0:
+        if n in numeric and not numeric[n] > 0:
             errs.append(f"{n} must be > 0")
-    if cfg.payload_g < 0:
+    if "payload_g" in numeric and numeric["payload_g"] < 0:
         errs.append("payload_g must be >= 0")
-    if not -500 <= cfg.site_elevation_m <= 5000:
+    if "site_elevation_m" in numeric and not -500 <= numeric["site_elevation_m"] <= 5000:
         errs.append("site_elevation_m outside -500..5000 m")
-    if not -60 <= cfg.temp_offset_K <= 60:
+    if "temp_offset_K" in numeric and not -60 <= numeric["temp_offset_K"] <= 60:
         errs.append("temp_offset_K outside -60..60 K")
-    if not abs(cfg.cg_shift_mm) <= 200:
+    if "cg_shift_mm" in numeric and not abs(numeric["cg_shift_mm"]) <= 200:
         errs.append("cg_shift_mm outside +/-200 mm")
-    if min(cfg.dt_burn, cfg.dt_coast, cfg.dt_descent) <= 0:
-        errs.append("time steps must be > 0")
+    time_steps = {"dt_burn": (1e-5, 0.01), "dt_coast": (1e-5, 0.05), "dt_descent": (1e-4, 0.5)}
+    for name, (lo, hi) in time_steps.items():
+        if name in numeric and not lo <= numeric[name] <= hi:
+            errs.append(f"{name} outside {lo}..{hi} s")
+    if "t_max" in numeric and not 10.0 <= numeric["t_max"] <= 3600.0:
+        errs.append("t_max outside 10..3600 s")
     if cfg.deploy not in ("apogee", "none"):
         errs.append("deploy must be 'apogee' or 'none'")
     if errs:

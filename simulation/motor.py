@@ -6,6 +6,7 @@ propulsion design. Mass during burn follows the usual convention (also used by O
     m_motor(t) = m_total - m_prop * I(t) / I_total,   I(t) = integral of F dt from 0 to t.
 """
 import json
+import math
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -29,8 +30,19 @@ def parse_eng(path):
                     raise ValueError(f"{path}: RASP header needs 7 fields, got {line!r}")
                 header = dict(name=f[0], diameter_mm=float(f[1]), length_mm=float(f[2]), delays=f[3],
                               prop_mass_kg=float(f[4]), total_mass_kg=float(f[5]), maker=" ".join(f[6:]))
+                numeric_header = (header["diameter_mm"], header["length_mm"], header["prop_mass_kg"], header["total_mass_kg"])
+                if not all(math.isfinite(value) for value in numeric_header):
+                    raise ValueError(f"{path}: RASP header dimensions and masses must be finite")
+                if header["diameter_mm"] <= 0 or header["length_mm"] <= 0:
+                    raise ValueError(f"{path}: RASP motor diameter and length must be positive")
+                if not 0 < header["prop_mass_kg"] < header["total_mass_kg"]:
+                    raise ValueError(f"{path}: RASP propellant mass must be positive and below total mass")
                 continue
             t, F = (float(x) for x in line.split()[:2])
+            if not math.isfinite(t) or not math.isfinite(F):
+                raise ValueError(f"{path}: thrust points must contain finite time and thrust values")
+            if F < 0:
+                raise ValueError(f"{path}: thrust values must be >= 0 N")
             pts.append((t, F))
     if header is None or len(pts) < 2:
         raise ValueError(f"{path}: no header or thrust data")
